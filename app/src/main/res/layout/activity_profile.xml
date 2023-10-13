@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".Profile"
+    android:background="@color/dirty_white">
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/user_details"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="Hellow WOrld"/>-->
+
+
+    <!-- HEADER LAYOUT -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/lavender"
+        >
+
+        <TextView
+            android:id="@+id/battle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/epilogue"
+            android:text="@string/battle_plan"
+            android:textSize="24sp"
+            android:textStyle="bold"
+
+            />
+
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:text="Log out" />
+
+    </RelativeLayout>
+    <!-- HEADER LAYOUT END -->
+
+    <!-- MAIN BODY LAYOUT -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="610dp"
+        android:orientation="vertical"
+        >
+
+        <!-- HEADER COVER  -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:background="@drawable/profile_header"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/black_filter"
+
+                />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="20dp"
+
+                >
+
+
+                <TextView
+                    android:id="@+id/profile_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/epilogue"
+                    android:text="Joseph Izon"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter"
+                    android:text="Student"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:layout_below="@+id/profile_username"
+                    android:textColor="@color/white"
+
+                    />
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+        <!-- PROFILE ICON -->
+        <ImageView
+            android:id="@+id/user_icon"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="-80dp"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"
+            android:layout_gravity="right"
+            android:src="@drawable/placeholder_icon"
+
+            />
+
+        <!-- DAILY AND MAJOR CONTAINER LAYOUT -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:layout_marginTop="-70dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                >
+
+                <!-- Daily Task Container  -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/daily_container"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerVertical="true"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+
+                    android:divider="@android:color/transparent"
+                    android:dividerHeight="0.0px"
+                    android:elevation="8dp"
+                    app:cardCornerRadius="20dp"
+                    card_view:cardBackgroundColor="@color/white"
+                    card_view:cardElevation="8dp"
+                    card_view:cardPreventCornerOverlap="false">
+
+                    <!-- Layout Inside the Cardview -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        >
+
+                        <ImageView
+                            android:id="@+id/dailytask_icon"
+                            android:layout_width="78dp"
+                            android:layout_height="70dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/main2_dailytasks_icon" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="3 of 5 daily tasks"
+                            android:textSize="8sp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="2dp"
+                            android:fontFamily="@font/inter"
+                            android:textColor="@color/clipboard_purple"
+                            android:layout_below="@+id/dailytask_icon"
+                            android:layout_centerHorizontal="true"
+                            />
+
+
+                    </RelativeLayout>
+
+
+
+                </androidx.cardview.widget.CardView>
+
+                <!-- Major Task Container 9 -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/major_container"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/daily_container"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+
+                    android:divider="@android:color/transparent"
+                    android:dividerHeight="0.0px"
+                    android:elevation="8dp"
+                    app:cardCornerRadius="20dp"
+                    card_view:cardBackgroundColor="@color/white"
+                    card_view:cardElevation="8dp"
+                    card_view:cardPreventCornerOverlap="false">
+
+                    <!-- Layout Inside the Cardview -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        >
+
+                        <ImageView
+                            android:id="@+id/majortask_icon"
+                            android:layout_width="78dp"
+                            android:layout_height="70dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/main2_majortasks_icon" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="5 of 10 major tasks"
+                            android:textSize="8sp"
+                            android:layout_marginTop="2dp"
+                            android:fontFamily="@font/inter"
+                            android:textColor="@color/calendar_pink"
+                            android:textStyle="bold"
+                            android:layout_below="@+id/majortask_icon"
+                            android:layout_centerHorizontal="true"
+                            />
+
+
+                    </RelativeLayout>
+
+
+
+                </androidx.cardview.widget.CardView>
+
+
+
+
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="6dp"
+                android:layout_height="wrap_content" />
+
+            <RelativeLayout
+                android:layout_width="150dp"
+                android:layout_height="120dp"
+                >
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="110dp"
+                    android:layout_height="40dp"
+                    android:backgroundTint="@color/orange"
+                    android:fontFamily="@font/inter"
+                    android:padding="0dp"
+                    android:text="Update Profile"
+                    android:textColor="@color/white"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="32dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <!-- RECENT ACTIVITY TITLE -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <TextView
+                android:id="@+id/title_recentActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="@font/epilogue"
+                android:text="Recent Activity"
+                android:textColor="@color/orange"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <!-- BADGE ACHIEVED LAYOUT-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+
+            >
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_centerVertical="true"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+
+                android:divider="@android:color/transparent"
+                android:dividerHeight="0.0px"
+                android:elevation="8dp"
+                app:cardCornerRadius="20dp"
+                card_view:cardBackgroundColor="@color/white"
+                card_view:cardElevation="8dp"
+                card_view:cardPreventCornerOverlap="false">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="90dp"
+                    android:layout_height="match_parent"
+                    app:cardCornerRadius="10dp"
+                    card_view:cardBackgroundColor="@color/lavender"
+                    >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="72dp"
+                            android:layout_height="77dp"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/main_okbadge" />
+
+                    </RelativeLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/badge_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="100dp"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/epilogue"
+                        android:text="Badge Achieved!"
+                        android:textColor="@color/lavender"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/badge_title"
+                        android:layout_marginLeft="100dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/inter"
+                        android:text="supposed to display info from the view more"
+                        android:textColor="@color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="100dp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/inter"
+                        android:text="View more details->"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+
+        <!-- TASK ACCOMPLISHED LAYOUT-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+
+            >
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_centerVertical="true"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+
+                android:divider="@android:color/transparent"
+                android:dividerHeight="0.0px"
+                android:elevation="8dp"
+                app:cardCornerRadius="20dp"
+                card_view:cardBackgroundColor="@color/white"
+                card_view:cardElevation="8dp"
+                card_view:cardPreventCornerOverlap="false">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="90dp"
+                    android:layout_height="match_parent"
+                    app:cardCornerRadius="10dp"
+                    card_view:cardBackgroundColor="@color/orange"
+                    >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="72dp"
+                            android:layout_height="77dp"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/main2_majortasks_icon" />
+
+                    </RelativeLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/task_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="100dp"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/epilogue"
+                        android:text="Task Accomplished!"
+                        android:textColor="@color/orange"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/task_title"
+                        android:layout_marginLeft="100dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/inter"
+                        android:text="supposed to display info from the view more"
+                        android:textColor="@color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="100dp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/inter"
+                        android:text="View more details->"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+
+
+
+
+
+
+    </LinearLayout>
+    <!-- MAIN BODY LAYOUT END -->
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/orange"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:background="@color/white"
+        android:gravity="center"
+        >
+
+        <RelativeLayout
+            android:layout_width="60dp"
+            android:layout_height="55dp"
+            >
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/nav_home"
+                android:onClick="openMainActivity"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/inter"
+                android:text="HOME"
+                android:textColor="@color/orange"
+                android:textSize="10sp"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="60dp"
+            android:layout_height="55dp"
+            >
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/nav_task"
+                android:onClick="openTasks"
+
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/inter"
+                android:text="TASKS"
+                android:textColor="@color/orange"
+                android:textSize="10sp"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="60dp"
+            android:layout_height="55dp"
+            >
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/nav_more" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/inter"
+                android:text="MORE"
+                android:textColor="@color/orange"
+                android:textSize="10sp"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="60dp"
+            android:layout_height="55dp"
+            >
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/nav_battlepass"
+                android:onClick="openBattlePass"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/inter"
+                android:text="BATTLEPASS"
+                android:textColor="@color/orange"
+                android:textSize="9sp"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="60dp"
+            android:layout_height="55dp"
+            >
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/nav_profile"
+                android:onClick="openProfile"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/inter"
+                android:text="PROFILE"
+                android:textColor="@color/orange"
+                android:textSize="10sp"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>
