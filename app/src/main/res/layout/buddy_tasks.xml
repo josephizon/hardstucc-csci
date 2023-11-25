@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".Tasks"
+    tools:context=".TasksMajor"
     android:background="@color/dirty_white">
 
     <!--    <TextView-->
