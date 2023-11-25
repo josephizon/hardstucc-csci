@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -139,8 +140,8 @@ import com.google.firebase.database.ValueEventListener;
         startActivity(new Intent(this, MainActivity.class));
     }
 
-    public void openTasks(View view) {
-        startActivity(new Intent(this, Tasks.class));
+    public void openTasksMajor(View view) {
+        startActivity(new Intent(this, TasksMajor.class));
     }
 
     public void openProfile(View view) {

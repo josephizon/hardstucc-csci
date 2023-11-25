@@ -68,7 +68,7 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
 
-    public void openTasks(View view) {
+    public void openTasksMajor(View view) {
         startActivity(new Intent(this, TasksMajor.class));
     }
 

@@ -79,7 +79,7 @@ public class TasksMajor extends AppCompatActivity {
         startActivity(new Intent(this, MainActivity2.class));
     }
 
-    public void openTasks(View view) {
+    public void openTasksMajor(View view) {
         startActivity(new Intent(this, TasksMajor.class));
     }
 
@@ -133,5 +133,34 @@ public class TasksMajor extends AppCompatActivity {
         });
 
         popUp.show();
+    }
+
+    // BUDDY NAVIGATION
+    public void openBuddyMainActivity2(View view) {
+        startActivity(new Intent(this, BuddyMainActivity2.class));
+    }
+
+    public void openBuddyMainActivity(View view) {
+        startActivity(new Intent(this, BuddyMainActivity.class));
+    }
+
+    public void openBuddyTasks(View view) {
+        startActivity(new Intent(this, BuddyTasks.class));
+    }
+
+    public void openBuddyBattlePass(View view) {
+        startActivity(new Intent(this, BuddyBattlePass.class));
+    }
+
+    public void openBuddyProfile(View view) {
+        startActivity(new Intent(this, BuddyProfile.class));
+    }
+
+    public void openBuddyStore(View view) {
+        startActivity(new Intent(this, BuddyStore.class));
+    }
+
+    public void openBuddyBadges(View view) {
+        startActivity(new Intent(this, BuddyBadges.class));
     }
 }

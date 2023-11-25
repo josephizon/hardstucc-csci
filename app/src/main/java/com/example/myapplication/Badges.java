@@ -75,7 +75,7 @@ public class Badges extends AppCompatActivity {
     }
 
 
-    public void openTasks(View view) {
+    public void openTasksMajor(View view) {
         startActivity(new Intent(this, TasksMajor.class));
     }
 

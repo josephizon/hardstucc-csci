@@ -5,12 +5,12 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:background="@color/dirty_white"
+
     android:orientation="horizontal">
 
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="360dp"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
@@ -109,7 +109,7 @@
                 <!-- Daily Task Container  -->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/daily_container"
-                    android:layout_width="190dp"
+                    android:layout_width="160dp"
                     android:layout_height="50dp"
                     android:layout_centerVertical="true"
                     android:clipChildren="false"
@@ -130,21 +130,22 @@
                         >
 
                         <ImageView
-                            android:id="@+id/dailytask_icon"
+                            android:id="@+id/popup_exclamation"
                             android:layout_width="48dp"
                             android:layout_height="match_parent"
-
                             android:src="@drawable/popup_exclamation_icon" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="3 of 5 daily tasks"
-                            android:textSize="10sp"
+                            android:text="Click the image to \nupload a new one."
+                            android:textSize="9sp"
                             android:textStyle="bold"
+                            android:textColor="@color/black"
                             android:fontFamily="@font/inter"
                             android:layout_centerVertical="true"
-                            android:layout_centerHorizontal="true"
+                            android:layout_marginLeft="5dp"
+                            android:layout_toRightOf="@+id/popup_exclamation"
                             />
 
 
@@ -168,12 +169,7 @@
 
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:alpha="0.5"
-            android:text="Register here using your own email!"
-            android:textSize="12sp" />
+
 
         <View
             android:layout_width="wrap_content"
@@ -181,17 +177,18 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="14dp"
-            android:textColor="@color/black"
-            android:text="Email Address"
-            android:textStyle="bold" />
+            android:layout_height="wrap_content"
+            android:text="First Name"
+            android:textStyle="bold"
+            android:fontFamily="@font/epilogue"
+            android:textColor="@color/orange"
+            />
 
         <EditText
-            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableEnd="@drawable/login_done_icon"
-            android:inputType="textEmailAddress" />
+            android:inputType="textCapWords"
+            android:background="@color/dirty_white"/>
 
         <View
             android:layout_width="wrap_content"
@@ -200,29 +197,43 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Password"
+            android:text="Last Name"
             android:textStyle="bold"
-            android:textColor="@color/black"/>
+            android:textColor="@color/orange"/>
 
         <EditText
-            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableEnd="@drawable/login_password_icon"
-            android:inputType="textPassword" />
-
-
+            android:inputType="textPassword"
+            android:background="@color/dirty_white"/>
 
         <View
             android:layout_width="wrap_content"
             android:layout_height="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Middle Name"
+            android:textStyle="bold"
+            android:textColor="@color/orange"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:background="@color/dirty_white"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="20dp" />
+
 
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-
             />
 
 

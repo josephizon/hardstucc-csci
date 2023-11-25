@@ -114,8 +114,8 @@ public class BuddyMainActivity extends AppCompatActivity {
 
 
 
-    public void openTasks(View view) {
-        startActivity(new Intent(this, Tasks.class));
+    public void openTasksMajor(View view) {
+        startActivity(new Intent(this, TasksMajor.class));
     }
 
     public void openProfile(View view) {
