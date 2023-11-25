@@ -34,16 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginTop="25dp">
-
-        <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:src="@drawable/login_computer_icon"
-
-            />
-
-    </LinearLayout>
+        android:layout_marginTop="25dp"/>
 
     <LinearLayout
         android:id="@+id/top"
@@ -80,7 +71,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="350dp"
-        android:layout_height="420dp"
+        android:layout_height="665dp"
         android:layout_below="@id/top"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
@@ -158,6 +149,61 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:drawableEnd="@drawable/login_password_icon"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="First Name"
+                android:alpha="0.5"
+                android:textStyle="bold"
+                />
+
+            <EditText
+                android:id="@+id/firstName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:drawableEnd="@drawable/login_done_icon"
+                />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Middle Name"
+                android:alpha="0.5"
+                android:textStyle="bold"
+                />
+
+            <EditText
+                android:id="@+id/middleName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:drawableEnd="@drawable/login_done_icon"
+                />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Last Name"
+                android:alpha="0.5"
+                android:textStyle="bold"
+                />
+
+            <EditText
+                android:id="@+id/lastName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:drawableEnd="@drawable/login_done_icon"
                 />
 
             <RelativeLayout

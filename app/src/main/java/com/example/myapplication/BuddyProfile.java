@@ -1,5 +1,9 @@
 package com.example.myapplication;
 
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,20 +14,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-public class BuddyProfile extends AppCompatActivity {
+    public class BuddyProfile extends AppCompatActivity {
 
-    FirebaseAuth auth;
-    Button button;
-    TextView textView;
-    FirebaseUser user;
+        FirebaseAuth auth;
+        Button button;
+        FirebaseUser user;
+        TextView profileUsernameTextView;
 
     private Button btnShowDialog;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,19 +60,64 @@ public class BuddyProfile extends AppCompatActivity {
             }
         });
 
+        profileUsernameTextView = findViewById(R.id.profile_username);
 
-        // LOGOUT BUTTON CODE
         auth = FirebaseAuth.getInstance();
         button = findViewById(R.id.logout);
         user = auth.getCurrentUser();
+
         if (user == null) {
             Intent intent = new Intent(getApplicationContext(), Login.class);
             startActivity(intent);
             finish();
-        }
+        } else {
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Registered Users")
+                    .child(user.getUid());
 
-        else {
-            //textView.setText(user.getEmail());
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        Users userProfile = dataSnapshot.getValue(Users.class);
+                        if (userProfile != null) {
+                            String buddyUid = userProfile.getBuddyUid();
+
+                            if (buddyUid != null && !buddyUid.isEmpty()) {
+                                DatabaseReference buddyRef = FirebaseDatabase.getInstance().getReference("Registered Users")
+                                        .child(buddyUid);
+
+                                buddyRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot.exists()) {
+                                            Users buddyProfile = dataSnapshot.getValue(Users.class);
+                                            if (buddyProfile != null && buddyProfile.getFirstName() != null) {
+                                                profileUsernameTextView.setText(buddyProfile.getFirstName() + " " + buddyProfile.getLastName());
+                                            } else {
+                                                profileUsernameTextView.setText("Default Buddy Name");
+                                            }
+                                        } else {
+                                            profileUsernameTextView.setText("No buddy information available");
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                        // Handle errors
+                                    }
+                                });
+                            } else {
+                                profileUsernameTextView.setText("No buddy information available");
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Handle errors
+                }
+            });
         }
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -88,9 +139,8 @@ public class BuddyProfile extends AppCompatActivity {
         startActivity(new Intent(this, MainActivity.class));
     }
 
-
-    public void openTasksMajor(View view) {
-        startActivity(new Intent(this, TasksMajor.class));
+    public void openTasks(View view) {
+        startActivity(new Intent(this, Tasks.class));
     }
 
     public void openProfile(View view) {
@@ -101,7 +151,7 @@ public class BuddyProfile extends AppCompatActivity {
         startActivity(new Intent(this, BattlePass.class));
     }
 
-    private void showDialog(){
+    private void showDialog() {
         Dialog dialog = new Dialog(this, R.style.DialogStyle);
         dialog.setContentView(R.layout.popup_profile_customization);
         dialog.show();
@@ -135,5 +185,4 @@ public class BuddyProfile extends AppCompatActivity {
     public void openBuddyBadges(View view) {
         startActivity(new Intent(this, BuddyBadges.class));
     }
-
 }

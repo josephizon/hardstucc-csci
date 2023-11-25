@@ -14,7 +14,11 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class BuddyMainActivity extends AppCompatActivity {
 
@@ -22,7 +26,7 @@ public class BuddyMainActivity extends AppCompatActivity {
     Button button;
     TextView textView;
     FirebaseUser user;
-
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +45,52 @@ public class BuddyMainActivity extends AppCompatActivity {
         button = findViewById(R.id.logout);
         textView = findViewById(R.id.user_details);
         user = auth.getCurrentUser();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Registered Users");
+
         if (user == null) {
             Intent intent = new Intent(getApplicationContext(), Login.class);
             startActivity(intent);
             finish();
-        }
+        } else {
+            // Retrieve buddy information
+            databaseReference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        Users userProfile = dataSnapshot.getValue(Users.class);
+                        String buddyUid = userProfile.getBuddyUid();
+                        if (buddyUid != null) {
+                            // Retrieve buddy's information
+                            databaseReference.child(buddyUid).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot buddySnapshot) {
+                                    if (buddySnapshot.exists()) {
+                                        Users buddyProfile = buddySnapshot.getValue(Users.class);
+                                        if (buddyProfile != null && buddyProfile.getFirstName() != null) {
+                                            textView.setText( buddyProfile.getFirstName() + "!");
+                                        } else {
+                                            textView.setText( user.getEmail());
+                                        }
+                                    }
+                                }
 
-        else {
-            textView.setText(user.getEmail());
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    // Handle errors
+                                }
+                            });
+                        } else {
+                            // No buddy information available
+                            textView.setText("BUDDY VIEW\n" + user.getEmail());
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    // Handle errors
+                }
+            });
         }
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -72,8 +114,8 @@ public class BuddyMainActivity extends AppCompatActivity {
 
 
 
-    public void openTasksMajor(View view) {
-        startActivity(new Intent(this, TasksMajor.class));
+    public void openTasks(View view) {
+        startActivity(new Intent(this, Tasks.class));
     }
 
     public void openProfile(View view) {

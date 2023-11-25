@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 // FOR THE GRADIENT
@@ -14,7 +16,11 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     Button button;
     TextView textView;
     FirebaseUser user;
-
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         button = findViewById(R.id.logout);
         textView = findViewById(R.id.user_details);
         user = auth.getCurrentUser();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Registered Users");
         if (user == null) {
             Intent intent = new Intent(getApplicationContext(), Login.class);
             startActivity(intent);
@@ -48,7 +55,23 @@ public class MainActivity extends AppCompatActivity {
         }
 
         else {
-            textView.setText(user.getEmail());
+            databaseReference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        Users userProfile = dataSnapshot.getValue(Users.class);
+                        if (userProfile != null && userProfile.getFirstName() != null) {
+                            textView.setText(userProfile.getFirstName() + "!");
+                        } else {
+                            textView.setText(user.getEmail());
+                        }
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Handle errors
+                }
+            });
         }
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void openTasks(View view) {
-        startActivity(new Intent(this, TasksMajor.class));
+        startActivity(new Intent(this, Tasks.class));
     }
 
     public void openProfile(View view) {

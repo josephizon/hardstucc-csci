@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
@@ -14,16 +15,20 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Profile extends AppCompatActivity {
 
     FirebaseAuth auth;
     Button button;
-    TextView textView;
     FirebaseUser user;
+    TextView profileUsernameTextView;
 
     private Button btnShowDialog;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,8 @@ public class Profile extends AppCompatActivity {
             }
         });
 
+        // PROFILE USERNAME TEXTVIEW
+        profileUsernameTextView = findViewById(R.id.profile_username);
 
         // LOGOUT BUTTON CODE
         auth = FirebaseAuth.getInstance();
@@ -63,10 +70,29 @@ public class Profile extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), Login.class);
             startActivity(intent);
             finish();
-        }
+        } else {
+            // Retrieve user information from Firebase Database and set in the TextView
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Registered Users")
+                    .child(user.getUid());
 
-        else {
-            //textView.setText(user.getEmail());
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        Users userProfile = dataSnapshot.getValue(Users.class);
+                        if (userProfile != null) {
+                            // Concatenate first name and last name and set it in the TextView
+                            String fullName = userProfile.getFirstName() + " " + userProfile.getLastName();
+                            profileUsernameTextView.setText(fullName);
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Handle errors
+                }
+            });
         }
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -88,9 +114,8 @@ public class Profile extends AppCompatActivity {
         startActivity(new Intent(this, MainActivity.class));
     }
 
-
     public void openTasks(View view) {
-        startActivity(new Intent(this, TasksMajor.class));
+        startActivity(new Intent(this, Tasks.class));
     }
 
     public void openProfile(View view) {
@@ -101,11 +126,12 @@ public class Profile extends AppCompatActivity {
         startActivity(new Intent(this, BattlePass.class));
     }
 
-    private void showDialog(){
+    private void showDialog() {
         Dialog dialog = new Dialog(this, R.style.DialogStyle);
         dialog.setContentView(R.layout.popup_profile_customization);
         dialog.show();
     }
+
     // BUDDY NAVIGATION
     public void openBuddyMainActivity2(View view) {
         startActivity(new Intent(this, BuddyMainActivity2.class));

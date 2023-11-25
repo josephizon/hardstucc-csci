@@ -21,10 +21,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Register extends AppCompatActivity {
 
-    EditText editTextEmail, editTextPassword;
+    EditText editTextEmail, editTextPassword, editTextFirstName, editTextMiddleName, editTextLastName;
     Button buttonReg;
     FirebaseAuth mAuth;
     ProgressBar progressBar;
@@ -57,6 +59,9 @@ public class Register extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
+        editTextFirstName = findViewById(R.id.firstName);
+        editTextMiddleName = findViewById(R.id.middleName);
+        editTextLastName = findViewById(R.id.lastName);
         buttonReg = findViewById(R.id.btn_register);
         progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.loginNow);
@@ -74,10 +79,12 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 progressBar.setVisibility(View.VISIBLE);
-                String email, password;
+                String email, password, firstName, middleName, lastName;
                 email = String.valueOf(editTextEmail.getText());
                 password = String.valueOf(editTextPassword.getText());
-
+                firstName = String.valueOf(editTextFirstName.getText());
+                middleName = String.valueOf(editTextMiddleName.getText());
+                lastName = String.valueOf(editTextLastName.getText());
                 // Checking if email and password are empty
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(Register.this, "Enter email", Toast.LENGTH_SHORT).show();
@@ -99,8 +106,27 @@ public class Register extends AppCompatActivity {
                                     // Log.d(TAG, "createUserWithEmail:success");
                                     // FirebaseUser user = mAuth.getCurrentUser();
                                     // updateUI(user);
-                                    Toast.makeText(Register.this, "Account created.",
-                                            Toast.LENGTH_SHORT).show();
+
+                                    FirebaseUser firebaseUser = mAuth.getCurrentUser();
+
+                                    Users user = new Users(email, firstName, middleName, lastName);
+
+                                    DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Registered Users");
+
+                                    referenceProfile.child(firebaseUser.getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if(task.isSuccessful()){
+                                                Toast.makeText(Register.this, "Account created.",
+                                                        Toast.LENGTH_SHORT).show();
+                                            }
+                                            else{
+                                                Toast.makeText(Register.this, "DatabaseFailed.",
+                                                        Toast.LENGTH_SHORT).show();
+                                                progressBar.setVisibility(view.GONE);
+                                            }
+                                        }
+                                    });
 
                                 } else {
                                     // If sign in fails, display a message to the user.
