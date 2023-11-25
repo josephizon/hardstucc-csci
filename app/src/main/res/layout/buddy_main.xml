@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".MainActivity"
+    tools:context=".BuddyMainActivity"
     android:background="@color/dirty_white">
 
     <!--    <TextView-->
@@ -20,7 +20,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/lavender"
+        android:background="@color/orange"
         >
 
         <TextView
@@ -69,14 +69,14 @@
                     android:id="@+id/btn_essentials"
                     android:layout_width="100dp"
                     android:layout_height="50dp"
-                    android:backgroundTint="@color/orange"
+                    android:backgroundTint="@color/blue"
                     android:textColor="@color/white"
                     android:fontFamily="@font/inter"
                     android:padding="0dp"
                     android:text="Essentials"
                     android:textSize="13sp"
                     app:cornerRadius="32dp"
-                    android:onClick="openMainActivity"/>
+                    android:onClick="openBuddyMainActivity"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_activities"
@@ -84,14 +84,14 @@
                     android:layout_height="50dp"
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@+id/btn_essentials"
-                    android:backgroundTint="@color/light_orange"
+                    android:backgroundTint="@color/lavender"
                     android:fontFamily="@font/inter"
                     android:padding="0dp"
                     android:text="Activities"
-                    android:textColor="@color/orange"
+                    android:textColor="@color/blue"
                     android:textSize="13sp"
                     app:cornerRadius="32dp"
-                    android:onClick="openMainActivity2"/>
+                    android:onClick="openBuddyMainActivity2"/>
 
             </RelativeLayout>
 
@@ -113,10 +113,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:fontFamily="@font/inter"
-                android:text="Welcome back, "
+                android:text="BUDDY VIEW "
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="@color/orange"/>
+                android:textColor="@color/blue"
+                />
 
             <TextView
                 android:id="@+id/user_details"
@@ -127,7 +128,7 @@
                 android:text="USER"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="@color/blue"/>
+                android:textColor="@color/orange"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -257,7 +258,7 @@
                         android:textColor="@color/black"
                         android:textSize="10sp"
                         android:textStyle="bold"
-                        android:onClick="openStore"/>
+                        android:onClick="openBuddyStore"/>
 
                 </LinearLayout>
 
@@ -279,7 +280,7 @@
                 android:layout_marginLeft="15dp"
                 android:fontFamily="@font/inter"
                 android:text="Badges"
-                android:textColor="@color/orange"
+                android:textColor="@color/blue"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -348,7 +349,7 @@
                         android:textSize="11sp"
                         android:textColor="@color/white"
                         app:cornerRadius="32dp"
-                        android:onClick="openBadges"/>
+                        android:onClick="openBuddyBadges"/>
 
                 </LinearLayout>
 
@@ -368,7 +369,7 @@
                 android:layout_marginLeft="15dp"
                 android:fontFamily="@font/inter"
                 android:text="Battle Pass"
-                android:textColor="@color/orange"
+                android:textColor="@color/blue"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -490,7 +491,7 @@
                         android:textColor="@color/black"
                         android:textSize="12sp"
                         android:textStyle="bold"
-                        android:onClick="openBattlePass"
+                        android:onClick="openBuddyBattlePass"
                         />
 
                 </LinearLayout>
@@ -534,7 +535,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="6dp"
                 android:src="@drawable/nav_home"
-                android:onClick="openMainActivity"/>
+                android:onClick="openBuddyMainActivity"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -560,7 +561,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="6dp"
                 android:src="@drawable/nav_task"
-                android:onClick="openTasks"
+                android:onClick="openBuddyTasks"
                 />
 
             <TextView
@@ -587,7 +588,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
                 android:src="@drawable/nav_buddy"
-                android:onClick="openBuddyMainActivity"
+                android:onClick="openMainActivity"
 
                 />
 
@@ -597,7 +598,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="true"
                 android:fontFamily="@font/inter"
-                android:text="MORE"
+                android:text="USER"
                 android:textColor="@color/orange"
                 android:textSize="10sp"
                 />
@@ -615,7 +616,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="6dp"
                 android:src="@drawable/nav_battlepass"
-                android:onClick="openBattlePass"
+                android:onClick="openBuddyBattlePass"
                 />
 
             <TextView
@@ -642,7 +643,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="6dp"
                 android:src="@drawable/nav_profile"
-                android:onClick="openProfile"
+                android:onClick="openBuddyProfile"
                 />
 
             <TextView

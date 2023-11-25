@@ -21,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/lavender"
+        android:layout_alignParentTop="true"
         >
 
         <TextView
@@ -253,6 +254,7 @@
                 >
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_update_profile"
                     android:layout_width="110dp"
                     android:layout_height="40dp"
                     android:backgroundTint="@color/orange"
@@ -486,6 +488,13 @@
     </LinearLayout>
     <!-- MAIN BODY LAYOUT END -->
 
+    <!-- EMPTY SPACE -->
+     <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -493,141 +502,131 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="59dp"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:gravity="center"
+
         >
 
         <RelativeLayout
             android:layout_width="60dp"
-            android:layout_height="55dp"
-            >
+            android:layout_height="55dp">
 
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="6dp"
-                android:src="@drawable/nav_home"
-                android:onClick="openMainActivity"/>
+                android:onClick="openMainActivity"
+                android:src="@drawable/nav_home" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
                 android:fontFamily="@font/inter"
                 android:text="HOME"
                 android:textColor="@color/orange"
-                android:textSize="10sp"
-                />
+                android:textSize="10sp" />
 
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="60dp"
-            android:layout_height="55dp"
-            >
+            android:layout_height="55dp">
 
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="6dp"
-                android:src="@drawable/nav_task"
                 android:onClick="openTasks"
+                android:src="@drawable/nav_task"
 
                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
                 android:fontFamily="@font/inter"
                 android:text="TASKS"
                 android:textColor="@color/orange"
-                android:textSize="10sp"
-                />
+                android:textSize="10sp" />
 
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="60dp"
-            android:layout_height="55dp"
-            >
+            android:layout_height="55dp">
 
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="6dp"
-                android:src="@drawable/nav_more" />
+                android:layout_marginTop="5dp"
+                android:src="@drawable/nav_buddy"
+                android:onClick="openBuddyProfile"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
                 android:fontFamily="@font/inter"
-                android:text="MORE"
+                android:text="BUDDY"
                 android:textColor="@color/orange"
-                android:textSize="10sp"
-                />
+                android:textSize="10sp" />
 
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="60dp"
-            android:layout_height="55dp"
-            >
+            android:layout_height="55dp">
 
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="6dp"
-                android:src="@drawable/nav_battlepass"
                 android:onClick="openBattlePass"
-                />
+                android:src="@drawable/nav_battlepass" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
                 android:fontFamily="@font/inter"
                 android:text="BATTLEPASS"
                 android:textColor="@color/orange"
-                android:textSize="9sp"
-                />
+                android:textSize="9sp" />
 
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="60dp"
-            android:layout_height="55dp"
-            >
+            android:layout_height="55dp">
 
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="6dp"
-                android:src="@drawable/nav_profile"
                 android:onClick="openProfile"
-                />
+                android:src="@drawable/nav_profile" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
                 android:fontFamily="@font/inter"
                 android:text="PROFILE"
                 android:textColor="@color/orange"
-                android:textSize="10sp"
-                />
+                android:textSize="10sp" />
 
         </RelativeLayout>
 

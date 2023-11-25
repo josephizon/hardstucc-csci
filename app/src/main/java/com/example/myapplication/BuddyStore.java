@@ -1,8 +1,5 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-// FOR THE GRADIENT
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
@@ -12,12 +9,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-
-public class MainActivity extends AppCompatActivity {
-
+public class BuddyStore extends AppCompatActivity {
     FirebaseAuth auth;
     Button button;
     TextView textView;
@@ -27,19 +24,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.buddy_store);
 
         // BATTLEPLAN GRADIENT
         TextView name = findViewById(R.id.battle);
-        int startColor = Color.rgb(50, 61, 115);
-        int endColor = Color.rgb(94, 132, 243);
+        int startColor = Color.rgb(255, 190, 92);
+        int endColor = Color.rgb(255, 206, 49);
         Shader shader = new LinearGradient(0f, 0f, 0f, name.getTextSize(), startColor, endColor, Shader.TileMode.CLAMP);
         name.getPaint().setShader(shader);
 
         // LOGOUT BUTTON CODE
         auth = FirebaseAuth.getInstance();
         button = findViewById(R.id.logout);
-        textView = findViewById(R.id.user_details);
         user = auth.getCurrentUser();
         if (user == null) {
             Intent intent = new Intent(getApplicationContext(), Login.class);
@@ -48,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         else {
-            textView.setText(user.getEmail());
+            //textView.setText(user.getEmail());
         }
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -60,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-
     }
 
     public void openMainActivity2(View view) {
@@ -73,9 +67,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     public void openTasks(View view) {
-        startActivity(new Intent(this, TasksMajor.class));
+        startActivity(new Intent(this, Tasks.class));
     }
 
     public void openProfile(View view) {

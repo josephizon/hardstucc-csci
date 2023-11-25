@@ -33,6 +33,37 @@
             android:name=".MainActivity2"
             android:exported="false" />
         <activity
+            android:name=".BuddyMainActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".BuddyMainActivity2"
+            android:exported="false" />
+
+        <activity
+            android:name=".BuddyTasks"
+            android:exported="false" />
+
+        <activity
+            android:name=".BuddyBattlePass"
+            android:exported="false" />
+
+        <activity
+            android:name=".BuddyProfile"
+            android:exported="false" />
+
+        <activity
+            android:name=".BuddyStore"
+            android:exported="false" />
+
+        <activity
+            android:name=".BuddyBadges"
+            android:exported="false" />
+
+
+
+
+        <activity
             android:name=".Register"
             android:exported="false" />
         <activity
@@ -47,6 +78,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true" />
+
     </application>
 
 </manifest>

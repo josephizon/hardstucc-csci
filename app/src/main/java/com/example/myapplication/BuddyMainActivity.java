@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 
-public class MainActivity extends AppCompatActivity {
+public class BuddyMainActivity extends AppCompatActivity {
 
     FirebaseAuth auth;
     Button button;
@@ -27,12 +27,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.buddy_main);
 
         // BATTLEPLAN GRADIENT
         TextView name = findViewById(R.id.battle);
-        int startColor = Color.rgb(50, 61, 115);
-        int endColor = Color.rgb(94, 132, 243);
+        int startColor = Color.rgb(255, 190, 92);
+        int endColor = Color.rgb(255, 206, 49);
         Shader shader = new LinearGradient(0f, 0f, 0f, name.getTextSize(), startColor, endColor, Shader.TileMode.CLAMP);
         name.getPaint().setShader(shader);
 
@@ -60,8 +60,6 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-
     }
 
     public void openMainActivity2(View view) {
@@ -75,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void openTasks(View view) {
-        startActivity(new Intent(this, TasksMajor.class));
+        startActivity(new Intent(this, Tasks.class));
     }
 
     public void openProfile(View view) {
