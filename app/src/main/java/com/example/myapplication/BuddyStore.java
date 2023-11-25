@@ -1,7 +1,5 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
@@ -11,11 +9,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class Tasks extends AppCompatActivity {
-
+public class BuddyStore extends AppCompatActivity {
     FirebaseAuth auth;
     Button button;
     TextView textView;
@@ -25,12 +24,12 @@ public class Tasks extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tasks);
+        setContentView(R.layout.buddy_store);
 
         // BATTLEPLAN GRADIENT
         TextView name = findViewById(R.id.battle);
-        int startColor = Color.rgb(50, 61, 115);
-        int endColor = Color.rgb(94, 132, 243);
+        int startColor = Color.rgb(255, 190, 92);
+        int endColor = Color.rgb(255, 206, 49);
         Shader shader = new LinearGradient(0f, 0f, 0f, name.getTextSize(), startColor, endColor, Shader.TileMode.CLAMP);
         name.getPaint().setShader(shader);
 
@@ -80,6 +79,14 @@ public class Tasks extends AppCompatActivity {
         startActivity(new Intent(this, BattlePass.class));
     }
 
+    public void openBadges(View view) {
+        startActivity(new Intent(this, Badges.class));
+    }
+
+    public void openStore(View view) {
+        startActivity(new Intent(this, Store.class));
+    }
+
     // BUDDY NAVIGATION
     public void openBuddyMainActivity2(View view) {
         startActivity(new Intent(this, BuddyMainActivity2.class));
@@ -108,4 +115,6 @@ public class Tasks extends AppCompatActivity {
     public void openBuddyBadges(View view) {
         startActivity(new Intent(this, BuddyBadges.class));
     }
+
+
 }

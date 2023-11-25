@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
@@ -20,6 +21,8 @@ public class Profile extends AppCompatActivity {
     Button button;
     TextView textView;
     FirebaseUser user;
+
+    private Button btnShowDialog;
 
 
     @Override
@@ -40,6 +43,17 @@ public class Profile extends AppCompatActivity {
         int yellow = Color.rgb(255, 206, 49);
         Shader shader1 = new LinearGradient(0f, 0f, 0f, recentActivity.getTextSize(), orange, yellow, Shader.TileMode.CLAMP);
         recentActivity.getPaint().setShader(shader1);
+
+        // UPDATE PROFILE CODE
+        btnShowDialog = findViewById(R.id.btn_update_profile);
+
+        btnShowDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog();
+            }
+        });
+
 
         // LOGOUT BUTTON CODE
         auth = FirebaseAuth.getInstance();
@@ -85,5 +99,39 @@ public class Profile extends AppCompatActivity {
 
     public void openBattlePass(View view) {
         startActivity(new Intent(this, BattlePass.class));
+    }
+
+    private void showDialog(){
+        Dialog dialog = new Dialog(this, R.style.DialogStyle);
+        dialog.setContentView(R.layout.popup_profile_customization);
+        dialog.show();
+    }
+    // BUDDY NAVIGATION
+    public void openBuddyMainActivity2(View view) {
+        startActivity(new Intent(this, BuddyMainActivity2.class));
+    }
+
+    public void openBuddyMainActivity(View view) {
+        startActivity(new Intent(this, BuddyMainActivity.class));
+    }
+
+    public void openBuddyTasks(View view) {
+        startActivity(new Intent(this, BuddyTasks.class));
+    }
+
+    public void openBuddyBattlePass(View view) {
+        startActivity(new Intent(this, BuddyBattlePass.class));
+    }
+
+    public void openBuddyProfile(View view) {
+        startActivity(new Intent(this, BuddyProfile.class));
+    }
+
+    public void openBuddyStore(View view) {
+        startActivity(new Intent(this, BuddyStore.class));
+    }
+
+    public void openBuddyBadges(View view) {
+        startActivity(new Intent(this, BuddyBadges.class));
     }
 }

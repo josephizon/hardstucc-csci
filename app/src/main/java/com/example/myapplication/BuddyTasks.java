@@ -1,7 +1,5 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
@@ -11,10 +9,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class Tasks extends AppCompatActivity {
+public class BuddyTasks extends AppCompatActivity {
 
     FirebaseAuth auth;
     Button button;
@@ -25,7 +25,7 @@ public class Tasks extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tasks);
+        setContentView(R.layout.buddy_tasks);
 
         // BATTLEPLAN GRADIENT
         TextView name = findViewById(R.id.battle);
@@ -108,4 +108,6 @@ public class Tasks extends AppCompatActivity {
     public void openBuddyBadges(View view) {
         startActivity(new Intent(this, BuddyBadges.class));
     }
+
+
 }

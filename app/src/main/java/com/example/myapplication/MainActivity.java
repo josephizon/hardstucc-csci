@@ -60,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
     }
 
     public void openMainActivity2(View view) {
@@ -91,4 +93,35 @@ public class MainActivity extends AppCompatActivity {
     public void openStore(View view) {
         startActivity(new Intent(this, Store.class));
     }
+
+    // BUDDY NAVIGATION
+    public void openBuddyMainActivity2(View view) {
+        startActivity(new Intent(this, BuddyMainActivity2.class));
+    }
+
+    public void openBuddyMainActivity(View view) {
+        startActivity(new Intent(this, BuddyMainActivity.class));
+    }
+
+    public void openBuddyTasks(View view) {
+        startActivity(new Intent(this, BuddyTasks.class));
+    }
+
+    public void openBuddyBattlePass(View view) {
+        startActivity(new Intent(this, BuddyBattlePass.class));
+    }
+
+    public void openBuddyProfile(View view) {
+        startActivity(new Intent(this, BuddyProfile.class));
+    }
+
+    public void openBuddyStore(View view) {
+        startActivity(new Intent(this, BuddyStore.class));
+    }
+
+    public void openBuddyBadges(View view) {
+        startActivity(new Intent(this, BuddyBadges.class));
+    }
+
+
 }

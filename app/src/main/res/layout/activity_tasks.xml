@@ -77,6 +77,12 @@
 
     <View
         android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+
+    <View
+        android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/orange"/>
 
@@ -150,8 +156,9 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="6dp"
-                android:src="@drawable/nav_more" />
+                android:layout_marginTop="5dp"
+                android:src="@drawable/nav_buddy"
+                android:onClick="openBuddyTasks"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -159,7 +166,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="true"
                 android:fontFamily="@font/inter"
-                android:text="MORE"
+                android:text="BUDDY"
                 android:textColor="@color/orange"
                 android:textSize="10sp"
                 />
