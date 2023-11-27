@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -20,6 +22,9 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TasksMajor extends AppCompatActivity {
 
@@ -73,6 +78,19 @@ public class TasksMajor extends AppCompatActivity {
                 showCreatePopUp();
             }
         });
+
+        //RecyclerView create
+        RecyclerView recyclerView = findViewById(R.id.major_task_display);
+
+        List<TasksMajorRecycleItems> taskItems = new ArrayList<TasksMajorRecycleItems>();
+        taskItems.add(new TasksMajorRecycleItems("Title 1", "Description 1", "June 1, 2020"));
+        taskItems.add(new TasksMajorRecycleItems("Title 2", "Description 2", "June 2, 2020"));
+        taskItems.add(new TasksMajorRecycleItems("Title 3", "Description 3", "June 3, 2020"));
+
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new TasksMajorRecycleAdapter(getApplicationContext(), taskItems));
+
     }
 
     public void openMainActivity2(View view) {
