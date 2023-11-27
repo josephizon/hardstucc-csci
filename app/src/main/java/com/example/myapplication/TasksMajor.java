@@ -13,12 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import android.text.TextUtils;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -82,15 +77,19 @@ public class TasksMajor extends AppCompatActivity {
         //RecyclerView create
         RecyclerView recyclerView = findViewById(R.id.major_task_display);
 
-        List<TasksMajorRecycleItems> taskItems = new ArrayList<TasksMajorRecycleItems>();
-        taskItems.add(new TasksMajorRecycleItems("Title 1", "Description 1", "June 1, 2020"));
-        taskItems.add(new TasksMajorRecycleItems("Title 2", "Description 2", "June 2, 2020"));
-        taskItems.add(new TasksMajorRecycleItems("Title 3", "Description 3", "June 3, 2020"));
+        List<TasksRecycleItems> taskItems = new ArrayList<TasksRecycleItems>();
+        taskItems.add(new TasksRecycleItems("Title 1", "Description 1", "June 1, 2020"));
+        taskItems.add(new TasksRecycleItems("Title 2", "Description 2", "June 2, 2020"));
+        taskItems.add(new TasksRecycleItems("Title 3", "Description 3", "June 3, 2020"));
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new TasksMajorRecycleAdapter(getApplicationContext(), taskItems));
+        recyclerView.setAdapter(new TasksRecycleAdapter(getApplicationContext(), taskItems));
 
+    }
+
+    public void openMainActivity(View view) {
+        startActivity(new Intent(this, MainActivity.class));
     }
 
     public void openMainActivity2(View view) {
@@ -99,6 +98,10 @@ public class TasksMajor extends AppCompatActivity {
 
     public void openTasksMajor(View view) {
         startActivity(new Intent(this, TasksMajor.class));
+    }
+
+    public void openTasksDaily(View view) {
+        startActivity(new Intent(this, TasksDaily.class));
     }
 
     public void openProfile(View view) {
@@ -110,46 +113,8 @@ public class TasksMajor extends AppCompatActivity {
     }
 
     private void showCreatePopUp() {
-        Dialog popUp = new Dialog(this );
+        Dialog popUp = new Dialog(this, R.style.DialogStyle);
         popUp.setContentView(R.layout.activity_tasks_create);
-
-        ImageView closeCreateTaskButton = popUp.findViewById(R.id.exitCreateTaskButton);
-        editTaskName = popUp.findViewById(R.id.task_name_input);
-        editTaskDescription = popUp.findViewById(R.id.task_description_input);
-        editTaskDeadline = popUp.findViewById(R.id.task_deadline_input);
-        editTaskType = popUp.findViewById(R.id.task_type_input);
-
-        createTaskConfirmationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String taskName, taskDescription, taskDeadline, taskType;
-                taskName = String.valueOf(editTaskName.getText());
-                taskDescription = String.valueOf(editTaskDescription.getText());
-                taskDeadline = String.valueOf(editTaskDeadline.getText());
-                taskType = String.valueOf(editTaskType.getText());
-
-                if (TextUtils.isEmpty(taskName)) {
-                    Toast.makeText(TasksMajor.this, "Enter Task's Name", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (TextUtils.isEmpty(taskDescription)) {
-                    Toast.makeText(TasksMajor.this, "Enter Task's Description", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (TextUtils.isEmpty(taskDeadline)) {
-                    Toast.makeText(TasksMajor.this, "Enter Task's Deadline", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (TextUtils.isEmpty(taskType)) {
-                    Toast.makeText(TasksMajor.this, "Enter Task's Type", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-
-
-            }
-        });
-
         popUp.show();
     }
 

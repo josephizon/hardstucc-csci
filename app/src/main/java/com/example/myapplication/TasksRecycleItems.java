@@ -1,6 +1,6 @@
 package com.example.myapplication;
 
-public class TasksMajorRecycleItems {
+public class TasksRecycleItems {
 
     String taskName;
 
@@ -9,7 +9,7 @@ public class TasksMajorRecycleItems {
     String taskDescription;
     String taskDeadline;
 
-    public TasksMajorRecycleItems(String taskName, String taskDescription, String taskDeadline) {
+    public TasksRecycleItems(String taskName, String taskDescription, String taskDeadline) {
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.taskDeadline = taskDeadline;

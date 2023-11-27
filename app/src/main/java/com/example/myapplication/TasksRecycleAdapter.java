@@ -8,24 +8,24 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class TasksMajorRecycleAdapter extends RecyclerView.Adapter<TasksMajorRecycleView>{
+public class TasksRecycleAdapter extends RecyclerView.Adapter<TasksRecycleView>{
 
     Context context;
-    List<TasksMajorRecycleItems> items;
+    List<TasksRecycleItems> items;
 
-    public TasksMajorRecycleAdapter(Context context, List<TasksMajorRecycleItems> items) {
+    public TasksRecycleAdapter(Context context, List<TasksRecycleItems> items) {
         this.context = context;
         this.items = items;
     }
 
     @NonNull
     @Override
-    public TasksMajorRecycleView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new TasksMajorRecycleView(LayoutInflater.from(context).inflate(R.layout.activity_tasks_major_recycle_view, parent, false));
+    public TasksRecycleView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new TasksRecycleView(LayoutInflater.from(context).inflate(R.layout.activity_tasks_recycle_view, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TasksMajorRecycleView holder, int position) {
+    public void onBindViewHolder(@NonNull TasksRecycleView holder, int position) {
         holder.taskTitle.setText(items.get(position).getTaskName());
         holder.taskDescription.setText(items.get(position).getTaskDescription());
         holder.taskDeadline.setText(items.get(position).getTaskDeadline());

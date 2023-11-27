@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".TasksMajor"
+    tools:context=".TasksDaily"
     android:background="@color/dirty_white">
 
     <!--    <TextView-->
@@ -80,11 +80,11 @@
                         android:id="@+id/btn_daily_tasks"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:backgroundTint="@color/light_orange"
+                        android:backgroundTint="@color/orange"
                         android:fontFamily="@font/inter"
                         android:onClick="openTasksDaily"
                         android:text="Daily"
-                        android:textColor="@color/orange"
+                        android:textColor="@color/white"
                         android:textSize="13sp"
                         app:cornerRadius="32dp" />
 
@@ -94,11 +94,11 @@
                         android:layout_height="50dp"
                         android:layout_marginLeft="10dp"
                         android:layout_toRightOf="@id/btn_daily_tasks"
-                        android:backgroundTint="@color/orange"
+                        android:backgroundTint="@color/light_orange"
                         android:fontFamily="@font/inter"
                         android:onClick="openTasksMajor"
                         android:text="Major"
-                        android:textColor="@color/white"
+                        android:textColor="@color/orange"
                         android:textSize="13sp"
                         app:cornerRadius="32dp" />
                 </RelativeLayout>
@@ -110,7 +110,7 @@
                 android:layout_height="wrap_content" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/major_task_display"
+                android:id="@+id/daily_task_display"
                 android:layout_width="match_parent"
                 android:layout_height="482dp"
                 android:clipToPadding="false"
@@ -120,7 +120,7 @@
             </androidx.recyclerview.widget.RecyclerView>
 
             <Button
-                android:id="@+id/create_major_task"
+                android:id="@+id/create_daily_task"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_gravity="bottom|right"
@@ -179,7 +179,7 @@
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="6dp"
-                android:onClick="openTasksMajor"
+                android:onClick="openTasksDaily"
                 android:src="@drawable/nav_task"
 
                 />

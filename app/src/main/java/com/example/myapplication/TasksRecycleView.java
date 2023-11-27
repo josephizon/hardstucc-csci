@@ -6,10 +6,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class TasksMajorRecycleView extends RecyclerView.ViewHolder{
+public class TasksRecycleView extends RecyclerView.ViewHolder{
     TextView taskTitle, taskDescription, taskDeadline;
 
-    public TasksMajorRecycleView(@NonNull View itemView){
+    public TasksRecycleView(@NonNull View itemView){
         super(itemView);
         taskTitle = itemView.findViewById(R.id.major_title_1);
         taskDescription = itemView.findViewById(R.id.major_desc_1);
