@@ -1,11 +1,16 @@
 package com.example.myapplication;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Users {
     private String email, firstName, middleName, lastName, buddyUid;
     private Users buddy;  // New field for the buddy
+    private List<Tasks> tasks;  // List to store tasks
 
     public Users() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
+        tasks = new ArrayList<>();
     }
 
     public Users(String email, String firstName, String middleName, String lastName) {
@@ -13,6 +18,21 @@ public class Users {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
+        tasks = new ArrayList<>();
+    }
+
+    // Other existing methods...
+
+    public List<Tasks> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Tasks> tasks) {
+        this.tasks = tasks;
+    }
+
+    public void addTask(Tasks task) {
+        tasks.add(task);
     }
 
     public String getEmail() {
