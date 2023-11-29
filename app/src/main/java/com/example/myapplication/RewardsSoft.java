@@ -14,8 +14,7 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class Badges extends AppCompatActivity {
-
+public class RewardsSoft extends AppCompatActivity {
     FirebaseAuth auth;
     Button button;
     TextView textView;
@@ -25,7 +24,7 @@ public class Badges extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_badges);
+        setContentView(R.layout.activity_rewards_soft);
 
         // BATTLEPLAN GRADIENT
         TextView name = findViewById(R.id.battle);
@@ -35,7 +34,7 @@ public class Badges extends AppCompatActivity {
         name.getPaint().setShader(shader);
 
         // BADGES GRADIENT
-        TextView badges = findViewById(R.id.title_badges);
+        TextView badges = findViewById(R.id.title_rewards_store);
         int orange = Color.rgb(255, 190, 92);
         int yellow = Color.rgb(255, 206, 49);
         Shader shader1 = new LinearGradient(0f, 0f, 0f, badges.getTextSize(), orange, yellow, Shader.TileMode.CLAMP);
@@ -87,6 +86,15 @@ public class Badges extends AppCompatActivity {
         startActivity(new Intent(this, BattlePass.class));
     }
 
+    public void openRewardsSoft(View view) {
+        startActivity(new Intent(this, RewardsSoft.class));
+    }
+
+    public void openRewardsHard(View view) {
+        startActivity(new Intent(this, RewardsHard.class));
+    }
+
+
     // BUDDY NAVIGATION
     public void openBuddyMainActivity2(View view) {
         startActivity(new Intent(this, BuddyMainActivity2.class));
@@ -115,4 +123,6 @@ public class Badges extends AppCompatActivity {
     public void openBuddyBadges(View view) {
         startActivity(new Intent(this, BuddyBadges.class));
     }
+
+
 }

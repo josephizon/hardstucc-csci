@@ -92,7 +92,7 @@ public class BuddyBadges extends AppCompatActivity {
     }
 
     public void openStore(View view) {
-        startActivity(new Intent(this, Store.class));
+        startActivity(new Intent(this, RewardsSoft.class));
     }
 
     // BUDDY NAVIGATION
@@ -117,7 +117,7 @@ public class BuddyBadges extends AppCompatActivity {
     }
 
     public void openBuddyStore(View view) {
-        startActivity(new Intent(this, BuddyStore.class));
+        startActivity(new Intent(this, BuddyRewardsSoft.class));
     }
 
     public void openBuddyBadges(View view) {

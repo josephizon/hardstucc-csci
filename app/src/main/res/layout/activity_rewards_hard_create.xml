@@ -35,9 +35,8 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/popup_exit_icon"
                 android:fontFamily="@font/epilogue_black"
-                android:text="Edit Profile"
+                android:text="Create Rewards"
                 android:textColor="@color/orange"
-
                 android:textSize="28sp"
                 android:textStyle="bold" />
 
@@ -59,117 +58,7 @@
                 android:textSize="16dp" />
 
         </RelativeLayout>
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="30dp" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="220dp"
-            android:background="@drawable/profile_header">
-
-            <!-- Filter Over Picture -->
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_margin="20dp">
-
-            </RelativeLayout>
-
-
-        </RelativeLayout>
-
-        <!-- PROFILE ICON -->
-        <ImageView
-            android:id="@+id/user_icon"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_centerVertical="true"
-            android:layout_gravity="right"
-            android:layout_marginTop="-80dp"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/rewards_profile_icon_1"
-
-            />
-
-        <!-- DAILY AND MAJOR CONTAINER LAYOUT -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_marginTop="-75dp">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                >
-
-                <!-- Daily Task Container  -->
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/daily_container"
-                    android:layout_width="160dp"
-                    android:layout_height="50dp"
-                    android:layout_centerVertical="true"
-                    android:clipChildren="false"
-                    android:clipToPadding="false"
-
-                    android:divider="@android:color/transparent"
-                    android:dividerHeight="0.0px"
-                    android:elevation="5dp"
-                    app:cardCornerRadius="30dp"
-                    card_view:cardBackgroundColor="@color/white"
-                    card_view:cardElevation="5dp"
-                    card_view:cardPreventCornerOverlap="false">
-
-                    <!-- Layout Inside the Cardview -->
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        >
-
-                        <ImageView
-                            android:id="@+id/popup_exclamation"
-                            android:layout_width="48dp"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/popup_exclamation_icon" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Click the image to \nupload a new one."
-                            android:textSize="9sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/inter"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="5dp"
-                            android:layout_toRightOf="@+id/popup_exclamation"
-                            />
-
-
-                    </RelativeLayout>
-
-
-
-                </androidx.cardview.widget.CardView>
-
-
-
-
-
-
-
-            </RelativeLayout>
-
-
-
-
-
-        </LinearLayout>
-
-
+        
 
         <View
             android:layout_width="wrap_content"

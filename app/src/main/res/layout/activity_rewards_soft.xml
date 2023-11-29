@@ -1,0 +1,612 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".RewardsSoft"
+    android:background="@color/dirty_white">
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/user_details"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="Hellow WOrld"/>-->
+
+
+    <!-- HEADER LAYOUT -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/lavender"
+        >
+
+        <TextView
+            android:id="@+id/battle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/epilogue_black"
+            android:text="@string/battle_plan"
+            android:textSize="24sp"
+            android:textStyle="bold"
+
+            />
+
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:text="Log out" />
+
+    </RelativeLayout>
+    <!-- HEADER LAYOUT END -->
+
+    <!-- MAIN BODY LAYOUT -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="610dp"
+        android:orientation="vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <!-- BADGES TITLE -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                >
+
+                <ImageView
+                    android:id="@+id/rewards_store_icon"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/rewards_store_icon"
+                    />
+
+                <TextView
+                    android:id="@+id/title_rewards_store"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/rewards_store_icon"
+                    android:layout_marginLeft="5dp"
+                    android:fontFamily="@font/epilogue_black"
+                    android:text="Rewards Store"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/orange"
+
+                    />
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+        <!-- REWARD SWITCH BUTTONS-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_soft_rewards"
+                    android:layout_width="110dp"
+                    android:layout_height="50dp"
+                    android:backgroundTint="@color/orange"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/inter"
+                    android:padding="0dp"
+                    android:text="Soft Rewards"
+                    android:textSize="13sp"
+                    app:cornerRadius="32dp"
+                    />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_hard_rewards"
+                    android:layout_width="110dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/btn_soft_rewards"
+                    android:backgroundTint="@color/light_orange"
+                    android:fontFamily="@font/inter"
+                    android:padding="0dp"
+                    android:text="Hard Rewards"
+                    android:textColor="@color/orange"
+                    android:textSize="13sp"
+                    app:cornerRadius="32dp"
+                    android:onClick="openRewardsHard"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <!-- DISPLAYED BADGES TITLE -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/epilogue_black"
+                android:paddingTop="10dp"
+                android:text="Profile Icons"
+                android:textColor="@color/blue"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <!-- SORT BY BUTTON -->
+            <!--<com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_sort"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+
+                android:backgroundTint="@color/orange"
+                android:fontFamily="@font/inter"
+                android:padding="0dp"
+                android:text="Sort by ->"
+                android:textColor="@color/white"
+                android:textSize="8sp"
+                app:cornerRadius="32dp" />-->
+
+        </RelativeLayout>
+
+        <!-- PROFILE ICONS 1 LAYOUT-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <!-- Profile Icon 1 -->
+            <RelativeLayout
+                android:id="@+id/relative_icon_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                >
+
+                <ImageView
+                    android:id="@+id/rewards_profile_icon_1"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/rewards_profile_icon_1" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/rewards_profile_icon_1"
+                    android:layout_centerHorizontal="true"
+                    android:backgroundTint="@color/orange"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/inter"
+                    android:text="OWNED"
+                    android:textSize="10sp"
+                    android:padding="0dp"
+                    app:cornerRadius="10sp"
+
+                    />
+
+            </RelativeLayout>
+
+            <!-- Profile Icon 2 -->
+            <RelativeLayout
+                android:id="@+id/relative_icon_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/relative_icon_1"
+                >
+
+                <ImageView
+                    android:id="@+id/rewards_profile_icon_2"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+
+                    android:src="@drawable/rewards_profile_icon_2" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/rewards_profile_icon_2"
+                    android:layout_centerHorizontal="true"
+                    android:backgroundTint="@color/light_orange"
+                    android:textColor="@color/orange"
+                    android:fontFamily="@font/inter"
+                    android:text="200"
+                    android:textSize="10sp"
+                    android:padding="0dp"
+                    app:cornerRadius="10sp"
+
+                    />
+
+            </RelativeLayout>
+
+            <!-- Profile Icon 3 -->
+            <RelativeLayout
+                android:id="@+id/relative_icon_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/relative_icon_2"
+                >
+
+                <ImageView
+                    android:id="@+id/rewards_profile_icon_3"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/rewards_profile_icon_3" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/rewards_profile_icon_3"
+                    android:layout_centerHorizontal="true"
+                    android:backgroundTint="@color/light_orange"
+                    android:textColor="@color/orange"
+                    android:fontFamily="@font/inter"
+                    android:text="200"
+                    android:textSize="10sp"
+                    android:padding="0dp"
+                    app:cornerRadius="10sp"
+
+                    />
+
+            </RelativeLayout>
+
+            <!-- Profile Icon 4 -->
+            <RelativeLayout
+                android:id="@+id/relative_icon_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/relative_icon_3"
+                >
+
+                <ImageView
+                    android:id="@+id/rewards_profile_icon_4"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/rewards_profile_icon_4" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/rewards_profile_icon_4"
+                    android:layout_centerHorizontal="true"
+                    android:backgroundTint="@color/light_orange"
+                    android:textColor="@color/orange"
+                    android:fontFamily="@font/inter"
+                    android:text="200"
+                    android:textSize="10sp"
+                    android:padding="0dp"
+                    app:cornerRadius="10sp"
+
+                    />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            />
+
+        <!-- PROFILE ICONS 2 LAYOUT-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <!-- Profile Icon 5 -->
+            <RelativeLayout
+                android:id="@+id/relative_icon_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                >
+
+                <ImageView
+                    android:id="@+id/rewards_profile_icon_5"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/rewards_profile_icon_5" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/rewards_profile_icon_5"
+                    android:layout_centerHorizontal="true"
+                    android:backgroundTint="@color/light_orange"
+                    android:textColor="@color/orange"
+                    android:fontFamily="@font/inter"
+                    android:text="200"
+                    android:textSize="10sp"
+                    android:padding="0dp"
+                    app:cornerRadius="10sp"
+
+                    />
+
+            </RelativeLayout>
+
+            <!-- Profile Icon 6 -->
+            <RelativeLayout
+                android:id="@+id/relative_icon_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/relative_icon_5"
+                >
+
+                <ImageView
+                    android:id="@+id/rewards_profile_icon_6"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+
+                    android:src="@drawable/rewards_profile_icon_6" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/rewards_profile_icon_6"
+                    android:layout_centerHorizontal="true"
+                    android:backgroundTint="@color/light_orange"
+                    android:textColor="@color/orange"
+                    android:fontFamily="@font/inter"
+                    android:text="200"
+                    android:textSize="10sp"
+                    android:padding="0dp"
+                    app:cornerRadius="10sp"
+
+                    />
+
+            </RelativeLayout>
+
+            <!-- Profile Icon 7 -->
+            <RelativeLayout
+                android:id="@+id/relative_icon_7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/relative_icon_6"
+                >
+
+                <ImageView
+                    android:id="@+id/rewards_profile_icon_7"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/rewards_profile_icon_7" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/rewards_profile_icon_7"
+                    android:layout_centerHorizontal="true"
+                    android:backgroundTint="@color/light_orange"
+                    android:textColor="@color/orange"
+                    android:fontFamily="@font/inter"
+                    android:text="200"
+                    android:textSize="10sp"
+                    android:padding="0dp"
+                    app:cornerRadius="10sp"
+
+                    />
+
+            </RelativeLayout>
+
+            <!-- Profile Icon 4 -->
+            <RelativeLayout
+                android:id="@+id/relative_icon_8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/relative_icon_7"
+                >
+
+                <ImageView
+                    android:id="@+id/rewards_profile_icon_8"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/rewards_profile_icon_8" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/rewards_profile_icon_8"
+                    android:layout_centerHorizontal="true"
+                    android:backgroundTint="@color/light_orange"
+                    android:textColor="@color/orange"
+                    android:fontFamily="@font/inter"
+                    android:text="200"
+                    android:textSize="10sp"
+                    android:padding="0dp"
+                    app:cornerRadius="10sp"
+
+                    />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+    <!-- MAIN BODY LAYOUT END -->
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/orange"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:background="@color/white"
+        android:gravity="center"
+        >
+
+        <RelativeLayout
+            android:layout_width="60dp"
+            android:layout_height="55dp"
+            >
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/nav_home"
+                android:onClick="openMainActivity"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/inter"
+                android:text="HOME"
+                android:textColor="@color/orange"
+                android:textSize="10sp"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="60dp"
+            android:layout_height="55dp"
+            >
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/nav_task"
+                android:onClick="openTasksMajor"
+
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/inter"
+                android:text="TASKS"
+                android:textColor="@color/orange"
+                android:textSize="10sp"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="60dp"
+            android:layout_height="55dp"
+            >
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/nav_buddy"
+                android:onClick="openBuddyBadges"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/inter"
+                android:text="BUDDY"
+                android:textColor="@color/orange"
+                android:textSize="10sp"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="60dp"
+            android:layout_height="55dp"
+            >
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/nav_battlepass"
+                android:onClick="openBattlePass"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/inter"
+                android:text="BATTLEPASS"
+                android:textColor="@color/orange"
+                android:textSize="9sp"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="60dp"
+            android:layout_height="55dp"
+            >
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/nav_profile"
+                android:onClick="openProfile"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/inter"
+                android:text="PROFILE"
+                android:textColor="@color/orange"
+                android:textSize="10sp"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

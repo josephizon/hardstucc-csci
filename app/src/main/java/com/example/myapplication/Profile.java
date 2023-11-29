@@ -11,6 +11,7 @@ import android.graphics.Shader;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -129,6 +130,17 @@ public class Profile extends AppCompatActivity {
     private void showDialog() {
         Dialog dialog = new Dialog(this, R.style.DialogStyle);
         dialog.setContentView(R.layout.popup_profile_customization);
+
+        // CLOSE BUTTON FOR POP UP CUSTOMIZATION
+        ImageView btnClose = dialog.findViewById(R.id.popup_exit_icon);
+
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
         dialog.show();
     }
 
@@ -154,7 +166,7 @@ public class Profile extends AppCompatActivity {
     }
 
     public void openBuddyStore(View view) {
-        startActivity(new Intent(this, BuddyStore.class));
+        startActivity(new Intent(this, BuddyRewardsSoft.class));
     }
 
     public void openBuddyBadges(View view) {

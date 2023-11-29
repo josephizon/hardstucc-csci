@@ -102,7 +102,7 @@ public class BattlePass extends AppCompatActivity {
     }
 
     public void openBuddyStore(View view) {
-        startActivity(new Intent(this, BuddyStore.class));
+        startActivity(new Intent(this, BuddyRewardsSoft.class));
     }
 
     public void openBuddyBadges(View view) {

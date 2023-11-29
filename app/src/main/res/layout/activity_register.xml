@@ -50,7 +50,7 @@
             android:id="@+id/battle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/epilogue"
+            android:fontFamily="@font/epilogue_black"
             android:text="@string/battle_plan"
             android:textSize="48sp"
             android:textStyle="bold"

@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_centerVertical="true"
-            android:fontFamily="@font/epilogue"
+            android:fontFamily="@font/epilogue_black"
             android:text="@string/battle_plan"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -151,7 +151,7 @@
                 android:layout_height="120dp"
                 android:layout_marginLeft="30dp"
                 android:layout_centerVertical="true"
-                android:src="@drawable/placeholder_icon"
+                android:src="@drawable/rewards_profile_icon_1"
 
                 />
 
@@ -205,7 +205,7 @@
                             android:layout_centerVertical="true"
                             android:layout_x="31dp"
                             android:layout_y="53dp"
-                            android:fontFamily="@font/epilogue"
+                            android:fontFamily="@font/epilogue_black"
                             android:text="45 pts"
                             android:textColor="@color/white"
                             android:textSize="12sp"
@@ -228,7 +228,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="100dp"
                         android:layout_marginTop="30dp"
-                        android:fontFamily="@font/epilogue"
+                        android:fontFamily="@font/epilogue_black"
                         android:text="Currency"
                         android:textColor="@color/blue"
                         android:textSize="12sp"
@@ -257,7 +257,7 @@
                         android:textColor="@color/black"
                         android:textSize="10sp"
                         android:textStyle="bold"
-                        android:onClick="openStore"/>
+                        android:onClick="openRewardsSoft"/>
 
                 </LinearLayout>
 
@@ -414,7 +414,7 @@
                             android:layout_centerVertical="true"
                             android:layout_x="284dp"
                             android:layout_y="13dp"
-                            android:fontFamily="@font/epilogue"
+                            android:fontFamily="@font/epilogue_black"
                             android:text="Level 29"
                             android:textColor="@color/white"
                             android:textSize="14sp"
@@ -456,7 +456,7 @@
                         android:id="@+id/currently_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/epilogue"
+                        android:fontFamily="@font/epilogue_black"
                         android:text="Keep it up!"
                         android:textColor="@color/blue"
                         android:textSize="12sp"

@@ -113,8 +113,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, Badges.class));
     }
 
-    public void openStore(View view) {
-        startActivity(new Intent(this, Store.class));
+    public void openRewardsSoft(View view) {
+        startActivity(new Intent(this, RewardsSoft.class));
+    }
+
+    public void openRewardsHard(View view) {
+        startActivity(new Intent(this, RewardsHard.class));
     }
 
     // BUDDY NAVIGATION
@@ -139,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openBuddyStore(View view) {
-        startActivity(new Intent(this, BuddyStore.class));
+        startActivity(new Intent(this, BuddyRewardsSoft.class));
     }
 
     public void openBuddyBadges(View view) {

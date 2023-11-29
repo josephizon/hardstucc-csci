@@ -1,7 +1,5 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
@@ -11,11 +9,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class Badges extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
 
+public class RewardsHard extends AppCompatActivity {
     FirebaseAuth auth;
     Button button;
     TextView textView;
@@ -25,7 +29,7 @@ public class Badges extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_badges);
+        setContentView(R.layout.activity_rewards_hard);
 
         // BATTLEPLAN GRADIENT
         TextView name = findViewById(R.id.battle);
@@ -35,7 +39,7 @@ public class Badges extends AppCompatActivity {
         name.getPaint().setShader(shader);
 
         // BADGES GRADIENT
-        TextView badges = findViewById(R.id.title_badges);
+        TextView badges = findViewById(R.id.title_rewards_store);
         int orange = Color.rgb(255, 190, 92);
         int yellow = Color.rgb(255, 206, 49);
         Shader shader1 = new LinearGradient(0f, 0f, 0f, badges.getTextSize(), orange, yellow, Shader.TileMode.CLAMP);
@@ -64,7 +68,21 @@ public class Badges extends AppCompatActivity {
                 finish();
             }
         });
+
+        // ADDING ITEMS TO RECYCLE VIEW
+        RecyclerView recyclerView = findViewById(R.id.rewards_recyclerview);
+
+        List<TasksMajorRecycleItems> items = new ArrayList<TasksMajorRecycleItems>();
+        items.add(new TasksMajorRecycleItems("NAME OF REWARD", "DESCRIPTION", "BOKAS"));
+
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new TasksMajorRecycleAdapter(getApplicationContext(), items));
+
+
     }
+
+    // START OF NAVIGATION CODE
 
     public void openMainActivity2(View view) {
         startActivity(new Intent(this, MainActivity2.class));
@@ -85,6 +103,14 @@ public class Badges extends AppCompatActivity {
 
     public void openBattlePass(View view) {
         startActivity(new Intent(this, BattlePass.class));
+    }
+
+    public void openRewardsSoft(View view) {
+        startActivity(new Intent(this, RewardsSoft.class));
+    }
+
+    public void openRewardsHard(View view) {
+        startActivity(new Intent(this, RewardsHard.class));
     }
 
     // BUDDY NAVIGATION
@@ -115,4 +141,6 @@ public class Badges extends AppCompatActivity {
     public void openBuddyBadges(View view) {
         startActivity(new Intent(this, BuddyBadges.class));
     }
+
+
 }
