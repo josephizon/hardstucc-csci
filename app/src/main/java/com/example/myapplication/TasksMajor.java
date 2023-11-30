@@ -60,7 +60,7 @@ public class TasksMajor extends AppCompatActivity {
         } else {
             databaseReference = FirebaseDatabase.getInstance().getReference("Registered Users")
                     .child(user.getUid())
-                    .child("MajorTasks");
+                    .child("Tasks");
         }
 
         createTaskButton = findViewById(R.id.create_major_task);
@@ -123,7 +123,8 @@ public class TasksMajor extends AppCompatActivity {
                 createTask(
                         editTaskName.getText().toString(),
                         editTaskDescription.getText().toString(),
-                        editTaskDeadline.getText().toString()
+                        editTaskDeadline.getText().toString(),
+                        editTaskType.getText().toString()
                 );
 
                 // Close the popup if needed
@@ -144,12 +145,12 @@ public class TasksMajor extends AppCompatActivity {
         popUp.show();
     }
 
-    private void createTask(String name, String description, String deadline) {
+    private void createTask(String name, String description, String deadline, String type) {
         // Generate a unique ID for the task
         String taskId = databaseReference.push().getKey();
 
         // Create a new Tasks object
-        Tasks task = new Tasks(name, description, deadline);
+        Tasks task = new Tasks(name, description, deadline, type);
 
         // Add the task to the database under the user's node
         databaseReference.child(taskId).setValue(task);
@@ -167,7 +168,7 @@ public class TasksMajor extends AppCompatActivity {
                     for (DataSnapshot taskSnapshot : dataSnapshot.getChildren()) {
                         Tasks task = taskSnapshot.getValue(Tasks.class);
 
-                        if (task != null) {
+                        if (task != null && "major".equalsIgnoreCase(task.getType())) {
                             TasksRecycleItems recycleItem = new TasksRecycleItems(
                                     task.getName(),
                                     task.getDescription(),
