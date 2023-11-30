@@ -86,12 +86,12 @@ public class RewardsHard extends AppCompatActivity {
         // ADDING ITEMS TO RECYCLE VIEW
         RecyclerView recyclerView = findViewById(R.id.rewards_recyclerview);
 
-        List<TasksMajorRecycleItems> items = new ArrayList<TasksMajorRecycleItems>();
-        items.add(new TasksMajorRecycleItems("NAME OF REWARD", "DESCRIPTION", "BOKAS"));
+        List<RewardsHardRecycleItem> items = new ArrayList<RewardsHardRecycleItem>();
+        items.add(new RewardsHardRecycleItem("NAME OF REWARD", "DESCRIPTION", "BOKAS"));
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new TasksMajorRecycleAdapter(getApplicationContext(), items));
+        recyclerView.setAdapter(new RewardsHardRecycleAdapter(getApplicationContext(), items));
 
 
     }
