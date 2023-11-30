@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -126,6 +127,16 @@ public class TasksMajor extends AppCompatActivity {
                 );
 
                 // Close the popup if needed
+                popUp.dismiss();
+            }
+        });
+
+        // CLOSE BUTTON FOR POP UP CUSTOMIZATION
+        ImageView btnClose = popUp.findViewById(R.id.exitCreateTaskButton);
+
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 popUp.dismiss();
             }
         });

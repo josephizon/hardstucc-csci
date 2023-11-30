@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
@@ -7,6 +8,7 @@ import android.graphics.Shader;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +26,8 @@ public class RewardsHard extends AppCompatActivity {
     Button button;
     TextView textView;
     FirebaseUser user;
+
+    private Button btnShowDialog;
 
 
     @Override
@@ -44,6 +48,16 @@ public class RewardsHard extends AppCompatActivity {
         int yellow = Color.rgb(255, 206, 49);
         Shader shader1 = new LinearGradient(0f, 0f, 0f, badges.getTextSize(), orange, yellow, Shader.TileMode.CLAMP);
         badges.getPaint().setShader(shader1);
+
+        // UPDATE PROFILE CODE
+        btnShowDialog = findViewById(R.id.btn_create_reward);
+
+        btnShowDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showRewardCreationPopUp();
+            }
+        });
 
         // LOGOUT BUTTON CODE
         auth = FirebaseAuth.getInstance();
@@ -81,6 +95,24 @@ public class RewardsHard extends AppCompatActivity {
 
 
     }
+
+    private void showRewardCreationPopUp() {
+        Dialog dialog = new Dialog(this, R.style.DialogStyle);
+        dialog.setContentView(R.layout.activity_rewards_hard_create);
+
+        // CLOSE BUTTON FOR POP UP CUSTOMIZATION
+        ImageView btnClose = dialog.findViewById(R.id.exitCreateTaskButton);
+
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
 
     // START OF NAVIGATION CODE
 
