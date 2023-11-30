@@ -94,7 +94,7 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     public void openBuddyTasks(View view) {
-        startActivity(new Intent(this, BuddyTasks.class));
+        startActivity(new Intent(this, BuddyTasksDaily.class));
     }
 
     public void openBuddyBattlePass(View view) {

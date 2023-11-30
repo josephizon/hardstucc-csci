@@ -541,7 +541,7 @@
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="6dp"
-                android:onClick="openTasksMajor"
+                android:onClick="openTasksDaily"
                 android:src="@drawable/nav_task"
 
                 />

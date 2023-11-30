@@ -17,20 +17,18 @@
 
 
     <!-- HEADER LAYOUT -->
-    <!-- HEADER LAYOUT END -->
-
-    <!-- MAIN BODY LAYOUT -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/orange">
+        android:background="@color/orange"
+        >
 
         <TextView
             android:id="@+id/battle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
             android:fontFamily="@font/epilogue_black"
             android:text="@string/battle_plan"
             android:textSize="24sp"
@@ -48,37 +46,93 @@
             android:text="Log out" />
 
     </RelativeLayout>
+    <!-- HEADER LAYOUT END -->
 
+    <!-- MAIN BODY LAYOUT -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="610dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:orientation="vertical"
         android:paddingLeft="15dp"
         android:paddingRight="15dp">
 
-
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="140dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/epilogue_black"
-                android:text="BUDDY TASKS"
-                android:textSize="40sp" />
+                android:layout_height="80dp">
 
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="86dp"
+                    android:layout_marginEnd="85dp"
+                    tools:layout_centerHorizontal="true">
 
-        </RelativeLayout>
+                    <Button
+                        android:id="@+id/btn_daily_tasks"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/lavender"
+                        android:fontFamily="@font/inter"
+                        android:onClick="openBuddyTasksDaily"
+                        android:text="Daily"
+                        android:textColor="@color/blue"
+                        android:textSize="13sp"
+                        app:cornerRadius="32dp" />
+
+                    <Button
+                        android:id="@+id/btn_major_tasks"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/btn_daily_tasks"
+                        android:backgroundTint="@color/blue"
+                        android:fontFamily="@font/inter"
+                        android:text="Major"
+                        android:textColor="@color/dirty_white"
+                        android:textSize="13sp"
+                        app:cornerRadius="32dp" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/major_task_display"
+                android:layout_width="match_parent"
+                android:layout_height="482dp"
+                android:clipToPadding="false"
+                android:scrollbars="vertical"
+                tools:listitem="@layout/activity_tasks_recycle_view">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <Button
+                android:id="@+id/create_major_task"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom|right"
+                android:layout_marginBottom="10dp"
+                android:height="50dp"
+                android:backgroundTint="@color/orange"
+                android:text="Create Tasks"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
 
     </LinearLayout>
     <!-- MAIN BODY LAYOUT END -->
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        />
 
     <View
         android:layout_width="match_parent"
@@ -89,67 +143,61 @@
         android:layout_width="match_parent"
         android:layout_height="59dp"
         android:background="@color/white"
-        android:gravity="center"
-        >
+        android:gravity="center">
 
         <RelativeLayout
             android:layout_width="60dp"
-            android:layout_height="55dp"
-            >
+            android:layout_height="55dp">
 
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="6dp"
-                android:src="@drawable/nav_home"
-                android:onClick="openBuddyMainActivity"/>
+                android:onClick="openBuddyMainActivity"
+                android:src="@drawable/nav_home" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
                 android:fontFamily="@font/inter"
                 android:text="HOME"
                 android:textColor="@color/orange"
-                android:textSize="10sp"
-                />
+                android:textSize="10sp" />
 
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="60dp"
-            android:layout_height="55dp"
-            >
+            android:layout_height="55dp">
 
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="6dp"
+                android:onClick="openBuddyTasksDaily"
                 android:src="@drawable/nav_task"
-                android:onClick="openBuddyTasks"
 
                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
                 android:fontFamily="@font/inter"
                 android:text="TASKS"
                 android:textColor="@color/orange"
-                android:textSize="10sp"
-                />
+                android:textSize="10sp" />
 
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="60dp"
-            android:layout_height="55dp"
-            >
+            android:layout_height="55dp">
 
             <ImageView
                 android:layout_width="40dp"
@@ -162,67 +210,60 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
                 android:fontFamily="@font/inter"
-                android:text="USER"
+                android:text="BUDDY"
                 android:textColor="@color/orange"
-                android:textSize="10sp"
-                />
+                android:textSize="10sp" />
 
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="60dp"
-            android:layout_height="55dp"
-            >
+            android:layout_height="55dp">
 
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="6dp"
-                android:src="@drawable/nav_battlepass"
                 android:onClick="openBuddyBattlePass"
-                />
+                android:src="@drawable/nav_battlepass" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
                 android:fontFamily="@font/inter"
                 android:text="BATTLEPASS"
                 android:textColor="@color/orange"
-                android:textSize="9sp"
-                />
+                android:textSize="9sp" />
 
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="60dp"
-            android:layout_height="55dp"
-            >
+            android:layout_height="55dp">
 
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="6dp"
-                android:src="@drawable/nav_profile"
                 android:onClick="openBuddyProfile"
-                />
+                android:src="@drawable/nav_profile" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
                 android:fontFamily="@font/inter"
                 android:text="PROFILE"
                 android:textColor="@color/orange"
-                android:textSize="10sp"
-                />
+                android:textSize="10sp" />
 
         </RelativeLayout>
 

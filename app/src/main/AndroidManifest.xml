@@ -45,7 +45,10 @@
             android:name=".BuddyMainActivity2"
             android:exported="false" />
         <activity
-            android:name=".BuddyTasks"
+            android:name=".BuddyTasksDaily"
+            android:exported="false" />
+        <activity
+            android:name=".BuddyTasksMajor"
             android:exported="false" />
         <activity
             android:name=".BuddyBattlePass"
@@ -56,6 +59,7 @@
         <activity
             android:name=".BuddyRewardsSoft"
             android:exported="false" />
+
 
         <activity
             android:name=".BuddyBadges"

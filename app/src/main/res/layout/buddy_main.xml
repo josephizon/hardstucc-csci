@@ -561,7 +561,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="6dp"
                 android:src="@drawable/nav_task"
-                android:onClick="openBuddyTasks"
+                android:onClick="openBuddyTasksDaily"
                 />
 
             <TextView

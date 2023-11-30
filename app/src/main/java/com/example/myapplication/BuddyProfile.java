@@ -166,8 +166,8 @@ import com.google.firebase.database.ValueEventListener;
         startActivity(new Intent(this, BuddyMainActivity.class));
     }
 
-    public void openBuddyTasks(View view) {
-        startActivity(new Intent(this, BuddyTasks.class));
+    public void openBuddyTasksDaily(View view) {
+        startActivity(new Intent(this, BuddyTasksDaily.class));
     }
 
     public void openBuddyBattlePass(View view) {

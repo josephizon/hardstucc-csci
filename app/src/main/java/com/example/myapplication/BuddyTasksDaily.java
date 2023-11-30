@@ -1,7 +1,10 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
@@ -9,14 +12,20 @@ import android.graphics.Shader;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class Store extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class BuddyTasksDaily extends AppCompatActivity {
+
     FirebaseAuth auth;
-    Button button;
+    Button button, createTaskButton, createTaskConfirmationButton;
+    EditText editTaskName, editTaskDescription, editTaskDeadline, editTaskType;
     TextView textView;
     FirebaseUser user;
 
@@ -24,12 +33,12 @@ public class Store extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_store);
+        setContentView(R.layout.buddy_tasks_daily);
 
         // BATTLEPLAN GRADIENT
         TextView name = findViewById(R.id.battle);
-        int startColor = Color.rgb(50, 61, 115);
-        int endColor = Color.rgb(94, 132, 243);
+        int startColor = Color.rgb(255, 190, 92);
+        int endColor = Color.rgb(255, 206, 49);
         Shader shader = new LinearGradient(0f, 0f, 0f, name.getTextSize(), startColor, endColor, Shader.TileMode.CLAMP);
         name.getPaint().setShader(shader);
 
@@ -56,19 +65,41 @@ public class Store extends AppCompatActivity {
                 finish();
             }
         });
-    }
 
-    public void openMainActivity2(View view) {
-        startActivity(new Intent(this, MainActivity2.class));
+        createTaskButton = findViewById(R.id.create_daily_task);
+        createTaskButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){ showCreatePopUp(); }
+        });
+
+        //RecyclerView create
+        RecyclerView recyclerView = findViewById(R.id.daily_task_display);
+
+        List<TasksRecycleItems> taskItems = new ArrayList<TasksRecycleItems>();
+        taskItems.add(new TasksRecycleItems("Title 1", "Description 1", "June 1, 2020"));
+        taskItems.add(new TasksRecycleItems("Title 2", "Description 2", "June 2, 2020"));
+        taskItems.add(new TasksRecycleItems("Title 3", "Description 3", "June 3, 2020"));
+
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new TasksRecycleAdapter(getApplicationContext(), taskItems));
+
     }
 
     public void openMainActivity(View view) {
         startActivity(new Intent(this, MainActivity.class));
     }
 
+    public void openMainActivity2(View view) {
+        startActivity(new Intent(this, MainActivity2.class));
+    }
 
     public void openTasksMajor(View view) {
         startActivity(new Intent(this, TasksMajor.class));
+    }
+
+    public void openTasksDaily(View view) {
+        startActivity(new Intent(this, TasksDaily.class));
     }
 
     public void openProfile(View view) {
@@ -77,6 +108,12 @@ public class Store extends AppCompatActivity {
 
     public void openBattlePass(View view) {
         startActivity(new Intent(this, BattlePass.class));
+    }
+
+    private void showCreatePopUp() {
+        Dialog popUp = new Dialog(this, R.style.DialogStyle);
+        popUp.setContentView(R.layout.activity_tasks_create);
+        popUp.show();
     }
 
     // BUDDY NAVIGATION
@@ -88,8 +125,12 @@ public class Store extends AppCompatActivity {
         startActivity(new Intent(this, BuddyMainActivity.class));
     }
 
-    public void openBuddyTasks(View view) {
-        startActivity(new Intent(this, BuddyTasks.class));
+    public void openBuddyTasksDaily(View view) {
+        startActivity(new Intent(this, BuddyTasksDaily.class));
+    }
+
+    public void openBuddyTasksMajor(View view) {
+        startActivity(new Intent(this, BuddyTasksMajor.class));
     }
 
     public void openBuddyBattlePass(View view) {
@@ -101,12 +142,10 @@ public class Store extends AppCompatActivity {
     }
 
     public void openBuddyStore(View view) {
-        startActivity(new Intent(this, BuddyStore.class));
+        startActivity(new Intent(this, BuddyRewardsSoft.class));
     }
 
     public void openBuddyBadges(View view) {
         startActivity(new Intent(this, BuddyBadges.class));
     }
-
-
 }

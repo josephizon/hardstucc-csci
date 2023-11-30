@@ -129,6 +129,10 @@ public class RewardsHard extends AppCompatActivity {
         startActivity(new Intent(this, TasksMajor.class));
     }
 
+    public void openTasksDaily(View view) {
+        startActivity(new Intent(this, TasksDaily.class));
+    }
+
     public void openProfile(View view) {
         startActivity(new Intent(this, Profile.class));
     }
@@ -155,7 +159,7 @@ public class RewardsHard extends AppCompatActivity {
     }
 
     public void openBuddyTasks(View view) {
-        startActivity(new Intent(this, BuddyTasks.class));
+        startActivity(new Intent(this, BuddyTasksDaily.class));
     }
 
     public void openBuddyBattlePass(View view) {

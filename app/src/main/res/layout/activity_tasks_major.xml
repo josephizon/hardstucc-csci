@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_centerVertical="true"
-            android:fontFamily="@font/epilogue"
+            android:fontFamily="@font/epilogue_black"
             android:text="@string/battle_plan"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -179,7 +179,7 @@
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="6dp"
-                android:onClick="openTasksMajor"
+                android:onClick="openTasksDaily"
                 android:src="@drawable/nav_task"
 
                 />
@@ -206,7 +206,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
                 android:src="@drawable/nav_buddy"
-                android:onClick="openBuddyTasks"/>
+                android:onClick="openBuddyTasksMajor"/>
 
             <TextView
                 android:layout_width="wrap_content"

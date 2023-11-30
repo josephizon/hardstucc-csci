@@ -1,9 +1,5 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,6 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -28,7 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TasksMajor extends AppCompatActivity {
+public class BuddyTasksMajor extends AppCompatActivity {
 
     FirebaseAuth auth;
     Button button, createTaskButton;
@@ -42,12 +42,12 @@ public class TasksMajor extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tasks_major);
+        setContentView(R.layout.buddy_tasks_major);
 
         // BATTLEPLAN GRADIENT
         TextView name = findViewById(R.id.battle);
-        int startColor = Color.rgb(50, 61, 115);
-        int endColor = Color.rgb(94, 132, 243);
+        int startColor = Color.rgb(255, 190, 92);
+        int endColor = Color.rgb(255, 206, 49);
         Shader shader = new LinearGradient(0f, 0f, 0f, name.getTextSize(), startColor, endColor, Shader.TileMode.CLAMP);
         name.getPaint().setShader(shader);
 
@@ -183,7 +183,7 @@ public class TasksMajor extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-                    Toast.makeText(TasksMajor.this, "Failed to fetch tasks: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BuddyTasksMajor.this, "Failed to fetch tasks: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -197,13 +197,14 @@ public class TasksMajor extends AppCompatActivity {
         startActivity(new Intent(this, BuddyMainActivity.class));
     }
 
-    public void openBuddyTasks(View view) {
+    public void openBuddyTasksDaily(View view) {
         startActivity(new Intent(this, BuddyTasksDaily.class));
     }
 
     public void openBuddyTasksMajor(View view) {
         startActivity(new Intent(this, BuddyTasksMajor.class));
     }
+
 
     public void openBuddyBattlePass(View view) {
         startActivity(new Intent(this, BuddyBattlePass.class));
