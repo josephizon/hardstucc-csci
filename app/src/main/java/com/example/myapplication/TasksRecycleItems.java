@@ -3,9 +3,6 @@ package com.example.myapplication;
 public class TasksRecycleItems {
 
     String taskName;
-
-
-
     String taskDescription;
     String taskDeadline;
 

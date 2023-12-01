@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,12 +16,18 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BattlePass extends AppCompatActivity {
 
     FirebaseAuth auth;
     Button button;
     TextView textView;
+    RecyclerView recyclerView;
+    List<BattlePassRecycleItems> battlepassItems;
     FirebaseUser user;
+    BattlePassRecycleAdapter battlePassRecycleAdapter;
 
 
     @Override
@@ -57,6 +65,13 @@ public class BattlePass extends AppCompatActivity {
                 finish();
             }
         });
+
+        recyclerView = findViewById(R.id.battlepass_recycler);
+        battlepassItems =new ArrayList<>();
+
+        battlePassRecycleAdapter = new BattlePassRecycleAdapter((getApplicationContext()), battlepassItems);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(battlePassRecycleAdapter);
     }
 
     public void openMainActivity2(View view) {
