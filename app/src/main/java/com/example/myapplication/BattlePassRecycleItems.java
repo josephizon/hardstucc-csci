@@ -9,11 +9,13 @@ public class BattlePassRecycleItems {
     String itemName;
     int itemProgress;
     int itemImage;
+    int itemLevel;
 
-    public BattlePassRecycleItems(String itemName, int itemProgress, int itemImage) {
+    public BattlePassRecycleItems(String itemName, int itemProgress, int itemImage, int itemLevel) {
         this.itemName = itemName;
         this.itemProgress = itemProgress;
         this.itemImage = itemImage;
+        this.itemLevel = itemLevel;
     }
 
     public String getItemName() {
@@ -37,6 +39,15 @@ public class BattlePassRecycleItems {
     }
 
     public void setItemImage(int itemImage) {
-        this.itemImage = itemImage;
+        this.itemProgress = itemImage;
     }
+
+    public int getItemLevel() {
+        return itemLevel;
+    }
+
+    public void setItemLevel(int itemLevel) {
+        this.itemLevel = itemLevel;
+    }
+
 }

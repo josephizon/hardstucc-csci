@@ -69,6 +69,22 @@ public class BattlePass extends AppCompatActivity {
         recyclerView = findViewById(R.id.battlepass_recycler);
         battlepassItems =new ArrayList<>();
 
+        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.rewards_profile_icon_2, R.drawable.rewards_profile_icon_1, 1));
+        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.rewards_profile_icon_2, R.drawable.rewards_profile_icon_1, 2));
+        battlepassItems.add(new BattlePassRecycleItems("Badge", R.drawable.rewards_profile_icon_2, R.drawable.rewards_profile_icon_1, 3));
+        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.rewards_profile_icon_2, R.drawable.rewards_profile_icon_1, 4));
+        battlepassItems.add(new BattlePassRecycleItems("(Hard Reward), 150 Coins", R.drawable.rewards_profile_icon_2, R.drawable.rewards_profile_icon_1, 5));
+        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.rewards_profile_icon_2, R.drawable.rewards_profile_icon_1, 6));
+        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.rewards_profile_icon_2, R.drawable.rewards_profile_icon_1, 7));
+        battlepassItems.add(new BattlePassRecycleItems("Badge", R.drawable.rewards_profile_icon_2, R.drawable.rewards_profile_icon_1, 8));
+        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.rewards_profile_icon_2, R.drawable.rewards_profile_icon_1, 9));
+        battlepassItems.add(new BattlePassRecycleItems("(Hard Reward), 150 Coins", R.drawable.rewards_profile_icon_2, R.drawable.rewards_profile_icon_1, 10));
+        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.rewards_profile_icon_2, R.drawable.rewards_profile_icon_1, 11));
+        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.rewards_profile_icon_2, R.drawable.rewards_profile_icon_1, 12));
+        battlepassItems.add(new BattlePassRecycleItems("Badge", R.drawable.rewards_profile_icon_2, R.drawable.rewards_profile_icon_1, 13));
+        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.rewards_profile_icon_2, R.drawable.rewards_profile_icon_1, 14));
+        battlepassItems.add(new BattlePassRecycleItems("(Hard Reward), 500 Coins, \nBadge", R.drawable.rewards_profile_icon_2, R.drawable.rewards_profile_icon_1, 15));
+
         battlePassRecycleAdapter = new BattlePassRecycleAdapter((getApplicationContext()), battlepassItems);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(battlePassRecycleAdapter);

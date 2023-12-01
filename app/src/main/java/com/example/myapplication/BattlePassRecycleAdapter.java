@@ -28,7 +28,7 @@ public class BattlePassRecycleAdapter extends RecyclerView.Adapter<BattlePassRec
     @Override
     public void onBindViewHolder(@NonNull BattlePassRecycleView holder, int position) {
         holder.itemName.setText(items.get(position).getItemName());
-        holder.itemProgress.setProgress(items.get(position).getItemProgress());
+        holder.itemProgress.setImageResource(items.get(position).getItemProgress());
         holder.itemImage.setImageResource(items.get(position).getItemImage());
     }
 

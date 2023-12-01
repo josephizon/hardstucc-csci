@@ -24,7 +24,7 @@
 
             <ImageView
                 android:id="@+id/reward_image"
-                android:layout_width="88dp"
+                android:layout_width="50dp"
                 android:layout_height="75dp"
                 android:layout_gravity="center|left" />
 
@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
-                android:layout_weight="1"
+                android:layout_weight="0"
                 android:orientation="vertical">
 
                 <TextView
@@ -47,26 +47,21 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/epilogue_black"
                     android:text="Finish Exercise 4"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/reward_requirement"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:fontFamily="@font/epilogue_black"
-                    android:text="Deadline: December 10, 2023"
-                    android:textSize="12sp" />
             </LinearLayout>
 
-            <ProgressBar
-                android:id="@+id/reward_progress"
-                style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
+            <Space
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/reward_progress"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center|right" />
 
         </LinearLayout>
 

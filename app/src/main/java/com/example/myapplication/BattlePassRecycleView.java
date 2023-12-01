@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class BattlePassRecycleView extends RecyclerView.ViewHolder{
     TextView itemName;
-    ProgressBar itemProgress;
+    ImageView itemProgress;
     ImageView itemImage;
 
     public BattlePassRecycleView(@NonNull View itemView){
