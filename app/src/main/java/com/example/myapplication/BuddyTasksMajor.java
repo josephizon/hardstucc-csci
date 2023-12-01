@@ -1,5 +1,9 @@
 package com.example.myapplication;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,10 +16,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -46,8 +46,8 @@ public class BuddyTasksMajor extends AppCompatActivity {
 
         // BATTLEPLAN GRADIENT
         TextView name = findViewById(R.id.battle);
-        int startColor = Color.rgb(255, 190, 92);
-        int endColor = Color.rgb(255, 206, 49);
+        int startColor = Color.rgb(50, 61, 115);
+        int endColor = Color.rgb(94, 132, 243);
         Shader shader = new LinearGradient(0f, 0f, 0f, name.getTextSize(), startColor, endColor, Shader.TileMode.CLAMP);
         name.getPaint().setShader(shader);
 
@@ -60,16 +60,12 @@ public class BuddyTasksMajor extends AppCompatActivity {
         } else {
             databaseReference = FirebaseDatabase.getInstance().getReference("Registered Users")
                     .child(user.getUid())
-                    .child("MajorTasks");
+                    .child("buddyUid")
+                    .child("Tasks");
         }
 
         createTaskButton = findViewById(R.id.create_major_task);
-        createTaskButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showCreatePopUp();
-            }
-        });
+
 
         recyclerView = findViewById(R.id.major_task_display);
         taskItems = new ArrayList<>();
@@ -107,57 +103,7 @@ public class BuddyTasksMajor extends AppCompatActivity {
         startActivity(new Intent(this, BattlePass.class));
     }
 
-    private void showCreatePopUp() {
-        Dialog popUp = new Dialog(this, R.style.DialogStyle);
-        popUp.setContentView(R.layout.activity_tasks_create);
 
-        editTaskName = popUp.findViewById(R.id.task_name_input);
-        editTaskDescription = popUp.findViewById(R.id.task_description_input);
-        editTaskDeadline = popUp.findViewById(R.id.task_deadline_input);
-        editTaskType = popUp.findViewById(R.id.task_type_input);
-
-        Button saveTaskButton = popUp.findViewById(R.id.saveTaskButton);
-        saveTaskButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createTask(
-                        editTaskName.getText().toString(),
-                        editTaskDescription.getText().toString(),
-                        editTaskDeadline.getText().toString(),
-                        editTaskType.getText().toString()
-                );
-
-                // Close the popup if needed
-                popUp.dismiss();
-            }
-        });
-
-        // CLOSE BUTTON FOR POP UP CUSTOMIZATION
-        ImageView btnClose = popUp.findViewById(R.id.exitCreateTaskButton);
-
-        btnClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                popUp.dismiss();
-            }
-        });
-
-        popUp.show();
-    }
-
-    private void createTask(String name, String description, String deadline, String type) {
-        // Generate a unique ID for the task
-        String taskId = databaseReference.push().getKey();
-
-        // Create a new Tasks object
-        Tasks task = new Tasks(name, description, deadline, type);
-
-        // Add the task to the database under the user's node
-        databaseReference.child(taskId).setValue(task);
-
-        // Provide feedback to the user (optional)
-        Toast.makeText(this, "Task created successfully", Toast.LENGTH_SHORT).show();
-    }
     private void fetchTasksFromDatabase() {
         if (user != null && databaseReference != null) {
             databaseReference.addValueEventListener(new ValueEventListener() {
@@ -168,7 +114,7 @@ public class BuddyTasksMajor extends AppCompatActivity {
                     for (DataSnapshot taskSnapshot : dataSnapshot.getChildren()) {
                         Tasks task = taskSnapshot.getValue(Tasks.class);
 
-                        if (task != null) {
+                        if (task != null && "major".equalsIgnoreCase(task.getType())) {
                             TasksRecycleItems recycleItem = new TasksRecycleItems(
                                     task.getName(),
                                     task.getDescription(),
@@ -198,14 +144,13 @@ public class BuddyTasksMajor extends AppCompatActivity {
         startActivity(new Intent(this, BuddyMainActivity.class));
     }
 
-    public void openBuddyTasksDaily(View view) {
+    public void openBuddyTasks(View view) {
         startActivity(new Intent(this, BuddyTasksDaily.class));
     }
 
     public void openBuddyTasksMajor(View view) {
         startActivity(new Intent(this, BuddyTasksMajor.class));
     }
-
 
     public void openBuddyBattlePass(View view) {
         startActivity(new Intent(this, BuddyBattlePass.class));
