@@ -29,7 +29,7 @@
                 android:id="@+id/major_title_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/epilogue"
+                android:fontFamily="@font/epilogue_black"
                 android:text="Finish Exercise 4"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/epilogue"
+                android:fontFamily="@font/epilogue_black"
                 android:text="Exercise 4 talks about the different possibilities of words I can place in this sentence to make it look long."
                 android:textSize="15sp" />
 
@@ -48,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:fontFamily="@font/epilogue"
+                android:fontFamily="@font/epilogue_black"
                 android:text="Deadline: December 10, 2023"
                 android:textSize="12sp" />
         </LinearLayout>
