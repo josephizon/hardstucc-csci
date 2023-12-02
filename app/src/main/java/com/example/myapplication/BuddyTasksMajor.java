@@ -35,6 +35,7 @@ public class BuddyTasksMajor extends AppCompatActivity {
     EditText editTaskName, editTaskDescription, editTaskDeadline, editTaskType;
     FirebaseUser user;
     DatabaseReference databaseReference;
+    DatabaseReference buddydatabaseReference;
     RecyclerView recyclerView;
     List<TasksRecycleItems> taskItems;
     TasksRecycleAdapter tasksRecycleAdapter;
@@ -58,10 +59,32 @@ public class BuddyTasksMajor extends AppCompatActivity {
             // Handle the case where the user is not logged in
             // You may want to redirect them to the login screen
         } else {
-            databaseReference = FirebaseDatabase.getInstance().getReference("Registered Users")
-                    .child(user.getUid())
-                    .child("buddyUid")
-                    .child("Tasks");
+            DatabaseReference userReference = FirebaseDatabase.getInstance().getReference("Registered Users")
+                    .child(user.getUid());
+
+            userReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists() && dataSnapshot.hasChild("buddyUid")) {
+                        String buddyUid = dataSnapshot.child("buddyUid").getValue(String.class);
+
+                        if (buddyUid != null) {
+                            // Now you have the dynamic buddyUid, use it to fetch tasks
+                            databaseReference = FirebaseDatabase.getInstance().getReference("Registered Users")
+                                    .child(buddyUid)
+                                    .child("Tasks");
+
+                            // Fetch tasks from the database
+                            fetchTasksFromDatabase();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Toast.makeText(BuddyTasksMajor.this, "Failed to fetch buddyUid: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
         createTaskButton = findViewById(R.id.create_major_task);
