@@ -42,7 +42,7 @@ public class BuddyTasksDaily extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tasks_daily);
+        setContentView(R.layout.buddy_tasks_daily);
 
         // BATTLEPLAN GRADIENT
         TextView name = findViewById(R.id.battle);
