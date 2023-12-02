@@ -198,7 +198,7 @@ public class TasksDaily extends AppCompatActivity {
         startActivity(new Intent(this, BuddyMainActivity.class));
     }
 
-    public void openBuddyTasks(View view) {
+    public void openBuddyTasksDaily(View view) {
         startActivity(new Intent(this, BuddyTasksDaily.class));
     }
 
