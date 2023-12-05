@@ -29,6 +29,8 @@ public class TasksRecycleAdapter extends RecyclerView.Adapter<TasksRecycleView>{
         holder.taskTitle.setText(items.get(position).getTaskName());
         holder.taskDescription.setText(items.get(position).getTaskDescription());
         holder.taskDeadline.setText(items.get(position).getTaskDeadline());
+        holder.taskStatus.setText(items.get(position).getTaskStatus());
+
     }
 
     @Override

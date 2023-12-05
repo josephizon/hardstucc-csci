@@ -5,11 +5,13 @@ public class TasksRecycleItems {
     String taskName;
     String taskDescription;
     String taskDeadline;
+    String taskStatus;
 
     public TasksRecycleItems(String taskName, String taskDescription, String taskDeadline) {
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.taskDeadline = taskDeadline;
+        this.taskStatus = taskStatus;
     }
 
     public String getTaskName() {
@@ -30,6 +32,13 @@ public class TasksRecycleItems {
     }
     public void setTaskDeadline(String taskDeadline) {
         this.taskDeadline = taskDeadline;
+    }
+    public String getTaskStatus() {
+        return taskStatus;
+    }
+
+    public void setTaskStatus(String taskStatus) {
+        this.taskStatus = taskStatus;
     }
 
 }
