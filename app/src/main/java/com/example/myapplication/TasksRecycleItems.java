@@ -6,12 +6,22 @@ public class TasksRecycleItems {
     String taskDescription;
     String taskDeadline;
     String taskStatus;
+    String taskId;
 
-    public TasksRecycleItems(String taskName, String taskDescription, String taskDeadline) {
+    public TasksRecycleItems(String taskName, String taskDescription, String taskDeadline, String taskStatus, String taskId) {
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.taskDeadline = taskDeadline;
         this.taskStatus = taskStatus;
+        this.taskId = taskId;
+    }
+
+    public String getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
     }
 
     public String getTaskName() {

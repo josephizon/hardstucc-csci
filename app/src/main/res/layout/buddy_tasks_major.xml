@@ -122,7 +122,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/major_task_display"
                 android:layout_width="match_parent"
-                android:layout_height="482dp"
+                android:layout_height="wrap_content"
                 android:clipToPadding="false"
                 android:scrollbars="vertical"
                 tools:listitem="@layout/activity_tasks_recycle_view">
@@ -138,6 +138,7 @@
                 android:height="50dp"
                 android:backgroundTint="@color/orange"
                 android:text="Create Tasks"
+                android:visibility="gone"
                 android:textColor="@color/white" />
 
         </LinearLayout>

@@ -74,14 +74,16 @@ public class TasksMajor extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.major_task_display);
         taskItems = new ArrayList<>();
+        // Fetch tasks from the database
+        fetchTasksFromDatabase();
+        boolean isBuddyPage = false;
 
         // Initialize RecyclerView adapter
-        tasksRecycleAdapter = new TasksRecycleAdapter(getApplicationContext(), taskItems);
+        tasksRecycleAdapter = new TasksRecycleAdapter(getApplicationContext(), taskItems, isBuddyPage, user);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(tasksRecycleAdapter);
 
-        // Fetch tasks from the database
-        fetchTasksFromDatabase();
+
     }
 
     public void openMainActivity2(View view) {
@@ -163,7 +165,7 @@ public class TasksMajor extends AppCompatActivity {
         String taskId = databaseReference.push().getKey();
 
         // Create a new Tasks object
-        Tasks task = new Tasks(name, description, deadline, type);
+        Tasks task = new Tasks(name, description, deadline, type, "To be Accomplished", taskId);
 
         // Add the task to the database under the user's node
         databaseReference.child(taskId).setValue(task);
@@ -185,7 +187,9 @@ public class TasksMajor extends AppCompatActivity {
                             TasksRecycleItems recycleItem = new TasksRecycleItems(
                                     task.getName(),
                                     task.getDescription(),
-                                    task.getDeadline()
+                                    task.getDeadline(),
+                                    task.getStatus(),
+                                    task.getTaskId()
                             );
                             taskItems.add(recycleItem);
                         }

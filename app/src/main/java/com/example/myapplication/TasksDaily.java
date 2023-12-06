@@ -74,15 +74,19 @@ public class TasksDaily extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.daily_task_display);
         taskItems = new ArrayList<>();
-
+        fetchTasksFromDatabase();
         // Initialize RecyclerView adapter
-        tasksRecycleAdapter = new TasksRecycleAdapter(getApplicationContext(), taskItems);
+        tasksRecycleAdapter = new TasksRecycleAdapter(getApplicationContext(), taskItems, false, user);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(tasksRecycleAdapter);
 
-        // Fetch tasks from the database
-        fetchTasksFromDatabase();
+
+        // Set up a click listener for the adapter to handle button clicks
+
     }
+
+
+
 
     public void openMainActivity2(View view) {
         startActivity(new Intent(this, MainActivity2.class));
@@ -163,7 +167,7 @@ public class TasksDaily extends AppCompatActivity {
         String taskId = databaseReference.push().getKey();
 
         // Create a new Tasks object
-        Tasks task = new Tasks(name, description, deadline, type);
+        Tasks task = new Tasks(name, description, deadline, type, "To be Accomplished", taskId);
 
         // Add the task to the database under the user's node
         databaseReference.child(taskId).setValue(task);
@@ -185,7 +189,9 @@ public class TasksDaily extends AppCompatActivity {
                             TasksRecycleItems recycleItem = new TasksRecycleItems(
                                     task.getName(),
                                     task.getDescription(),
-                                    task.getDeadline()
+                                    task.getDeadline(),
+                                    task.getStatus(),
+                                    task.getTaskId()
                             );
                             taskItems.add(recycleItem);
                         }

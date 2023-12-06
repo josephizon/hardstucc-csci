@@ -73,6 +73,15 @@ public class BuddyTasksDaily extends AppCompatActivity {
                             databaseReference = FirebaseDatabase.getInstance().getReference("Registered Users")
                                     .child(buddyUid)
                                     .child("Tasks");
+                            recyclerView = findViewById(R.id.daily_task_display);
+                            taskItems = new ArrayList<>();
+                            // Determine whether it's a buddy page or not
+                            boolean isBuddyPage = true; // Set this flag accordingly
+
+                            // Initialize RecyclerView adapter
+                            tasksRecycleAdapter = new TasksRecycleAdapter(getApplicationContext(), taskItems, isBuddyPage, user);
+                            recyclerView.setLayoutManager(new LinearLayoutManager(BuddyTasksDaily.this));
+                            recyclerView.setAdapter(tasksRecycleAdapter);
 
                             // Fetch tasks from the database
                             fetchTasksFromDatabase();
@@ -87,24 +96,6 @@ public class BuddyTasksDaily extends AppCompatActivity {
             });
         }
 
-        createTaskButton = findViewById(R.id.create_daily_task);
-        createTaskButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showCreatePopUp();
-            }
-        });
-
-        recyclerView = findViewById(R.id.daily_task_display);
-        taskItems = new ArrayList<>();
-
-        // Initialize RecyclerView adapter
-        tasksRecycleAdapter = new TasksRecycleAdapter(getApplicationContext(), taskItems);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(tasksRecycleAdapter);
-
-        // Fetch tasks from the database
-        fetchTasksFromDatabase();
     }
 
     public void openMainActivity(View view) {
@@ -131,57 +122,6 @@ public class BuddyTasksDaily extends AppCompatActivity {
         startActivity(new Intent(this, BattlePass.class));
     }
 
-    private void showCreatePopUp() {
-        Dialog popUp = new Dialog(this, R.style.DialogStyle);
-        popUp.setContentView(R.layout.activity_tasks_create);
-
-        editTaskName = popUp.findViewById(R.id.task_name_input);
-        editTaskDescription = popUp.findViewById(R.id.task_description_input);
-        editTaskDeadline = popUp.findViewById(R.id.task_deadline_input);
-        editTaskType = popUp.findViewById(R.id.task_type_input);
-
-        Button saveTaskButton = popUp.findViewById(R.id.saveTaskButton);
-        saveTaskButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createTask(
-                        editTaskName.getText().toString(),
-                        editTaskDescription.getText().toString(),
-                        editTaskDeadline.getText().toString(),
-                        editTaskType.getText().toString()
-                );
-
-                // Close the popup if needed
-                popUp.dismiss();
-            }
-        });
-
-        // CLOSE BUTTON FOR POP UP CUSTOMIZATION
-        ImageView btnClose = popUp.findViewById(R.id.exitCreateTaskButton);
-
-        btnClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                popUp.dismiss();
-            }
-        });
-
-        popUp.show();
-    }
-
-    private void createTask(String name, String description, String deadline, String type) {
-        // Generate a unique ID for the task
-        String taskId = databaseReference.push().getKey();
-
-        // Create a new Tasks object
-        Tasks task = new Tasks(name, description, deadline, type);
-
-        // Add the task to the database under the user's node
-        databaseReference.child(taskId).setValue(task);
-
-        // Provide feedback to the user (optional)
-        Toast.makeText(this, "Task created successfully", Toast.LENGTH_SHORT).show();
-    }
     private void fetchTasksFromDatabase() {
         if (user != null && databaseReference != null) {
             databaseReference.addValueEventListener(new ValueEventListener() {
@@ -196,7 +136,9 @@ public class BuddyTasksDaily extends AppCompatActivity {
                             TasksRecycleItems recycleItem = new TasksRecycleItems(
                                     task.getName(),
                                     task.getDescription(),
-                                    task.getDeadline()
+                                    task.getDeadline(),
+                                    task.getStatus(),
+                                    task.getTaskId()
                             );
                             taskItems.add(recycleItem);
                         }

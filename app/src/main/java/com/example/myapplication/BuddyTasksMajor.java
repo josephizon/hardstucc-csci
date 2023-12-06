@@ -95,7 +95,7 @@ public class BuddyTasksMajor extends AppCompatActivity {
         taskItems = new ArrayList<>();
 
         // Initialize RecyclerView adapter
-        tasksRecycleAdapter = new TasksRecycleAdapter(getApplicationContext(), taskItems);
+        tasksRecycleAdapter = new TasksRecycleAdapter(getApplicationContext(), taskItems, true, user);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(tasksRecycleAdapter);
 
@@ -142,7 +142,9 @@ public class BuddyTasksMajor extends AppCompatActivity {
                             TasksRecycleItems recycleItem = new TasksRecycleItems(
                                     task.getName(),
                                     task.getDescription(),
-                                    task.getDeadline()
+                                    task.getDeadline(),
+                                    task.getStatus(),
+                                    task.getTaskId()
                             );
                             taskItems.add(recycleItem);
                         }
