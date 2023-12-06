@@ -31,7 +31,8 @@ import java.util.List;
 public class BuddyTasksDaily extends AppCompatActivity {
 
     FirebaseAuth auth;
-    Button button, createTaskButton;
+    Button createTaskButton;
+    ImageView button;
     EditText editTaskName, editTaskDescription, editTaskDeadline, editTaskType;
     FirebaseUser user;
     DatabaseReference databaseReference;

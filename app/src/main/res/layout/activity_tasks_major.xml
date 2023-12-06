@@ -36,14 +36,25 @@
 
             />
 
-        <Button
+        <ImageView
+            android:onClick="openMainActivity"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_toLeftOf="@+id/logout"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/nav_home"
+            />
+
+        <ImageView
             android:id="@+id/logout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
-            android:text="Log out" />
+            android:src="@drawable/nav_log_out"
+            />
 
     </RelativeLayout>
     <!-- HEADER LAYOUT END -->
@@ -144,61 +155,13 @@
         android:layout_width="match_parent"
         android:layout_height="59dp"
         android:background="@color/white"
-        android:gravity="center">
+        android:gravity="center"
+        >
 
         <RelativeLayout
             android:layout_width="60dp"
-            android:layout_height="55dp">
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="6dp"
-                android:onClick="openMainActivity"
-                android:src="@drawable/nav_home" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:fontFamily="@font/inter"
-                android:text="HOME"
-                android:textColor="@color/orange"
-                android:textSize="10sp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="60dp"
-            android:layout_height="55dp">
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="6dp"
-                android:onClick="openTasksDaily"
-                android:src="@drawable/nav_task"
-
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:fontFamily="@font/inter"
-                android:text="TASKS"
-                android:textColor="@color/orange"
-                android:textSize="10sp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="60dp"
-            android:layout_height="55dp">
+            android:layout_height="55dp"
+            >
 
             <ImageView
                 android:layout_width="40dp"
@@ -206,67 +169,157 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
                 android:src="@drawable/nav_buddy"
-                android:onClick="openBuddyTasksMajor"/>
+                android:onClick="openBuddyTasksMajor"
+
+                />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
                 android:fontFamily="@font/inter"
                 android:text="BUDDY"
                 android:textColor="@color/orange"
-                android:textSize="10sp" />
+                android:textSize="10sp"
+                />
 
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="60dp"
-            android:layout_height="55dp">
+            android:layout_height="55dp"
+            >
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/nav_tasks"
+                android:onClick="openTasksDaily"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/inter"
+                android:text="TASKS"
+                android:textColor="@color/orange"
+                android:textSize="10sp"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="60dp"
+            android:layout_height="55dp"
+            >
 
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/nav_battlepass"
                 android:onClick="openBattlePass"
-                android:src="@drawable/nav_battlepass" />
+                />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
                 android:fontFamily="@font/inter"
                 android:text="BATTLEPASS"
                 android:textColor="@color/orange"
-                android:textSize="9sp" />
+                android:textSize="9sp"
+                />
 
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="60dp"
-            android:layout_height="55dp">
+            android:layout_height="55dp"
+            >
 
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="6dp"
-                android:onClick="openProfile"
-                android:src="@drawable/nav_profile" />
+                android:layout_marginTop="4dp"
+                android:src="@drawable/nav_rewards_store"
+                android:onClick="openRewardsSoft"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/inter"
+                android:text="STORE"
+                android:textColor="@color/orange"
+                android:textSize="10sp"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="60dp"
+            android:layout_height="55dp"
+            >
+
+            <ImageView
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/nav_badges"
+                android:onClick="openBadges"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/inter"
+                android:text="BADGES"
+                android:textColor="@color/orange"
+                android:textSize="10sp"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="60dp"
+            android:layout_height="55dp"
+            >
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/nav_profile"
+                android:onClick="openProfile"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
                 android:fontFamily="@font/inter"
                 android:text="PROFILE"
                 android:textColor="@color/orange"
-                android:textSize="10sp" />
+                android:textSize="10sp"
+                />
 
         </RelativeLayout>
+
 
     </LinearLayout>
 

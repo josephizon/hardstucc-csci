@@ -25,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 public class Profile extends AppCompatActivity {
 
     FirebaseAuth auth;
-    Button button;
+    ImageView button;
     FirebaseUser user;
     TextView profileUsernameTextView;
 
@@ -129,6 +129,18 @@ public class Profile extends AppCompatActivity {
 
     public void openBattlePass(View view) {
         startActivity(new Intent(this, BattlePass.class));
+    }
+
+    public void openBadges(View view) {
+        startActivity(new Intent(this, Badges.class));
+    }
+
+    public void openRewardsSoft(View view) {
+        startActivity(new Intent(this, RewardsSoft.class));
+    }
+
+    public void openRewardsHard(View view) {
+        startActivity(new Intent(this, RewardsHard.class));
     }
 
     private void showDialog() {

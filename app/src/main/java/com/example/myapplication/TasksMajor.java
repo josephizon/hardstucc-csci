@@ -31,7 +31,8 @@ import java.util.List;
 public class TasksMajor extends AppCompatActivity {
 
     FirebaseAuth auth;
-    Button button, createTaskButton;
+    Button createTaskButton;
+    ImageView button;
     EditText editTaskName, editTaskDescription, editTaskDeadline, editTaskType;
     FirebaseUser user;
     DatabaseReference databaseReference;
@@ -83,12 +84,12 @@ public class TasksMajor extends AppCompatActivity {
         fetchTasksFromDatabase();
     }
 
-    public void openMainActivity(View view) {
-        startActivity(new Intent(this, MainActivity.class));
-    }
-
     public void openMainActivity2(View view) {
         startActivity(new Intent(this, MainActivity2.class));
+    }
+
+    public void openMainActivity(View view) {
+        startActivity(new Intent(this, MainActivity.class));
     }
 
     public void openTasksMajor(View view) {
@@ -105,6 +106,18 @@ public class TasksMajor extends AppCompatActivity {
 
     public void openBattlePass(View view) {
         startActivity(new Intent(this, BattlePass.class));
+    }
+
+    public void openBadges(View view) {
+        startActivity(new Intent(this, Badges.class));
+    }
+
+    public void openRewardsSoft(View view) {
+        startActivity(new Intent(this, RewardsSoft.class));
+    }
+
+    public void openRewardsHard(View view) {
+        startActivity(new Intent(this, RewardsHard.class));
     }
 
     private void showCreatePopUp() {

@@ -9,6 +9,7 @@ import android.graphics.Shader;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,7 +17,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class RewardsSoft extends AppCompatActivity {
     FirebaseAuth auth;
-    Button button;
+    ImageView button;
     TextView textView;
     FirebaseUser user;
 
@@ -73,7 +74,6 @@ public class RewardsSoft extends AppCompatActivity {
         startActivity(new Intent(this, MainActivity.class));
     }
 
-
     public void openTasksMajor(View view) {
         startActivity(new Intent(this, TasksMajor.class));
     }
@@ -88,6 +88,10 @@ public class RewardsSoft extends AppCompatActivity {
 
     public void openBattlePass(View view) {
         startActivity(new Intent(this, BattlePass.class));
+    }
+
+    public void openBadges(View view) {
+        startActivity(new Intent(this, Badges.class));
     }
 
     public void openRewardsSoft(View view) {

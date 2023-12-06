@@ -23,7 +23,7 @@ import java.util.List;
 
 public class RewardsHard extends AppCompatActivity {
     FirebaseAuth auth;
-    Button button;
+    ImageView button;
     TextView textView;
     FirebaseUser user;
 
@@ -124,7 +124,6 @@ public class RewardsHard extends AppCompatActivity {
         startActivity(new Intent(this, MainActivity.class));
     }
 
-
     public void openTasksMajor(View view) {
         startActivity(new Intent(this, TasksMajor.class));
     }
@@ -139,6 +138,10 @@ public class RewardsHard extends AppCompatActivity {
 
     public void openBattlePass(View view) {
         startActivity(new Intent(this, BattlePass.class));
+    }
+
+    public void openBadges(View view) {
+        startActivity(new Intent(this, Badges.class));
     }
 
     public void openRewardsSoft(View view) {
