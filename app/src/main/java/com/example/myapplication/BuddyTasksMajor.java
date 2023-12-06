@@ -101,6 +101,18 @@ public class BuddyTasksMajor extends AppCompatActivity {
 
         // Fetch tasks from the database
         fetchTasksFromDatabase();
+
+        // LOGOUT BUTTON
+        button = findViewById(R.id.logout);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     public void openMainActivity(View view) {

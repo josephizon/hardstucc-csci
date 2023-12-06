@@ -83,6 +83,18 @@ public class TasksDaily extends AppCompatActivity {
 
         // Set up a click listener for the adapter to handle button clicks
 
+        // LOGOUT BUTTON
+        button = findViewById(R.id.logout);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 
 

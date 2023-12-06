@@ -96,6 +96,18 @@ public class BuddyTasksDaily extends AppCompatActivity {
             });
         }
 
+        // LOGOUT BUTTON
+        button = findViewById(R.id.logout);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 
     public void openMainActivity(View view) {
@@ -187,4 +199,6 @@ public class BuddyTasksDaily extends AppCompatActivity {
     public void openBuddyBadges(View view) {
         startActivity(new Intent(this, BuddyBadges.class));
     }
+
+
 }
