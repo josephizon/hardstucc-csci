@@ -157,17 +157,25 @@
                 android:textSize="20sp"
                 android:textStyle="normal|bold" />
 
-            <EditText
-                android:id="@+id/task_type_input"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/dirty_white"
-                android:inputType="text"
-                android:textSize="16sp"
-                android:padding="10dp"
-                android:textColor="@color/black"
-                android:hint="Input task type"
-                android:textColorHint="@android:color/darker_gray" />
+                android:hint="@string/select_Task_Type"
+                android:textColorHint="@android:color/darker_gray"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                >
+
+                <AutoCompleteTextView
+                    android:id="@+id/auto_complete_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:inputType="none"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Space
                 android:layout_width="match_parent"

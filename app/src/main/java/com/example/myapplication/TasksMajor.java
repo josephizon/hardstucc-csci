@@ -11,6 +11,9 @@ import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -39,6 +42,9 @@ public class TasksMajor extends AppCompatActivity {
     RecyclerView recyclerView;
     List<TasksRecycleItems> taskItems;
     TasksRecycleAdapter tasksRecycleAdapter;
+    String[] taskType = { "Daily", "Major" };
+    AutoCompleteTextView autoCompleteTextView;
+    ArrayAdapter<String> adapterItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,7 +147,18 @@ public class TasksMajor extends AppCompatActivity {
         editTaskName = popUp.findViewById(R.id.task_name_input);
         editTaskDescription = popUp.findViewById(R.id.task_description_input);
         editTaskDeadline = popUp.findViewById(R.id.task_deadline_input);
-        editTaskType = popUp.findViewById(R.id.task_type_input);
+        autoCompleteTextView = popUp.findViewById(R.id.auto_complete_txt);
+        adapterItem = new ArrayAdapter<String>(this, R.layout.activity_tasks_dropdown, taskType);
+
+        autoCompleteTextView.setAdapter(adapterItem);
+        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String item = adapterView.getItemAtPosition(i).toString();
+                Toast.makeText(TasksMajor.this, "Item: " + item, Toast.LENGTH_SHORT).show();
+            }
+        });
+        editTaskType = popUp.findViewById(R.id.auto_complete_txt);
 
         Button saveTaskButton = popUp.findViewById(R.id.saveTaskButton);
         saveTaskButton.setOnClickListener(new View.OnClickListener() {
