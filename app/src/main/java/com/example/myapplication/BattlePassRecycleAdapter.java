@@ -30,6 +30,8 @@ public class BattlePassRecycleAdapter extends RecyclerView.Adapter<BattlePassRec
         holder.itemName.setText(items.get(position).getItemName());
         holder.itemProgress.setImageResource(items.get(position).getItemProgress());
         holder.itemImage.setImageResource(items.get(position).getItemImage());
+        holder.itemLevel.setText(String.valueOf(items.get(position).getItemLevel()));
+
     }
 
     @Override

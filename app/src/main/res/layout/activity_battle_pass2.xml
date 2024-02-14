@@ -69,17 +69,37 @@
         android:paddingRight="15dp">
 
 
+        <!-- BATTLEPASS TITLE -->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="80dp">
 
-            <TextView
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:fontFamily="@font/epilogue_black"
-                android:text="BATTLE PASS "
-                android:textSize="40sp" />
+
+                android:layout_centerInParent="true">
+
+                <ImageView
+                    android:id="@+id/battlepass_icon"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/battlepass_title_icon" />
+
+                <TextView
+                    android:id="@+id/title_battlepass"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/battlepass_icon"
+                    android:fontFamily="@font/epilogue_black"
+                    android:text="Battle Pass"
+                    android:textColor="@color/orange"
+                    android:textSize="40sp"
+                    android:textStyle="bold"
+
+                    />
+
+            </RelativeLayout>
 
 
         </RelativeLayout>

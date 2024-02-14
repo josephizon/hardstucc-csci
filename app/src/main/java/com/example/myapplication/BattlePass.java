@@ -43,6 +43,13 @@ public class BattlePass extends AppCompatActivity {
         Shader shader = new LinearGradient(0f, 0f, 0f, name.getTextSize(), startColor, endColor, Shader.TileMode.CLAMP);
         name.getPaint().setShader(shader);
 
+        // BATTLEPASS TITLE GRADIENT
+        TextView badges = findViewById(R.id.title_battlepass);
+        int orange = Color.rgb(255, 190, 92);
+        int yellow = Color.rgb(255, 206, 49);
+        Shader shader1 = new LinearGradient(0f, 0f, 0f, badges.getTextSize(), orange, yellow, Shader.TileMode.CLAMP);
+        badges.getPaint().setShader(shader1);
+
         // LOGOUT BUTTON CODE
         auth = FirebaseAuth.getInstance();
         button = findViewById(R.id.logout);
@@ -70,21 +77,21 @@ public class BattlePass extends AppCompatActivity {
         recyclerView = findViewById(R.id.battlepass_recycler);
         battlepassItems =new ArrayList<>();
 
-        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.rewards_profile_icon_2, R.drawable.rewards_profile_icon_1, 1));
-        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.rewards_profile_icon_2, R.drawable.rewards_profile_icon_1, 2));
-        battlepassItems.add(new BattlePassRecycleItems("Badge", R.drawable.rewards_profile_icon_2, R.drawable.rewards_profile_icon_1, 3));
-        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.rewards_profile_icon_2, R.drawable.rewards_profile_icon_1, 4));
-        battlepassItems.add(new BattlePassRecycleItems("(Hard Reward), 150 Coins", R.drawable.rewards_profile_icon_2, R.drawable.rewards_profile_icon_1, 5));
-        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.rewards_profile_icon_2, R.drawable.rewards_profile_icon_1, 6));
-        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.rewards_profile_icon_2, R.drawable.rewards_profile_icon_1, 7));
-        battlepassItems.add(new BattlePassRecycleItems("Badge", R.drawable.rewards_profile_icon_2, R.drawable.rewards_profile_icon_1, 8));
-        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.rewards_profile_icon_2, R.drawable.rewards_profile_icon_1, 9));
-        battlepassItems.add(new BattlePassRecycleItems("(Hard Reward), 150 Coins", R.drawable.rewards_profile_icon_2, R.drawable.rewards_profile_icon_1, 10));
-        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.rewards_profile_icon_2, R.drawable.rewards_profile_icon_1, 11));
-        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.rewards_profile_icon_2, R.drawable.rewards_profile_icon_1, 12));
-        battlepassItems.add(new BattlePassRecycleItems("Badge", R.drawable.rewards_profile_icon_2, R.drawable.rewards_profile_icon_1, 13));
-        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.rewards_profile_icon_2, R.drawable.rewards_profile_icon_1, 14));
-        battlepassItems.add(new BattlePassRecycleItems("(Hard Reward), 500 Coins, \nBadge", R.drawable.rewards_profile_icon_2, R.drawable.rewards_profile_icon_1, 15));
+        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.battlepass_locked_icon, R.drawable.battlepass_coins_icon, 1));
+        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.battlepass_locked_icon, R.drawable.battlepass_coins_icon, 2));
+        battlepassItems.add(new BattlePassRecycleItems("Badge", R.drawable.battlepass_locked_icon, R.drawable.rewards_profile_icon_1, 3));
+        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.battlepass_locked_icon, R.drawable.battlepass_coins_icon, 4));
+        battlepassItems.add(new BattlePassRecycleItems("(Hard Reward), 150 Coins", R.drawable.battlepass_locked_icon, R.drawable.battlepass_hard_reward_icon, 5));
+        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.battlepass_locked_icon, R.drawable.battlepass_coins_icon, 6));
+        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.battlepass_locked_icon, R.drawable.battlepass_coins_icon, 7));
+        battlepassItems.add(new BattlePassRecycleItems("Badge", R.drawable.battlepass_locked_icon, R.drawable.rewards_profile_icon_1, 8));
+        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.battlepass_locked_icon, R.drawable.battlepass_coins_icon, 9));
+        battlepassItems.add(new BattlePassRecycleItems("(Hard Reward), 150 Coins", R.drawable.battlepass_locked_icon, R.drawable.battlepass_hard_reward_icon, 10));
+        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.battlepass_locked_icon, R.drawable.battlepass_coins_icon, 11));
+        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.battlepass_locked_icon, R.drawable.battlepass_coins_icon, 12));
+        battlepassItems.add(new BattlePassRecycleItems("Badge", R.drawable.battlepass_locked_icon, R.drawable.rewards_profile_icon_1, 13));
+        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.battlepass_locked_icon, R.drawable.battlepass_coins_icon, 14));
+        battlepassItems.add(new BattlePassRecycleItems("(Hard Reward), 500 Coins, \nBadge", R.drawable.battlepass_locked_icon, R.drawable.battlepass_hard_reward_icon, 15));
 
         battlePassRecycleAdapter = new BattlePassRecycleAdapter((getApplicationContext()), battlepassItems);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
