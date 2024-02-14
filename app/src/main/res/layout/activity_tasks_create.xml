@@ -131,17 +131,19 @@
                 android:textStyle="normal|bold"
                 />
 
-            <EditText
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/task_deadline_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/dirty_white"
-                android:inputType="date"
+                android:onClick="showDatePickerDialog"
+                android:hint="Input Task Deadline"
+                android:textColorHint="@android:color/darker_gray"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/dirty_white"
+                android:textAlignment="textStart"
                 android:textSize="16sp"
                 android:padding="10dp"
-                android:textColor="@color/black"
-                android:hint="Input task deadline"
-                android:textColorHint="@android:color/darker_gray" />
+                app:cornerRadius="0dp" />
 
             <Space
                 android:layout_width="match_parent"

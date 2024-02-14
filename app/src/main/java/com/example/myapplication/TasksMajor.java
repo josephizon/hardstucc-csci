@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,9 +35,9 @@ import java.util.List;
 public class TasksMajor extends AppCompatActivity {
 
     FirebaseAuth auth;
-    Button createTaskButton;
+    Button createTaskButton, editTaskDeadline;
     ImageView button;
-    EditText editTaskName, editTaskDescription, editTaskDeadline, editTaskType;
+    EditText editTaskName, editTaskDescription, editTaskType;
     FirebaseUser user;
     DatabaseReference databaseReference;
     RecyclerView recyclerView;
@@ -187,6 +188,11 @@ public class TasksMajor extends AppCompatActivity {
         });
 
         popUp.show();
+    }
+
+    public void showDatePickerDialog(View v){
+        DialogFragment newFragment = new TasksDatePickerDialog();
+        newFragment.show(getSupportFragmentManager(), "task_deadline_input");
     }
 
     private void createTask(String name, String description, String deadline, String type) {

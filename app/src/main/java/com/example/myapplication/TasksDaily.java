@@ -1,9 +1,11 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,6 +18,7 @@ import android.widget.AdapterView.*;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,9 +38,9 @@ import java.util.List;
 public class TasksDaily extends AppCompatActivity {
 
     FirebaseAuth auth;
-    Button createTaskButton;
+    Button createTaskButton, editTaskDeadline;
     ImageView button;
-    EditText editTaskName, editTaskDescription, editTaskDeadline, editTaskType;
+    EditText editTaskName, editTaskDescription, editTaskType;
     FirebaseUser user;
     DatabaseReference databaseReference;
     RecyclerView recyclerView;
@@ -150,6 +153,7 @@ public class TasksDaily extends AppCompatActivity {
         editTaskName = popUp.findViewById(R.id.task_name_input);
         editTaskDescription = popUp.findViewById(R.id.task_description_input);
         editTaskDeadline = popUp.findViewById(R.id.task_deadline_input);
+
         autoCompleteTextView = popUp.findViewById(R.id.auto_complete_txt);
         adapterItem = new ArrayAdapter<String>(this, R.layout.activity_tasks_dropdown, taskType);
 
@@ -191,6 +195,12 @@ public class TasksDaily extends AppCompatActivity {
 
         popUp.show();
     }
+
+    public void showDatePickerDialog(View v){
+        DialogFragment newFragment = new TasksDatePickerDialog();
+        newFragment.show(getSupportFragmentManager(), "task_deadline_input");
+    }
+
 
     private void createTask(String name, String description, String deadline, String type) {
         // Generate a unique ID for the task
