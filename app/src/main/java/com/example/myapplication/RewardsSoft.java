@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -8,12 +10,16 @@ import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
 
 public class RewardsSoft extends AppCompatActivity {
     FirebaseAuth auth;
@@ -64,6 +70,38 @@ public class RewardsSoft extends AppCompatActivity {
                 finish();
             }
         });
+
+        // ADDING ITEMS TO RECYCLE VIEW 1
+
+        RecyclerView recyclerView = findViewById(R.id.rewards_soft_recyclerview);
+
+        List<RewardsSoftRecycleItem> items = new ArrayList<RewardsSoftRecycleItem>();
+        items.add(new RewardsSoftRecycleItem("Icon 1", "200", R.drawable.rewards_profile_icon_1 ));
+        items.add(new RewardsSoftRecycleItem("Icon 2", "300", R.drawable.rewards_profile_icon_2 ));
+        items.add(new RewardsSoftRecycleItem("Icon 3", "200", R.drawable.rewards_profile_icon_3 ));
+        items.add(new RewardsSoftRecycleItem("Icon 4", "300", R.drawable.rewards_profile_icon_4 ));
+
+        // ORIGINAL LINEARLAYOUT MANAGER
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(new RewardsSoftRecycleAdapter(getApplicationContext(), items));
+
+        // ADDING ITEMS TO RECYCLE VIEW 2
+        RecyclerView recyclerView2 = findViewById(R.id.rewards_soft_recyclerview2);
+
+        List<RewardsSoftRecycleItem> items2 = new ArrayList<RewardsSoftRecycleItem>();
+        items2.add(new RewardsSoftRecycleItem("Icon 5", "200", R.drawable.rewards_profile_icon_5 ));
+        items2.add(new RewardsSoftRecycleItem("Icon 6", "300", R.drawable.rewards_profile_icon_6 ));
+        items2.add(new RewardsSoftRecycleItem("Icon 7", "200", R.drawable.rewards_profile_icon_7 ));
+        items2.add(new RewardsSoftRecycleItem("Icon 8", "300", R.drawable.rewards_profile_icon_8 ));
+
+
+        // ORIGINAL LINEARLAYOUT MANAGER
+        LinearLayoutManager layoutManager2 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView2.setLayoutManager(layoutManager2);
+
+        //recyclerView.setLayoutManager(new WrappingLinearLayoutManager(this));
+        recyclerView2.setAdapter(new RewardsSoftRecycleAdapter(getApplicationContext(), items2));
     }
 
     public void openMainActivity2(View view) {
@@ -134,3 +172,4 @@ public class RewardsSoft extends AppCompatActivity {
 
 
 }
+
