@@ -5,6 +5,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,6 +32,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class TasksMajor extends AppCompatActivity {
@@ -147,7 +150,16 @@ public class TasksMajor extends AppCompatActivity {
 
         editTaskName = popUp.findViewById(R.id.task_name_input);
         editTaskDescription = popUp.findViewById(R.id.task_description_input);
+
         editTaskDeadline = popUp.findViewById(R.id.task_deadline_input);
+        editTaskDeadline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Gets the current date and set it as default in the picker
+                openCalendar();
+            }
+        });
+
         autoCompleteTextView = popUp.findViewById(R.id.auto_complete_txt);
         adapterItem = new ArrayAdapter<String>(this, R.layout.activity_tasks_dropdown, taskType);
 
@@ -190,9 +202,46 @@ public class TasksMajor extends AppCompatActivity {
         popUp.show();
     }
 
-    public void showDatePickerDialog(View v){
-        DialogFragment newFragment = new TasksDatePickerDialog();
-        newFragment.show(getSupportFragmentManager(), "task_deadline_input");
+    private void openCalendar(){
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                // Handle the selected date if needed
+                editTaskDeadline.setText(calendarMonth(month+1) + ", " + String.valueOf(dayOfMonth) + " "  + String.valueOf(year));
+            }
+        }, 2024, 1, 15);
+        datePickerDialog.show();
+    }
+
+    private String calendarMonth(int month){
+        switch (month) {
+            case 1:
+                return "January";
+            case 2:
+                return "February";
+            case 3:
+                return "March";
+            case 4:
+                return "April";
+            case 5:
+                return "May";
+            case 6:
+                return "June";
+            case 7:
+                return "July";
+            case 8:
+                return "August";
+            case 9:
+                return "September";
+            case 10:
+                return "October";
+            case 11:
+                return "November";
+            case 12:
+                return "December";
+            default:
+                return "Null";
+        }
     }
 
     private void createTask(String name, String description, String deadline, String type) {
