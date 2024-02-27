@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,6 +30,9 @@ public class BattlePass extends AppCompatActivity {
     List<BattlePassRecycleItems> battlepassItems;
     FirebaseUser user;
     BattlePassRecycleAdapter battlePassRecycleAdapter;
+    int currentProgress = 0;
+    ProgressBar xpBar;
+
 
 
     @Override
@@ -96,6 +100,14 @@ public class BattlePass extends AppCompatActivity {
         battlePassRecycleAdapter = new BattlePassRecycleAdapter((getApplicationContext()), battlepassItems);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(battlePassRecycleAdapter);
+
+        // Create in database the xp value for each users
+        // The progress bar can only go up to 100, so when getting the user's xp we should do the math to set it in percentages/ below 100
+        xpBar = findViewById(R.id.battlepass_progressbar);
+        currentProgress = 75; //Change this to reflect the user's actual xp
+        xpBar.setProgress(currentProgress);
+        xpBar.setMax(100);
+
     }
 
     public void openMainActivity2(View view) {

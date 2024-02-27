@@ -104,6 +104,14 @@
 
         </RelativeLayout>
 
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:progressDrawable="@drawable/custom_progressbg"
+            android:id="@+id/battlepass_progressbar" />
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/battlepass_recycler"
             android:layout_width="match_parent"
