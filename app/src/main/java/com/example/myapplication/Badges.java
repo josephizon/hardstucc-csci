@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,6 +16,9 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Badges extends AppCompatActivity {
 
@@ -65,6 +70,54 @@ public class Badges extends AppCompatActivity {
                 finish();
             }
         });
+
+        // ADDING ITEMS TO RECYCLE VIEW 1
+
+        RecyclerView recyclerView = findViewById(R.id.activity_badges_recyclerview_1);
+
+        List<BadgesRecycleItem> items = new ArrayList<BadgesRecycleItem>();
+        items.add(new BadgesRecycleItem("unlocked",  R.drawable.badges_fire_icon ));
+        items.add(new BadgesRecycleItem("unlocked", R.drawable.badges_folder_icon ));
+        items.add(new BadgesRecycleItem("unlocked", R.drawable.badges_ok_icon ));
+        items.add(new BadgesRecycleItem("unlocked", R.drawable.badges_heart_icon ));
+
+        // ORIGINAL LINEARLAYOUT MANAGER
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(new BadgesRecycleAdapter(getApplicationContext(), items));
+
+        // ADDING ITEMS TO RECYCLE VIEW 2
+
+        RecyclerView recyclerView2 = findViewById(R.id.activity_badges_recyclerview_2);
+
+        List<BadgesRecycleItem> items2 = new ArrayList<BadgesRecycleItem>();
+        items2.add(new BadgesRecycleItem("unlocked",  R.drawable.badges_shades_icon ));
+        items2.add(new BadgesRecycleItem("unlocked", R.drawable.badges_sun_icon ));
+        items2.add(new BadgesRecycleItem("unlocked", R.drawable.badges_warning_icon ));
+        items2.add(new BadgesRecycleItem("unlocked", R.drawable.badges_computer_icon ));
+
+        // ORIGINAL LINEARLAYOUT MANAGER
+        LinearLayoutManager layoutManager2 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView2.setLayoutManager(layoutManager2);
+        recyclerView2.setAdapter(new BadgesRecycleAdapter(getApplicationContext(), items2));
+
+        // ADDING ITEMS TO RECYCLE VIEW 2
+
+        RecyclerView recyclerView3 = findViewById(R.id.activity_badges_recyclerview_3);
+
+        List<BadgesRecycleItem> items3 = new ArrayList<BadgesRecycleItem>();
+        items3.add(new BadgesRecycleItem("unlocked",  R.drawable.badges_hands_icon ));
+        items3.add(new BadgesRecycleItem("unlocked", R.drawable.badges_crying_icon ));
+        items3.add(new BadgesRecycleItem("unlocked", R.drawable.badges_gracias_icon ));
+        items3.add(new BadgesRecycleItem("unlocked", R.drawable.badges_thumbsup_icon ));
+
+        // ORIGINAL LINEARLAYOUT MANAGER
+        LinearLayoutManager layoutManager3 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView3.setLayoutManager(layoutManager3);
+        recyclerView3.setAdapter(new BadgesRecycleAdapter(getApplicationContext(), items3));
+
+
+
     }
 
     public void openMainActivity2(View view) {
