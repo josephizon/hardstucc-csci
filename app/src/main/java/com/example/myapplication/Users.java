@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Users {
     private String email, firstName, middleName, lastName, buddyUid;
+    private int coins = 0, exp = 0 , bpLevel = 0;
     private Users buddy;  // New field for the buddy
     private List<Tasks> tasks;  // List to store tasks
 
@@ -74,4 +75,15 @@ public class Users {
     public void setBuddyUid(String buddyUid) {
         this.buddyUid = buddyUid;
     }
+
+    public int getCoins() { return coins; }
+    public void setCoins(int coins) { this.coins = coins; }
+    public void addCoins(int coins) { this.coins += coins;  }
+
+    public int getExp() { return exp; }
+    public void setExp(int exp) { this.exp = exp; }
+    public void addExp(int exp) { this.exp += exp; }
+
+    public int getBpLevel() { this.bpLevel = exp/1000; return bpLevel; }
+    public void setBpLevel(int bpLevel) { this.bpLevel = bpLevel; }
 }

@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     FirebaseAuth auth;
     ImageView button;
-    TextView textView;
+    TextView userNameTextView, userCoinsTextView, userBPLevelTextView;
     FirebaseUser user;
     DatabaseReference databaseReference;
 
@@ -46,7 +46,9 @@ public class MainActivity extends AppCompatActivity {
         // LOGOUT BUTTON CODE
         auth = FirebaseAuth.getInstance();
         button = findViewById(R.id.logout);
-        textView = findViewById(R.id.user_details);
+        userNameTextView = findViewById(R.id.user_details);
+        userCoinsTextView = findViewById(R.id.user_coins);
+        userBPLevelTextView = findViewById(R.id.user_bplevel);
         user = auth.getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference("Registered Users");
         if (user == null) {
@@ -62,9 +64,11 @@ public class MainActivity extends AppCompatActivity {
                     if (dataSnapshot.exists()) {
                         Users userProfile = dataSnapshot.getValue(Users.class);
                         if (userProfile != null && userProfile.getFirstName() != null) {
-                            textView.setText(userProfile.getFirstName() + "!");
+                            userNameTextView.setText(userProfile.getFirstName() + "!");
+                            userCoinsTextView.setText(userProfile.getCoins() + " pts");
+                            userBPLevelTextView.setText("Level " + userProfile.getBpLevel());
                         } else {
-                            textView.setText(user.getEmail());
+                            userNameTextView.setText(user.getEmail());
                         }
                     }
                 }
