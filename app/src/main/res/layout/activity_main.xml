@@ -211,6 +211,7 @@
                             android:src="@drawable/main_currencystar_icon" />
 
                         <TextView
+                            android:id="@+id/user_coins"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -420,6 +421,7 @@
                         android:layout_height="match_parent">
 
                         <TextView
+                            android:id="@+id/user_bplevel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
