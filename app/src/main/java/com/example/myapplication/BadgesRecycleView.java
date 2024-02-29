@@ -12,11 +12,14 @@ public class BadgesRecycleView extends RecyclerView.ViewHolder {
     ImageView badgeImage;
     TextView badgeStatus;
 
+    TextView badgeName;
+
     public BadgesRecycleView(@NonNull View itemView) {
         super(itemView);
 
         badgeImage = itemView.findViewById(R.id.badge_image);
         badgeStatus = itemView.findViewById(R.id.badge_status);
+        badgeName = itemView.findViewById(R.id.badge_name);
 
     }
 }

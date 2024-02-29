@@ -1,9 +1,12 @@
 package com.example.myapplication;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
@@ -16,6 +19,11 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +34,10 @@ public class Badges extends AppCompatActivity {
     ImageView button;
     TextView textView;
     FirebaseUser user;
+
+    DatabaseReference databaseReference;
+
+
 
 
     @Override
@@ -47,7 +59,7 @@ public class Badges extends AppCompatActivity {
         Shader shader1 = new LinearGradient(0f, 0f, 0f, badges.getTextSize(), orange, yellow, Shader.TileMode.CLAMP);
         badges.getPaint().setShader(shader1);
 
-        // LOGOUT BUTTON CODE
+
         auth = FirebaseAuth.getInstance();
         button = findViewById(R.id.logout);
         user = auth.getCurrentUser();
@@ -58,9 +70,10 @@ public class Badges extends AppCompatActivity {
         }
 
         else {
-            //textView.setText(user.getEmail());
         }
 
+
+        // LOGOUT BUTTON CODE
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,54 +84,86 @@ public class Badges extends AppCompatActivity {
             }
         });
 
-        // ADDING ITEMS TO RECYCLE VIEW 1
+
+
+        /*// ADDING ITEMS TO RECYCLE VIEW 1
 
         RecyclerView recyclerView = findViewById(R.id.activity_badges_recyclerview_1);
 
         List<BadgesRecycleItem> items = new ArrayList<BadgesRecycleItem>();
-        items.add(new BadgesRecycleItem("unlocked",  R.drawable.badges_fire_icon ));
-        items.add(new BadgesRecycleItem("unlocked", R.drawable.badges_folder_icon ));
-        items.add(new BadgesRecycleItem("unlocked", R.drawable.badges_ok_icon ));
-        items.add(new BadgesRecycleItem("unlocked", R.drawable.badges_heart_icon ));
+        items.add(new BadgesRecycleItem("unlocked",  R.drawable.badges_fire_icon, "badges_fire_icon" ));
+        items.add(new BadgesRecycleItem("unlocked", R.drawable.badges_folder_icon, "badges_folder_icon" ));
+        items.add(new BadgesRecycleItem("unlocked", R.drawable.badges_ok_icon, "badges_ok_icon" ));
+        items.add(new BadgesRecycleItem("unlocked", R.drawable.badges_heart_icon, "badges_heart_icon"));
+        items.add(new BadgesRecycleItem("unlocked",  R.drawable.badges_shades_icon, "badges_shades_icon" ));
+        items.add(new BadgesRecycleItem("unlocked", R.drawable.badges_sun_icon, "badges_sun_icon" ));
+        items.add(new BadgesRecycleItem("unlocked", R.drawable.badges_warning_icon, "badges_warning_icon" ));
+        items.add(new BadgesRecycleItem("unlocked", R.drawable.badges_computer_icon, "badges_computer_icon" ));
+        items.add(new BadgesRecycleItem("unlocked",  R.drawable.badges_hands_icon, "badges_computer_icon" ));
+        items.add(new BadgesRecycleItem("unlocked", R.drawable.badges_crying_icon, "badges_crying_icon" ));
+        items.add(new BadgesRecycleItem("unlocked", R.drawable.badges_gracias_icon, "badges_gracias_icon" ));
+        items.add(new BadgesRecycleItem("unlocked", R.drawable.badges_thumbsup_icon, "badges_thumbsup_icon" ));
+
 
         // ORIGINAL LINEARLAYOUT MANAGER
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(new BadgesRecycleAdapter(getApplicationContext(), items));
+        //LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
-        // ADDING ITEMS TO RECYCLE VIEW 2
+        recyclerView.setLayoutManager(new CustomLayoutManager());
+        recyclerView.setAdapter(new BadgesRecycleAdapter(getApplicationContext(), items));*/
 
-        RecyclerView recyclerView2 = findViewById(R.id.activity_badges_recyclerview_2);
+        // Set up Firebase Database reference
+        databaseReference = FirebaseDatabase.getInstance().getReference("Registered Users")
+                .child(user.getUid())
+                .child("Badges");
 
-        List<BadgesRecycleItem> items2 = new ArrayList<BadgesRecycleItem>();
-        items2.add(new BadgesRecycleItem("unlocked",  R.drawable.badges_shades_icon ));
-        items2.add(new BadgesRecycleItem("unlocked", R.drawable.badges_sun_icon ));
-        items2.add(new BadgesRecycleItem("unlocked", R.drawable.badges_warning_icon ));
-        items2.add(new BadgesRecycleItem("unlocked", R.drawable.badges_computer_icon ));
+        // Add a listener to retrieve data from Firebase Database
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<BadgesRecycleItem> items = new ArrayList<>();
+                for (DataSnapshot badgeSnapshot : dataSnapshot.getChildren()) {
+                    String badgeName = badgeSnapshot.getKey(); // Badge name is the key
+                    String badgeStatus = badgeSnapshot.child("badge_status").getValue(String.class); // Badge status is retrieved from "badge_status" child
 
-        // ORIGINAL LINEARLAYOUT MANAGER
-        LinearLayoutManager layoutManager2 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerView2.setLayoutManager(layoutManager2);
-        recyclerView2.setAdapter(new BadgesRecycleAdapter(getApplicationContext(), items2));
+                    // Check if badge status is not "unlocked" before adding it to the list
+                    if (!"locked".equals(badgeStatus)) {
+                        int badgeDrawableId = getDrawableResourceId(badgeName);
+                        items.add(new BadgesRecycleItem(badgeStatus, badgeDrawableId, badgeName));
+                    }
 
-        // ADDING ITEMS TO RECYCLE VIEW 2
+                }
+                // Set up RecyclerView with the retrieved data
+                RecyclerView recyclerView = findViewById(R.id.activity_badges_recyclerview_1);
+                recyclerView.setLayoutManager(new CustomLayoutManager());
+                recyclerView.setAdapter(new BadgesRecycleAdapter(getApplicationContext(), items));
+            }
 
-        RecyclerView recyclerView3 = findViewById(R.id.activity_badges_recyclerview_3);
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle errors
+            }
+        });
 
-        List<BadgesRecycleItem> items3 = new ArrayList<BadgesRecycleItem>();
-        items3.add(new BadgesRecycleItem("unlocked",  R.drawable.badges_hands_icon ));
-        items3.add(new BadgesRecycleItem("unlocked", R.drawable.badges_crying_icon ));
-        items3.add(new BadgesRecycleItem("unlocked", R.drawable.badges_gracias_icon ));
-        items3.add(new BadgesRecycleItem("unlocked", R.drawable.badges_thumbsup_icon ));
-
-        // ORIGINAL LINEARLAYOUT MANAGER
-        LinearLayoutManager layoutManager3 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerView3.setLayoutManager(layoutManager3);
-        recyclerView3.setAdapter(new BadgesRecycleAdapter(getApplicationContext(), items3));
-
-
-
+        // Your existing code
     }
+
+
+
+    // Method to get drawable resource ID based on badge name
+    private int getDrawableResourceId(String badgeName) {
+        // Implement logic to map badge names to drawable resource IDs
+        // For example, you can use a switch statement or a HashMap
+        switch (badgeName) {
+            case "badges_fire_icon":
+                return R.drawable.badges_fire_icon;
+            case "badges_folder_icon":
+                return R.drawable.badges_folder_icon;
+            // Add more cases as needed for other badges
+            default:
+                return 0; // Return a default drawable resource ID if badge name is not recognized
+        }
+    }
+
 
     public void openMainActivity2(View view) {
         startActivity(new Intent(this, MainActivity2.class));

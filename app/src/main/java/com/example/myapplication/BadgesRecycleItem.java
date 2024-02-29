@@ -5,9 +5,12 @@ public class BadgesRecycleItem {
     String badgeStatus;
     int badgeImage;
 
-    public BadgesRecycleItem(String badgeStatus, int badgeImage) {
+    String badgeName;
+
+    public BadgesRecycleItem(String badgeStatus, int badgeImage, String badgeName) {
         this.badgeStatus = badgeStatus;
         this.badgeImage = badgeImage;
+        this.badgeName = badgeName;
     }
 
     public String getBadgeStatus() {
@@ -25,4 +28,13 @@ public class BadgesRecycleItem {
     public void setBadgeImage(int badgeImage) {
         this.badgeImage = badgeImage;
     }
+
+    public String getBadgeName() {
+        return badgeName;
+    }
+
+    public void setBadgeName(String badgeName) {
+        this.badgeName = badgeName;
+    }
+
 }

@@ -169,6 +169,7 @@
                         android:layout_height="match_parent">
 
                         <ImageView
+                            android:id="@+id/displayed_badge_1"
                             android:layout_width="57dp"
                             android:layout_height="59dp"
                             android:layout_centerInParent="true"
@@ -311,20 +312,9 @@
         <!-- 1ST ROW RECYCLE VIEW -->
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="match_parent"
             android:id="@+id/activity_badges_recyclerview_1"/>
 
-        <!-- 2ND ROW RECYCLE VIEW -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:id="@+id/activity_badges_recyclerview_2"/>
-
-        <!-- 3RD ROW RECYCLE VIEW -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:id="@+id/activity_badges_recyclerview_3"/>
 
 
 
