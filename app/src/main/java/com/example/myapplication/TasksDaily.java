@@ -40,6 +40,7 @@ public class TasksDaily extends AppCompatActivity {
 
     FirebaseAuth auth;
     Button createTaskButton, editTaskDeadline;
+    String taskDateDeadline;
     ImageView button;
     EditText editTaskName, editTaskDescription, editTaskType;
     FirebaseUser user;
@@ -183,7 +184,7 @@ public class TasksDaily extends AppCompatActivity {
                 createTask(
                         editTaskName.getText().toString(),
                         editTaskDescription.getText().toString(),
-                        editTaskDeadline.getText().toString(),
+                        taskDateDeadline,
                         editTaskType.getText().toString()
                 );
 
@@ -210,6 +211,7 @@ public class TasksDaily extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 // Handle the selected date if needed
+                taskDateDeadline = String.valueOf(month+1) + "/" + String.valueOf(dayOfMonth) + "/"  + String.valueOf(year);
                 editTaskDeadline.setText(calendarMonth(month+1) + ", " + String.valueOf(dayOfMonth) + " "  + String.valueOf(year));
             }
         }, 2024, 1, 15);

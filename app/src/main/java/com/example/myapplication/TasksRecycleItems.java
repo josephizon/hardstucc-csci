@@ -19,24 +19,19 @@ public class TasksRecycleItems {
     public String getTaskId() {
         return taskId;
     }
-
     public void setTaskId(String taskId) {
         this.taskId = taskId;
     }
-
     public String getTaskName() {
         return taskName;
     }
-
     public void setTaskName(String taskName) {
         this.taskName = taskName;
     }
     public String getTaskDescription() {
         return taskDescription;
     }
-    public void setTaskDescription(String taskDescription) {
-        this.taskDescription = taskDescription;
-    }
+    public void setTaskDescription(String taskDescription) { this.taskDescription = taskDescription; }
     public String getTaskDeadline() {
         return taskDeadline;
     }
@@ -46,7 +41,6 @@ public class TasksRecycleItems {
     public String getTaskStatus() {
         return taskStatus;
     }
-
     public void setTaskStatus(String taskStatus) {
         this.taskStatus = taskStatus;
     }

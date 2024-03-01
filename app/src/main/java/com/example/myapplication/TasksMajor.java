@@ -41,6 +41,7 @@ public class TasksMajor extends AppCompatActivity {
     Button createTaskButton, editTaskDeadline;
     ImageView button;
     EditText editTaskName, editTaskDescription, editTaskType;
+    String taskDateDeadline;
     FirebaseUser user;
     DatabaseReference databaseReference;
     RecyclerView recyclerView;
@@ -180,7 +181,7 @@ public class TasksMajor extends AppCompatActivity {
                 createTask(
                         editTaskName.getText().toString(),
                         editTaskDescription.getText().toString(),
-                        editTaskDeadline.getText().toString(),
+                        taskDateDeadline,
                         editTaskType.getText().toString()
                 );
 
@@ -207,6 +208,7 @@ public class TasksMajor extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 // Handle the selected date if needed
+                taskDateDeadline = String.valueOf(month+1) + "/" + String.valueOf(dayOfMonth) + "/"  + String.valueOf(year);
                 editTaskDeadline.setText(calendarMonth(month+1) + ", " + String.valueOf(dayOfMonth) + " "  + String.valueOf(year));
             }
         }, 2024, 1, 15);
