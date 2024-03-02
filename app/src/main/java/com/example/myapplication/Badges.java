@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,7 +100,7 @@ public class Badges extends AppCompatActivity {
         items.add(new BadgesRecycleItem("unlocked", R.drawable.badges_sun_icon, "badges_sun_icon" ));
         items.add(new BadgesRecycleItem("unlocked", R.drawable.badges_warning_icon, "badges_warning_icon" ));
         items.add(new BadgesRecycleItem("unlocked", R.drawable.badges_computer_icon, "badges_computer_icon" ));
-        items.add(new BadgesRecycleItem("unlocked",  R.drawable.badges_hands_icon, "badges_computer_icon" ));
+        items.add(new BadgesRecycleItem("unlocked",  R.drawable.badges_hands_icon, "badges_hands_icon" ));
         items.add(new BadgesRecycleItem("unlocked", R.drawable.badges_crying_icon, "badges_crying_icon" ));
         items.add(new BadgesRecycleItem("unlocked", R.drawable.badges_gracias_icon, "badges_gracias_icon" ));
         items.add(new BadgesRecycleItem("unlocked", R.drawable.badges_thumbsup_icon, "badges_thumbsup_icon" ));
@@ -149,8 +150,8 @@ public class Badges extends AppCompatActivity {
 
 
 
-    // Method to get drawable resource ID based on badge name
-    private int getDrawableResourceId(String badgeName) {
+    // ORIGINAL CONVERTING STRING TO DRAWABLE FOR BADGES
+    /*private int getDrawableResourceId(String badgeName) {
         // Implement logic to map badge names to drawable resource IDs
         // For example, you can use a switch statement or a HashMap
         switch (badgeName) {
@@ -162,6 +163,28 @@ public class Badges extends AppCompatActivity {
             default:
                 return 0; // Return a default drawable resource ID if badge name is not recognized
         }
+    }*/
+
+    private int getDrawableResourceId(String badgeName) {
+        try {
+            // Get the R.drawable class using reflection
+            Class<?> drawableClass = R.drawable.class;
+
+            // Get the Field object representing the badgeName in the R.drawable class
+            Field field = drawableClass.getField(badgeName);
+
+            // Get the value (drawable resource ID) of the field
+            return field.getInt(null);
+        } catch (NoSuchFieldException e) {
+            // Handle the case where the badgeName is not found
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            // Handle the case where access to the field is denied
+            e.printStackTrace();
+        }
+
+        // Return 0 if badgeName is not recognized
+        return 0;
     }
 
 

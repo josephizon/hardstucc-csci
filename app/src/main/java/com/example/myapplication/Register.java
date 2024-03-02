@@ -24,6 +24,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class Register extends AppCompatActivity {
 
     EditText editTextEmail, editTextPassword, editTextFirstName, editTextMiddleName, editTextLastName;
@@ -117,6 +122,7 @@ public class Register extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if(task.isSuccessful()){
+                                                addBadgeData(firebaseUser.getUid());
                                                 Toast.makeText(Register.this, "Account created.",
                                                         Toast.LENGTH_SHORT).show();
                                             }
@@ -139,5 +145,51 @@ public class Register extends AppCompatActivity {
                         });
             }
         });
+
+
+    }
+
+    private void addBadgeData(String userId) {
+        List<String> badgeNames = new ArrayList<>();
+        badgeNames.add("badges_fire_icon");
+        badgeNames.add("badges_folder_icon");
+        badgeNames.add("badges_ok_icon");
+        badgeNames.add("badges_heart_icon");
+
+        badgeNames.add("badges_shades_icon");
+        badgeNames.add("badges_sun_icon");
+        badgeNames.add("badges_warning_icon");
+        badgeNames.add("badges_computer_icon");
+
+        badgeNames.add("badges_hands_icon");
+        badgeNames.add("badges_crying_icon");
+        badgeNames.add("badges_gracias_icon");
+        badgeNames.add("badges_folder_icon");
+
+
+        // Define the structure of the badge data
+        Map<String, Object> badgeData = new HashMap<>();
+        badgeData.put("badge_status", "locked"); // Set status for all badges
+
+        // Create a reference to the "Registered Users" node
+        DatabaseReference referenceUsers = FirebaseDatabase.getInstance().getReference("Registered Users");
+        DatabaseReference userReference = referenceUsers.child(userId).child("Badges");
+
+        // Iterate over each badge name and set the data under the user's node for each badge
+        for (String badgeName : badgeNames) {
+            userReference.child(badgeName).setValue(badgeData).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        /*Toast.makeText(Register.this, "Badge data added for " + badgeName,
+                                Toast.LENGTH_SHORT).show();*/
+                    }
+                    else{
+                        /*Toast.makeText(Register.this, "Failed to add badge data for " + badgeName,
+                                Toast.LENGTH_SHORT).show();*/
+                    }
+                }
+            });
+        }
     }
 }
