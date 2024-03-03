@@ -30,6 +30,8 @@ public class BadgesRecycleAdapter extends RecyclerView.Adapter<BadgesRecycleView
         holder.badgeImage.setImageResource(items.get(position).getBadgeImage());
         holder.badgeStatus.setText(items.get(position).getBadgeStatus());
         holder.badgeName.setText(items.get(position).getBadgeStatus());
+
+
     }
 
     @Override

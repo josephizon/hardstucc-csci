@@ -33,11 +33,15 @@ public class Badges extends AppCompatActivity {
 
     FirebaseAuth auth;
     ImageView button;
+    ImageView badgeChange1, badgeChange2, badgeChange3;
     TextView textView;
     FirebaseUser user;
 
     DatabaseReference databaseReference;
 
+    private String previousDisplayedBadgeKey1, previousDisplayedBadgeKey2, previousDisplayedBadgeKey3;
+
+    private DataSnapshot dataSnapshot;
 
 
 
@@ -86,32 +90,6 @@ public class Badges extends AppCompatActivity {
         });
 
 
-
-        /*// ADDING ITEMS TO RECYCLE VIEW 1
-
-        RecyclerView recyclerView = findViewById(R.id.activity_badges_recyclerview_1);
-
-        List<BadgesRecycleItem> items = new ArrayList<BadgesRecycleItem>();
-        items.add(new BadgesRecycleItem("unlocked",  R.drawable.badges_fire_icon, "badges_fire_icon" ));
-        items.add(new BadgesRecycleItem("unlocked", R.drawable.badges_folder_icon, "badges_folder_icon" ));
-        items.add(new BadgesRecycleItem("unlocked", R.drawable.badges_ok_icon, "badges_ok_icon" ));
-        items.add(new BadgesRecycleItem("unlocked", R.drawable.badges_heart_icon, "badges_heart_icon"));
-        items.add(new BadgesRecycleItem("unlocked",  R.drawable.badges_shades_icon, "badges_shades_icon" ));
-        items.add(new BadgesRecycleItem("unlocked", R.drawable.badges_sun_icon, "badges_sun_icon" ));
-        items.add(new BadgesRecycleItem("unlocked", R.drawable.badges_warning_icon, "badges_warning_icon" ));
-        items.add(new BadgesRecycleItem("unlocked", R.drawable.badges_computer_icon, "badges_computer_icon" ));
-        items.add(new BadgesRecycleItem("unlocked",  R.drawable.badges_hands_icon, "badges_hands_icon" ));
-        items.add(new BadgesRecycleItem("unlocked", R.drawable.badges_crying_icon, "badges_crying_icon" ));
-        items.add(new BadgesRecycleItem("unlocked", R.drawable.badges_gracias_icon, "badges_gracias_icon" ));
-        items.add(new BadgesRecycleItem("unlocked", R.drawable.badges_thumbsup_icon, "badges_thumbsup_icon" ));
-
-
-        // ORIGINAL LINEARLAYOUT MANAGER
-        //LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-
-        recyclerView.setLayoutManager(new CustomLayoutManager());
-        recyclerView.setAdapter(new BadgesRecycleAdapter(getApplicationContext(), items));*/
-
         // Set up Firebase Database reference
         databaseReference = FirebaseDatabase.getInstance().getReference("Registered Users")
                 .child(user.getUid())
@@ -120,18 +98,61 @@ public class Badges extends AppCompatActivity {
         // Add a listener to retrieve data from Firebase Database
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot snapshot) {
+                dataSnapshot = snapshot;
                 List<BadgesRecycleItem> items = new ArrayList<>();
                 for (DataSnapshot badgeSnapshot : dataSnapshot.getChildren()) {
                     String badgeName = badgeSnapshot.getKey(); // Badge name is the key
                     String badgeStatus = badgeSnapshot.child("badge_status").getValue(String.class); // Badge status is retrieved from "badge_status" child
 
-                    // Check if badge status is not "unlocked" before adding it to the list
+                    badgeChange1 = findViewById(R.id.displayed_badge_1);
+                    badgeChange2 = findViewById(R.id.displayed_badge_2);
+                    badgeChange3 = findViewById(R.id.displayed_badge_3);
+
+
+                    // Click listener for badgeChange1
+                    badgeChange1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // Handle badgeChange1 click
+                            resetAndChangeBadge(previousDisplayedBadgeKey1, "displayed1");
+                        }
+                    });
+
+                    // Click listener for badgeChange2
+                    badgeChange2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // Handle badgeChange2 click
+                            resetAndChangeBadge(previousDisplayedBadgeKey2, "displayed2");
+                        }
+                    });
+
+                    // Click listener for badgeChange3
+                    badgeChange3.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // Handle badgeChange3 click
+                            resetAndChangeBadge(previousDisplayedBadgeKey3, "displayed3");
+                        }
+                    });
+
+                    // Check if badge status is not "locked" before adding it to the list
                     if (!"locked".equals(badgeStatus)) {
                         int badgeDrawableId = getDrawableResourceId(badgeName);
                         items.add(new BadgesRecycleItem(badgeStatus, badgeDrawableId, badgeName));
-                    }
 
+                        if ("displayed1".equals(badgeStatus)) {
+                            badgeChange1.setImageResource(badgeDrawableId);
+                            previousDisplayedBadgeKey1 = badgeSnapshot.getKey(); // Update previous displayed badge for badgeChange1
+                        } else if ("displayed2".equals(badgeStatus)) {
+                            badgeChange2.setImageResource(badgeDrawableId);
+                            previousDisplayedBadgeKey2 = badgeSnapshot.getKey(); // Update previous displayed badge for badgeChange2
+                        } else if ("displayed3".equals(badgeStatus)) {
+                            badgeChange3.setImageResource(badgeDrawableId);
+                            previousDisplayedBadgeKey3 = badgeSnapshot.getKey(); // Update previous displayed badge for badgeChange3
+                        }
+                    }
                 }
                 // Set up RecyclerView with the retrieved data
                 RecyclerView recyclerView = findViewById(R.id.activity_badges_recyclerview_1);
@@ -144,6 +165,8 @@ public class Badges extends AppCompatActivity {
                 // Handle errors
             }
         });
+
+
 
         // Your existing code
     }
@@ -165,6 +188,7 @@ public class Badges extends AppCompatActivity {
         }
     }*/
 
+
     private int getDrawableResourceId(String badgeName) {
         try {
             // Get the R.drawable class using reflection
@@ -185,6 +209,104 @@ public class Badges extends AppCompatActivity {
 
         // Return 0 if badgeName is not recognized
         return 0;
+    }
+
+    // OLD CODE
+    /*private void resetAndChangeBadge(String previousDisplayedBadgeKey, final String newBadgeStatus) {
+        // Reset previous displayed badge
+        if (previousDisplayedBadgeKey != null && !previousDisplayedBadgeKey.isEmpty()) {
+            databaseReference.child(previousDisplayedBadgeKey).child("badge_status").setValue("unlocked");
+        }
+
+        // Create a list of the iconNames (badges list for selection)
+        List<String> iconNames = new ArrayList<>();
+        final List<String> badgeKeys = new ArrayList<>(); // To store the corresponding badge keys
+        for (DataSnapshot badgeSnapshot : dataSnapshot.getChildren()) {
+            String badgeName = badgeSnapshot.getKey(); // Badge name is the key
+            String badgeStatus = badgeSnapshot.child("badge_status").getValue(String.class); // Badge status is retrieved from "badge_status" child
+
+            if (!"locked".equals(badgeStatus)) {
+                iconNames.add(badgeName);
+                badgeKeys.add(badgeSnapshot.getKey()); // Store the corresponding badge key
+            }
+        }
+
+        // Convert the list of icon names to an array
+        final CharSequence[] iconsArray = iconNames.toArray(new CharSequence[0]);
+
+        // Create an AlertDialog to display the list of icons
+        AlertDialog.Builder builder = new AlertDialog.Builder(Badges.this);
+        builder.setTitle("Available Icons")
+                .setItems(iconsArray, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Update the badge_status to the newBadgeStatus for the selected item
+                        String selectedBadgeKey = badgeKeys.get(which);
+                        databaseReference.child(selectedBadgeKey).child("badge_status").setValue(newBadgeStatus);
+                    }
+                })
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Handle click on OK button (optional)
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }*/
+
+    // Helper method to reset the previously displayed badge status to "unlocked" and set the new badge status
+    private void resetAndChangeBadge(String previousDisplayedBadgeKey, final String newBadgeStatus) {
+        // Reset previous displayed badge
+        if (previousDisplayedBadgeKey != null && !previousDisplayedBadgeKey.isEmpty()) {
+            databaseReference.child(previousDisplayedBadgeKey).child("badge_status").setValue("unlocked");
+        }
+
+        // Create a list of the iconNames (badges list for selection)
+        List<String> iconNames = new ArrayList<>();
+        final List<String> badgeKeys = new ArrayList<>(); // To store the corresponding badge keys
+        for (DataSnapshot badgeSnapshot : dataSnapshot.getChildren()) {
+            String badgeName = badgeSnapshot.getKey(); // Badge name is the key
+            String badgeStatus = badgeSnapshot.child("badge_status").getValue(String.class); // Badge status is retrieved from "badge_status" child
+
+            if (!"locked".equals(badgeStatus)) {
+                iconNames.add(badgeName);
+                badgeKeys.add(badgeSnapshot.getKey()); // Store the corresponding badge key
+            }
+        }
+
+        // Add the option to unlock all badges
+        iconNames.add("Clear badges from display");
+
+        // Convert the list of icon names to an array
+        final CharSequence[] iconsArray = iconNames.toArray(new CharSequence[0]);
+
+        // Create an AlertDialog to display the list of icons
+        AlertDialog.Builder builder = new AlertDialog.Builder(Badges.this);
+        builder.setTitle("Available Icons")
+                .setItems(iconsArray, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (which < iconNames.size() - 1) {
+                            // Update the badge_status to the newBadgeStatus for the selected item
+                            String selectedBadgeKey = badgeKeys.get(which);
+                            databaseReference.child(selectedBadgeKey).child("badge_status").setValue(newBadgeStatus);
+                        } else {
+                            // Unlock all badges
+                            for (String key : badgeKeys) {
+                                databaseReference.child(key).child("badge_status").setValue("unlocked");
+                            }
+                        }
+                    }
+                })
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Handle click on OK button (optional)
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
 

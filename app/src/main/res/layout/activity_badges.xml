@@ -173,7 +173,7 @@
                             android:layout_width="57dp"
                             android:layout_height="59dp"
                             android:layout_centerInParent="true"
-                            android:src="@drawable/badges_fire_icon" />
+                            />
 
                     </RelativeLayout>
 
@@ -205,10 +205,11 @@
                         android:layout_height="match_parent">
 
                         <ImageView
+                            android:id="@+id/displayed_badge_2"
                             android:layout_width="60dp"
                             android:layout_height="59dp"
                             android:layout_centerInParent="true"
-                            android:src="@drawable/badges_folder_icon" />
+                             />
 
                     </RelativeLayout>
 
@@ -240,10 +241,11 @@
                         android:layout_height="match_parent">
 
                         <ImageView
+                            android:id="@+id/displayed_badge_3"
                             android:layout_width="57dp"
                             android:layout_height="64dp"
-                            android:layout_centerInParent="true"
-                            android:src="@drawable/badges_ok_icon" />
+                            android:layout_centerInParent="true" />
+                             />
 
                     </RelativeLayout>
 

@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                     if (dataSnapshot.exists()) {
                         Users userProfile = dataSnapshot.getValue(Users.class);
                         if (userProfile != null && userProfile.getFirstName() != null) {
-                            userNameTextView.setText(userProfile.getFirstName() + "!");
+                            userNameTextView.setText(userProfile.getFirstName());
                             userCoinsTextView.setText(userProfile.getCoins() + " pts");
                             userBPLevelTextView.setText("Level " + userProfile.getBpLevel());
                         } else {

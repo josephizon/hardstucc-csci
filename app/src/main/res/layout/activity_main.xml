@@ -62,7 +62,7 @@
     <!-- MAIN BODY LAYOUT -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="610dp"
+        android:layout_height="650dp"
         android:orientation="vertical"
         android:paddingLeft="15dp"
         android:paddingRight="15dp">
@@ -123,10 +123,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:fontFamily="@font/inter"
+                android:fontFamily="@font/epilogue_black"
                 android:text="Welcome back, "
                 android:textSize="20sp"
-                android:textStyle="bold"
                 android:textColor="@color/orange"/>
 
             <TextView
@@ -134,10 +133,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/welcome_text"
-                android:fontFamily="@font/inter"
+                android:fontFamily="@font/epilogue_italic"
                 android:text="USER"
                 android:textSize="20sp"
-                android:textStyle="bold"
                 android:textColor="@color/blue"/>
 
             <TextView
@@ -289,18 +287,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:fontFamily="@font/inter"
+                android:fontFamily="@font/epilogue_black"
                 android:text="Badges"
                 android:textColor="@color/orange"
                 android:textSize="24sp"
-                android:textStyle="bold" />
+                 />
 
         </RelativeLayout>
 
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp">
+            android:layout_height="110dp">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -378,17 +376,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:fontFamily="@font/inter"
+                android:fontFamily="@font/epilogue_black"
                 android:text="Battle Pass"
                 android:textColor="@color/orange"
                 android:textSize="24sp"
-                android:textStyle="bold" />
+                />
 
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="190dp">
+            android:layout_height="200dp">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -425,7 +423,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:layout_x="284dp"
+                            android:layout_x="260dp"
                             android:layout_y="13dp"
                             android:fontFamily="@font/epilogue_black"
                             android:text="Level 29"
