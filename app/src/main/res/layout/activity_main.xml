@@ -133,7 +133,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/welcome_text"
-                android:fontFamily="@font/epilogue_italic"
+                android:fontFamily="@font/epilogue_black_italic"
                 android:text="USER"
                 android:textSize="20sp"
                 android:textColor="@color/blue"/>
@@ -142,10 +142,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/user_details"
-                android:fontFamily="@font/inter"
+                android:fontFamily="@font/epilogue_black"
                 android:text="!"
                 android:textSize="20sp"
-                android:textStyle="bold"
                 android:textColor="@color/orange"/>
 
         </RelativeLayout>
@@ -296,11 +295,133 @@
         </RelativeLayout>
 
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="110dp">
+            android:layout_height="100dp"
+            >
 
+            <!-- Badges Container 1 -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/container1"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="15dp"
+                android:layout_gravity="center"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+
+                android:divider="@android:color/transparent"
+                android:dividerHeight="0.0px"
+                android:elevation="8dp"
+                app:cardCornerRadius="20dp"
+                card_view:cardBackgroundColor="@color/lavender"
+                card_view:cardElevation="8dp"
+                card_view:cardPreventCornerOverlap="false">
+
+                <!-- Layout Inside the Cardview -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/displayed_badge_1"
+                        android:layout_width="57dp"
+                        android:layout_height="59dp"
+                        android:layout_centerInParent="true" />
+
+                </RelativeLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Badges Container 2 -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/container2"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/container1"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+
+                android:divider="@android:color/transparent"
+                android:dividerHeight="0.0px"
+                android:elevation="8dp"
+                app:cardCornerRadius="20dp"
+                card_view:cardBackgroundColor="@color/lavender"
+                card_view:cardElevation="8dp"
+                card_view:cardPreventCornerOverlap="false">
+
+                <!-- Layout Inside the Cardview -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/displayed_badge_2"
+                        android:layout_width="60dp"
+                        android:layout_height="59dp"
+                        android:layout_centerInParent="true" />
+
+                </RelativeLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Badges Container 3 -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/container3"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/container2"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+
+                android:divider="@android:color/transparent"
+                android:dividerHeight="0.0px"
+                android:elevation="8dp"
+                app:cardCornerRadius="20dp"
+                card_view:cardBackgroundColor="@color/lavender"
+                card_view:cardElevation="8dp"
+                card_view:cardPreventCornerOverlap="false">
+
+                <!-- Layout Inside the Cardview -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/displayed_badge_3"
+                        android:layout_width="57dp"
+                        android:layout_height="64dp"
+                        android:layout_centerInParent="true" />
+                    />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_badges"
+                android:layout_toRightOf="@+id/displayed_badge_3_container"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:padding="0dp"
+                android:backgroundTint="@color/orange"
+                android:textColor="@color/white"
+                android:fontFamily="@font/inter"
+                android:text="more ->"
+                android:textSize="11sp"
+                app:cornerRadius="24dp"
+                android:onClick="openBadges"/>
+
+            <!-- ORIGINAL BADGES LAYOUT -->
+            <!--<androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_centerVertical="true"
@@ -362,9 +483,11 @@
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>-->
 
-        </RelativeLayout>
+
+
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -386,14 +509,16 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp">
+            android:layout_height="200dp"
+            >
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
-                android:layout_centerVertical="true"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+
 
                 android:clipChildren="false"
                 card_view:cardBackgroundColor="@color/white"

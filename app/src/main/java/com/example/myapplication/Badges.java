@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -173,22 +174,6 @@ public class Badges extends AppCompatActivity {
 
 
 
-    // ORIGINAL CONVERTING STRING TO DRAWABLE FOR BADGES
-    /*private int getDrawableResourceId(String badgeName) {
-        // Implement logic to map badge names to drawable resource IDs
-        // For example, you can use a switch statement or a HashMap
-        switch (badgeName) {
-            case "badges_fire_icon":
-                return R.drawable.badges_fire_icon;
-            case "badges_folder_icon":
-                return R.drawable.badges_folder_icon;
-            // Add more cases as needed for other badges
-            default:
-                return 0; // Return a default drawable resource ID if badge name is not recognized
-        }
-    }*/
-
-
     private int getDrawableResourceId(String badgeName) {
         try {
             // Get the R.drawable class using reflection
@@ -256,7 +241,7 @@ public class Badges extends AppCompatActivity {
     }*/
 
     // Helper method to reset the previously displayed badge status to "unlocked" and set the new badge status
-    private void resetAndChangeBadge(String previousDisplayedBadgeKey, final String newBadgeStatus) {
+    /*private void resetAndChangeBadge(String previousDisplayedBadgeKey, final String newBadgeStatus) {
         // Reset previous displayed badge
         if (previousDisplayedBadgeKey != null && !previousDisplayedBadgeKey.isEmpty()) {
             databaseReference.child(previousDisplayedBadgeKey).child("badge_status").setValue("unlocked");
@@ -277,6 +262,8 @@ public class Badges extends AppCompatActivity {
 
         // Add the option to unlock all badges
         iconNames.add("Clear badges from display");
+
+
 
         // Convert the list of icon names to an array
         final CharSequence[] iconsArray = iconNames.toArray(new CharSequence[0]);
@@ -307,7 +294,73 @@ public class Badges extends AppCompatActivity {
                 });
         AlertDialog dialog = builder.create();
         dialog.show();
+    }*/
+
+    // resetAndChange method that uses a custom Badge Image Adapter for layout
+    private void resetAndChangeBadge(String previousDisplayedBadgeKey, final String newBadgeStatus) {
+        // Reset previous displayed badge
+        if (previousDisplayedBadgeKey != null && !previousDisplayedBadgeKey.isEmpty()) {
+            databaseReference.child(previousDisplayedBadgeKey).child("badge_status").setValue("unlocked");
+        }
+
+        // Create a list of the iconNames (badges list for selection)
+        List<String> iconNames = new ArrayList<>();
+        final List<String> badgeKeys = new ArrayList<>(); // To store the corresponding badge keys
+        final List<Integer> badgeImages = new ArrayList<>(); // To store the corresponding badge images
+        for (DataSnapshot badgeSnapshot : dataSnapshot.getChildren()) {
+            String badgeName = badgeSnapshot.getKey(); // Badge name is the key
+            String badgeStatus = badgeSnapshot.child("badge_status").getValue(String.class); // Badge status is retrieved from "badge_status" child
+
+            if (!"locked".equals(badgeStatus)) {
+                iconNames.add(badgeName);
+                badgeKeys.add(badgeSnapshot.getKey()); // Store the corresponding badge key
+                int badgeDrawableId = getDrawableResourceId(badgeName);
+                badgeImages.add(badgeDrawableId); // Store the corresponding badge image
+            }
+        }
+
+        // Convert the list of icon names to an array
+        final CharSequence[] iconsArray = iconNames.toArray(new CharSequence[0]);
+
+        // Create an AlertDialog to display the list of icons
+        AlertDialog.Builder builder = new AlertDialog.Builder(Badges.this);
+        builder.setTitle("UNLOCKED BADGES")
+                .setItems(iconsArray, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (which < badgeKeys.size()) {
+                            // Update the badge_status to the newBadgeStatus for the selected item
+                            String selectedBadgeKey = badgeKeys.get(which);
+                            databaseReference.child(selectedBadgeKey).child("badge_status").setValue(newBadgeStatus);
+                        }
+                    }
+                });
+
+        // Add images to the dialog using BadgeImageAdapter
+        builder.setAdapter(new BadgeImageAdapter(this, badgeImages, badgeKeys), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Handle click on badge image
+                String selectedBadgeKey = badgeKeys.get(which);
+                databaseReference.child(selectedBadgeKey).child("badge_status").setValue(newBadgeStatus);
+            }
+        });
+
+        // Add a button to clear displayed badges
+        builder.setNegativeButton("Clear Displayed Badges", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Clear badges from display
+                for (String key : badgeKeys) {
+                    databaseReference.child(key).child("badge_status").setValue("unlocked");
+                }
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
+
 
 
     public void openMainActivity2(View view) {

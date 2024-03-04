@@ -3,6 +3,7 @@ package com.example.myapplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 // FOR THE GRADIENT
 import android.content.Intent;
@@ -23,13 +24,21 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     FirebaseAuth auth;
-    ImageView button;
+    ImageView button, badgeChange1, badgeChange2, badgeChange3;
     TextView userNameTextView, userCoinsTextView, userBPLevelTextView;
     FirebaseUser user;
-    DatabaseReference databaseReference;
+    DatabaseReference databaseReference, databaseBadges;
+
+    private DataSnapshot dataSnapshot;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +86,48 @@ public class MainActivity extends AppCompatActivity {
                     // Handle errors
                 }
             });
+
+
+            // Badges Reference
+            databaseBadges = FirebaseDatabase.getInstance().getReference("Registered Users")
+                    .child(user.getUid())
+                    .child("Badges");
+
+            // Add a listener to retrieve data from Firebase Database
+            databaseBadges.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    dataSnapshot = snapshot;
+                    for (DataSnapshot badgeSnapshot : dataSnapshot.getChildren()) {
+                        String badgeName = badgeSnapshot.getKey(); // Badge name is the key
+                        String badgeStatus = badgeSnapshot.child("badge_status").getValue(String.class); // Badge status is retrieved from "badge_status" child
+
+                        badgeChange1 = findViewById(R.id.displayed_badge_1);
+                        badgeChange2 = findViewById(R.id.displayed_badge_2);
+                        badgeChange3 = findViewById(R.id.displayed_badge_3);
+
+
+                        // Check if badge status is not "locked" before adding it to the list
+                        if (!"locked".equals(badgeStatus)) {
+                            int badgeDrawableId = getDrawableResourceId(badgeName);
+
+                            if ("displayed1".equals(badgeStatus)) {
+                                badgeChange1.setImageResource(badgeDrawableId);
+                            } else if ("displayed2".equals(badgeStatus)) {
+                                badgeChange2.setImageResource(badgeDrawableId);
+                            } else if ("displayed3".equals(badgeStatus)) {
+                                badgeChange3.setImageResource(badgeDrawableId);
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    // Handle errors
+                }
+            });
+
         }
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +141,28 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private int getDrawableResourceId(String badgeName) {
+        try {
+            // Get the R.drawable class using reflection
+            Class<?> drawableClass = R.drawable.class;
+
+            // Get the Field object representing the badgeName in the R.drawable class
+            Field field = drawableClass.getField(badgeName);
+
+            // Get the value (drawable resource ID) of the field
+            return field.getInt(null);
+        } catch (NoSuchFieldException e) {
+            // Handle the case where the badgeName is not found
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            // Handle the case where access to the field is denied
+            e.printStackTrace();
+        }
+
+        // Return 0 if badgeName is not recognized
+        return 0;
     }
 
     public void openMainActivity2(View view) {
