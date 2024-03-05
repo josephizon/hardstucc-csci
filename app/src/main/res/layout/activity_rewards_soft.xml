@@ -7,7 +7,8 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".RewardsSoft"
-    android:background="@color/dirty_white">
+    android:background="@color/dirty_white"
+    >
 
     <!--    <TextView-->
     <!--        android:id="@+id/user_details"-->
@@ -191,16 +192,15 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rewards_soft_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="horizontal"
+            android:layout_height="450dp"
+
             />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rewards_soft_recyclerview2"
+        <!--<androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rewards_soft_recyclerview_2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="horizontal"
-            />
+            android:layout_height="300dp"
+            />-->
 
 
 

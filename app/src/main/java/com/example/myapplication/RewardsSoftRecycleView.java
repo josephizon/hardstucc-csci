@@ -16,13 +16,15 @@ public class RewardsSoftRecycleView extends RecyclerView.ViewHolder {
 
     TextView rewardSoftPrice;
 
-    Button rewardSoftStatusButton;
+    TextView rewardSoftName;
+
+    Button rewardSoftStatus;
 
     public RewardsSoftRecycleView(@NonNull View itemView) {
         super(itemView);
-
+        rewardSoftName = itemView.findViewById(R.id.reward_soft_name);
         rewardSoftImage = itemView.findViewById(R.id.reward_soft_image);
         rewardSoftPrice = itemView.findViewById(R.id.reward_soft_price);
-        rewardSoftStatusButton = itemView.findViewById(R.id.reward_soft_status_button);
+        rewardSoftStatus = itemView.findViewById(R.id.reward_soft_status);
     }
 }
