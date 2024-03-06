@@ -2,13 +2,13 @@ package com.example.myapplication;
 
 public class Tasks {
     private String taskId, name, description, deadline, type, status;
-    private float exp;
+    private int exp;
 
     public Tasks() {
         // Default constructor required for calls to DataSnapshot.getValue(Task.class)
     }
 
-    public Tasks( String name, String description, String deadline, String type, String status, String taskId, float exp) {
+    public Tasks( String name, String description, String deadline, String type, String status, String taskId, int exp) {
         this.name = name;
         this.description = description;
         this.deadline = deadline;
@@ -18,11 +18,11 @@ public class Tasks {
         this.exp = exp;
     }
 
-    public float getExp() {
+    public int getExp() {
         return exp;
     }
 
-    public void setExp(float exp) {
+    public void setExp(int exp) {
         this.exp = exp;
     }
 

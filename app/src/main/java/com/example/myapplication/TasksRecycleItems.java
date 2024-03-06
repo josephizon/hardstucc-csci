@@ -7,9 +7,9 @@ public class TasksRecycleItems {
     String taskDeadline;
     String taskStatus;
     String taskId;
-    float exp;
+    int exp;
 
-    public TasksRecycleItems(String taskName, String taskDescription, String taskDeadline, String taskStatus, String taskId, float exp) {
+    public TasksRecycleItems(String taskName, String taskDescription, String taskDeadline, String taskStatus, String taskId, int exp) {
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.taskDeadline = taskDeadline;
@@ -18,7 +18,7 @@ public class TasksRecycleItems {
         this.exp = exp;
     }
 
-    public float getExp() {
+    public int getExp() {
         return exp;
     }
 
