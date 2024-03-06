@@ -149,8 +149,8 @@
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
+                android:onClick="openBuddyMainActivity"
                 android:src="@drawable/nav_buddy"
-                android:onClick="openBuddyBattlePass"
 
                 />
 

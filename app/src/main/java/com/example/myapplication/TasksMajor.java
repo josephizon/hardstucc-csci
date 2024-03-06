@@ -318,11 +318,4 @@ public class TasksMajor extends AppCompatActivity {
         startActivity(new Intent(this, BuddyProfile.class));
     }
 
-    public void openBuddyStore(View view) {
-        startActivity(new Intent(this, BuddyRewardsSoft.class));
-    }
-
-    public void openBuddyBadges(View view) {
-        startActivity(new Intent(this, BuddyBadges.class));
-    }
 }
