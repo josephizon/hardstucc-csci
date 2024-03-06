@@ -88,7 +88,7 @@ public class TasksDaily extends AppCompatActivity {
         taskItems = new ArrayList<>();
         fetchTasksFromDatabase();
         // Initialize RecyclerView adapter
-        tasksRecycleAdapter = new TasksRecycleAdapter(getApplicationContext(), taskItems, false, user);
+        tasksRecycleAdapter = new TasksRecycleAdapter(recyclerView.getContext(), taskItems, false, user);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(tasksRecycleAdapter);
 

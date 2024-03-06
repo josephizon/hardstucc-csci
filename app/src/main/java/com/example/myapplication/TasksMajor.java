@@ -90,7 +90,7 @@ public class TasksMajor extends AppCompatActivity {
         boolean isBuddyPage = false;
 
         // Initialize RecyclerView adapter
-        tasksRecycleAdapter = new TasksRecycleAdapter(getApplicationContext(), taskItems, isBuddyPage, user);
+        tasksRecycleAdapter = new TasksRecycleAdapter(recyclerView.getContext(), taskItems, isBuddyPage, user);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(tasksRecycleAdapter);
 

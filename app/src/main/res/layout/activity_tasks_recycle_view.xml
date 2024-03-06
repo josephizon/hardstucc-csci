@@ -12,6 +12,7 @@
         android:layout_margin="10dp"
         android:layout_marginBottom="10dp"
         android:padding="10dp"
+        app:cardBackgroundColor="#FEFEFE"
         app:cardCornerRadius="20dp"
         app:cardElevation="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -54,15 +55,15 @@
                     android:layout_marginTop="4dp"
                     android:fontFamily="@font/inter"
                     android:text="DEADLINE: "
-                    android:textStyle="bold"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/major_deadline_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/deadline_marker"
                     android:layout_marginTop="4dp"
+                    android:layout_toRightOf="@+id/deadline_marker"
                     android:fontFamily="@font/inter"
                     android:text="December 10, 2023"
                     android:textSize="12sp" />
@@ -79,34 +80,63 @@
                     android:layout_marginTop="2dp"
                     android:fontFamily="@font/inter"
                     android:text="STATUS: "
-                    android:textStyle="bold"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/major_status_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/status_marker"
                     android:layout_marginTop="2dp"
+                    android:layout_toRightOf="@+id/status_marker"
                     android:fontFamily="@font/inter"
                     android:text="Pending"
                     android:textSize="12sp" />
             </RelativeLayout>
 
 
-            <Button
-                android:id="@+id/btn_mark_as_done"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_gravity="bottom|right"
-                android:text="Mark as Done"
-                android:textColor="@color/white"
-                android:textSize="10sp"
-                android:textAllCaps="false"
-                android:background="@drawable/custom_button"
-                />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="right"
+                android:orientation="horizontal">
 
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/btn_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_gravity="bottom|right"
+                    android:background="@drawable/custom_button_delete"
+                    android:text="Delete Task"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="10sp" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.05" />
+
+                <Button
+                    android:id="@+id/btn_mark_as_done"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_gravity="bottom|right"
+                    android:background="@drawable/custom_button"
+                    android:text="Mark as Done"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="10sp" />
+            </LinearLayout>
 
 
         </LinearLayout>

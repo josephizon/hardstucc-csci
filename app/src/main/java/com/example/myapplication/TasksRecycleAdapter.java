@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.view.ViewGroup;
 
 import java.util.List;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -27,6 +30,7 @@ public class TasksRecycleAdapter extends RecyclerView.Adapter<TasksRecycleView> 
     private boolean isBuddyPage;
     private FirebaseUser User;
     private DatabaseReference databaseReference;
+    private AlertDialog.Builder confirmation;
 
     public TasksRecycleAdapter(Context context, List<TasksRecycleItems> items, boolean isBuddyPage, FirebaseUser User) {
         this.context = context;
@@ -49,8 +53,13 @@ public class TasksRecycleAdapter extends RecyclerView.Adapter<TasksRecycleView> 
         holder.taskDescription.setText(currentItem.getTaskDescription());
         holder.taskDeadline.setText(currentItem.getTaskDeadline());
         holder.taskStatus.setText(currentItem.getTaskStatus());
+
         // Update button text and clickability based on task status
         updateButton(holder, currentItem, position);
+
+        // If buddy then Delete button is hidden. If main user then have delete button
+        deleteButton(holder, currentItem, position);
+
         Log.d("TasksRecycleAdapter", "whole button clicked for taskId: " + currentItem.getTaskName());
     }
 
@@ -190,6 +199,51 @@ public class TasksRecycleAdapter extends RecyclerView.Adapter<TasksRecycleView> 
                 // Handle onCancelled
             }
         });
+    }
+
+    // Delete Task
+    private void deleteButton(TasksRecycleView holder, TasksRecycleItems currentItem, int position) {
+        String status = currentItem.getTaskStatus();
+
+        if (isBuddyPage) {
+            // Buddy Page Logic
+            holder.btnDeleteTask.setBackgroundColor(Color.rgb(254, 254, 254));
+            holder.btnDeleteTask.setClickable(false);
+            holder.btnDeleteTask.setEnabled(false);
+        } else {
+            // Create an if Statement to prevent users from deleting important tasks
+            AlertDialog.Builder confirmation = new AlertDialog.Builder(context);
+            holder.btnDeleteTask.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    confirmation.setTitle("Are you sure you want to delete?");
+                    confirmation.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    deleteTaskInFirebase(User, currentItem.getTaskId());
+                                }
+                            });
+                    confirmation.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    confirmation.show();
+                }
+            });
+        }
+    }
+
+    private void deleteTaskInFirebase(FirebaseUser user, String taskId) {
+        // Assuming your tasks are stored under "Registered Users" and each user has a "Tasks" node
+        databaseReference = FirebaseDatabase.getInstance().getReference("Registered Users")
+                .child(user.getUid())
+                .child("Tasks")
+                .child(taskId);
+
+        // Update the "status" field with the new status
+        databaseReference.removeValue();
     }
 }
 

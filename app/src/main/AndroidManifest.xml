@@ -57,14 +57,6 @@
             android:name=".BuddyProfile"
             android:exported="false" />
         <activity
-            android:name=".BuddyRewardsSoft"
-            android:exported="false" />
-
-
-        <activity
-            android:name=".BuddyBadges"
-            android:exported="false" />
-        <activity
             android:name=".Register"
             android:exported="false" />
         <activity

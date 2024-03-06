@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class TasksRecycleView extends RecyclerView.ViewHolder {
     TextView taskTitle, taskDescription, taskDeadline, taskStatus;
-    Button btnMarkAsDone;
+    Button btnMarkAsDone, btnDeleteTask;
 
     public TasksRecycleView(@NonNull View itemView) {
         super(itemView);
@@ -17,5 +17,6 @@ public class TasksRecycleView extends RecyclerView.ViewHolder {
         taskDeadline = itemView.findViewById(R.id.major_deadline_1);
         taskStatus = itemView.findViewById(R.id.major_status_1);
         btnMarkAsDone = itemView.findViewById(R.id.btn_mark_as_done);
+        btnDeleteTask = itemView.findViewById(R.id.btn_delete);
     }
 }
