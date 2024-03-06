@@ -161,7 +161,7 @@
                 android:layout_centerVertical="true"
                 android:fontFamily="@font/epilogue_black"
                 android:paddingTop="10dp"
-                android:text="Profile Icons"
+                android:text="Collectibles"
                 android:textColor="@color/blue"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -190,7 +190,7 @@
             />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rewards_soft_recyclerview"
+            android:id="@+id/rewards_collectibles_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="300dp"
 
@@ -207,7 +207,7 @@
                 />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_collectibles"
+                android:id="@+id/btn_profile_icons"
                 android:layout_width="110dp"
                 android:layout_height="50dp"
                 android:layout_toEndOf="@+id/layout_collectible_space"
@@ -215,21 +215,13 @@
                 android:textColor="@color/white"
                 android:fontFamily="@font/inter"
                 android:padding="0dp"
-                android:text="Collectible Store"
+                android:text="Icon Store"
                 android:textSize="12sp"
                 app:cornerRadius="32dp"
-                android:onClick="openRewardsCollectibles"
+                android:onClick="openRewardsSoft"
                 />
 
         </RelativeLayout>
-
-        <!--<androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rewards_soft_recyclerview_2"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            />-->
-
-
 
 
 

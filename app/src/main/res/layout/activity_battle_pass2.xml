@@ -110,8 +110,15 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:progressDrawable="@drawable/custom_progressbg"
             android:id="@+id/battlepass_progressbar" />
-
-
+        <TextView
+            android:id="@+id/levelExpTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingTop="8dp"
+            android:text="Level: Exp:"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/battlepass_recycler"
             android:layout_width="match_parent"

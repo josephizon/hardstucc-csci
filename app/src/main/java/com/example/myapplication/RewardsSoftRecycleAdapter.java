@@ -70,8 +70,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -81,7 +84,7 @@ public class RewardsSoftRecycleAdapter extends RecyclerView.Adapter<RewardsSoftR
     Context context;
     List<RewardsSoftRecycleItem> items;
 
-    DatabaseReference databaseUserDataReference;
+    DatabaseReference databaseRewardStatus, databaseUserDataReference;
     FirebaseAuth auth;
 
     FirebaseUser user;
@@ -111,6 +114,7 @@ public class RewardsSoftRecycleAdapter extends RecyclerView.Adapter<RewardsSoftR
         holder.rewardSoftPrice.setText(currentItem.getRewardSoftPrice());
         holder.rewardSoftStatus.setText(currentItem.getRewardSoftStatus());
         holder.rewardSoftName.setText(currentItem.getRewardSoftName());
+        holder.rewardSoftType.setText(currentItem.getRewardSoftType());
 
         // Add OnClickListener to handle item clicks
         holder.rewardSoftStatus.setOnClickListener(new View.OnClickListener() {
@@ -120,6 +124,13 @@ public class RewardsSoftRecycleAdapter extends RecyclerView.Adapter<RewardsSoftR
                 openPurchasePopup(currentItem);
             }
         });
+
+        // Disable the button if the reward status is "owned"
+        if (currentItem.getRewardSoftStatus().equals("owned")) {
+            holder.rewardSoftStatus.setEnabled(false);
+        } else {
+            holder.rewardSoftStatus.setEnabled(true);
+        }
     }
 
     @Override
@@ -135,22 +146,70 @@ public class RewardsSoftRecycleAdapter extends RecyclerView.Adapter<RewardsSoftR
         builder.setPositiveButton("Purchase", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // Update the reward status in Firebase database
                 auth = FirebaseAuth.getInstance();
                 user = auth.getCurrentUser();
                 databaseUserDataReference = FirebaseDatabase.getInstance().getReference("Registered Users")
-                        .child(user.getUid())
-                        .child("SoftRewards")
-                        .child(item.getRewardSoftName());
+                        .child(user.getUid());
 
-                databaseUserDataReference.child("reward_status").setValue("owned")
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                // Database updated successfully
-                                Toast.makeText(context, "Item purchased successfully!", Toast.LENGTH_SHORT).show();
+                // Attach a ValueEventListener to get the current value of "coins"
+                databaseUserDataReference.child("coins").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        // Retrieve the current value of "coins"
+                        Object coinsValue = dataSnapshot.getValue();
+                        if (coinsValue != null) {
+                            int currentCoins = Integer.parseInt(coinsValue.toString());
+
+                            // Check if there are enough coins to subtract
+                            if (currentCoins >= 100) {
+                                int newCoins = currentCoins - 100;
+
+                                // Update the value of "coins" in the database
+                                databaseUserDataReference.child("coins").setValue(newCoins)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                // Database updated successfully
+                                                Log.d("Coins", "Coins subtracted successfully");
+
+                                                // Now update the reward status in Firebase database
+                                                databaseRewardStatus = FirebaseDatabase.getInstance().getReference("Registered Users")
+                                                        .child(user.getUid())
+                                                        .child("SoftRewards")
+                                                        .child(item.getRewardSoftName());
+
+                                                databaseRewardStatus.child("reward_status").setValue("owned")
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void aVoid) {
+                                                                // Database updated successfully
+                                                                Toast.makeText(context, "Item purchased successfully!", Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        });
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                // Handle failures here
+                                                Log.e("Coins", "Failed to subtract coins", e);
+                                            }
+                                        });
+                            } else {
+                                // Not enough coins to subtract
+                                Toast.makeText(context, "Not enough coins to purchase", Toast.LENGTH_SHORT).show();
                             }
-                        });
+                        } else {
+                            Log.d("Coins", "No value found for coins");
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        // Handle potential errors here
+                        Log.e("Coins", "Failed to read value.", databaseError.toException());
+                    }
+                });
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

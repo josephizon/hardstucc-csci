@@ -39,7 +39,7 @@ public class BattlePassRecycleItems {
     }
 
     public void setItemImage(int itemImage) {
-        this.itemProgress = itemImage;
+        this.itemImage = itemImage;
     }
 
     public int getItemLevel() {

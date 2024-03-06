@@ -221,6 +221,6 @@ public class Users {
     public void setExp(int exp) { this.exp = exp; }
     public void addExp(int exp) { this.exp += exp; }
 
-    public int getBpLevel() { this.bpLevel = exp/1000; return bpLevel; }
+    public int getBpLevel() { return bpLevel; }
     public void setBpLevel(int bpLevel) { this.bpLevel = bpLevel; }
 }

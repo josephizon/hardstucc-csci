@@ -54,6 +54,14 @@
 
             />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/reward_soft_type"
+            android:visibility="gone"
+
+            />
+
     </RelativeLayout>
 
 </RelativeLayout>

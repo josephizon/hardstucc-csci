@@ -85,7 +85,7 @@ public class TasksRecycleAdapter extends RecyclerView.Adapter<TasksRecycleView> 
                         Log.d("TasksRecycleAdapter", "whole button clicked for taskId: " + currentItem.getTaskId());
 
                         updateBuddyStatusInFirebase(User, currentItem.getTaskId(), "Accomplished");
-                        updateBuddyExpInFirebase(User, 50);
+                        updateBuddyExpInFirebase(User, currentItem.getExp());
                     }
                 });
             } else if ("Accomplished".equals(status)) {
@@ -124,10 +124,10 @@ public class TasksRecycleAdapter extends RecyclerView.Adapter<TasksRecycleView> 
         // Update the "status" field with the new status
         databaseReference.child("status").setValue(newStatus);
     }
-    private void updateBuddyExpInFirebase(FirebaseUser user, int expToAdd) {
+    private void updateBuddyExpInFirebase(FirebaseUser user, int taskExp) {
         DatabaseReference usersReference = FirebaseDatabase.getInstance().getReference("Registered Users");
 
-        // Retrieve the buddy's ID using the current user's ID
+        // Retrieve the current user's information
         usersReference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -135,9 +135,12 @@ public class TasksRecycleAdapter extends RecyclerView.Adapter<TasksRecycleView> 
                     Users currentUser = dataSnapshot.getValue(Users.class);
 
                     if (currentUser != null && currentUser.getBuddyUid() != null) {
-                        String buddyId = currentUser.getBuddyUid();
+                        // Retrieve the buddy's UID from the current user's information
+                        String buddyUid = currentUser.getBuddyUid();
+
+                        // Update the buddy's exp based on the retrieved buddy UID
                         DatabaseReference buddyExpRef = FirebaseDatabase.getInstance().getReference("Registered Users")
-                                .child(buddyId)
+                                .child(buddyUid)
                                 .child("exp");
 
                         // Retrieve the current exp of the buddy
@@ -147,10 +150,40 @@ public class TasksRecycleAdapter extends RecyclerView.Adapter<TasksRecycleView> 
                                 if (expSnapshot.exists()) {
                                     Integer currentExp = expSnapshot.getValue(Integer.class);
                                     if (currentExp == null) currentExp = 0; // If for some reason it's null, default to 0
-                                    int newExp = currentExp + expToAdd;
+                                    int newExp = currentExp + taskExp;
 
                                     // Update the exp in Firebase
                                     buddyExpRef.setValue(newExp);
+
+                                    // Handle level updates
+                                    while (newExp >= 1000) {
+                                        // Subtract 1000 from exp and increase the level by 1
+                                        newExp -= 1000;
+
+                                        // Retrieve the current level of the buddy
+                                        DatabaseReference buddyLevelRef = FirebaseDatabase.getInstance().getReference("Registered Users")
+                                                .child(buddyUid)
+                                                .child("bpLevel");
+
+                                        buddyLevelRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot levelSnapshot) {
+                                                if (levelSnapshot.exists()) {
+                                                    Integer currentLevel = levelSnapshot.getValue(Integer.class);
+                                                    if (currentLevel == null) currentLevel = 0; // If for some reason it's null, default to 0
+                                                    int newLevel = currentLevel + 1;
+
+                                                    // Update the level in Firebase
+                                                    buddyLevelRef.setValue(newLevel);
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                // Handle possible errors here
+                                            }
+                                        });
+                                    }
                                 }
                             }
 

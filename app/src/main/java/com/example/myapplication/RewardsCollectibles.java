@@ -27,7 +27,7 @@ import java.util.List;
 
 
 
-public class RewardsSoft extends AppCompatActivity {
+public class RewardsCollectibles extends AppCompatActivity {
     FirebaseAuth auth;
     ImageView button;
     TextView textView;
@@ -46,7 +46,7 @@ public class RewardsSoft extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rewards_soft);
+        setContentView(R.layout.activity_rewards_collectibles);
 
         // BATTLEPLAN GRADIENT
         TextView name = findViewById(R.id.battle);
@@ -86,28 +86,12 @@ public class RewardsSoft extends AppCompatActivity {
             }
         });
 
-        /*// ADDING ITEMS TO RECYCLE VIEW 1
-
-        // Set up RecyclerView with the retrieved data
-        RecyclerView recyclerView = findViewById(R.id.rewards_soft_recyclerview);
-
-        // RecyclerView recyclerView = findViewById(R.id.rewards_soft_recyclerview);
-
-        List<RewardsSoftRecycleItem> items = new ArrayList<RewardsSoftRecycleItem>();
-        items.add(new RewardsSoftRecycleItem("rewards_profile_icon_1", "200", "available", R.drawable.rewards_profile_icon_1 ));
-        items.add(new RewardsSoftRecycleItem("rewards_profile_icon_2", "300", "available", R.drawable.rewards_profile_icon_2 ));
-        items.add(new RewardsSoftRecycleItem("rewards_profile_icon_3", "200", "available", R.drawable.rewards_profile_icon_3 ));
-        items.add(new RewardsSoftRecycleItem("rewards_profile_icon_4", "300", "available", R.drawable.rewards_profile_icon_4 ));
-
-        recyclerView.setLayoutManager(new CustomLayoutManager());
-        recyclerView.setAdapter(new RewardsSoftRecycleAdapter(getApplicationContext(), items));*/
-
         // Set up Firebase Database reference (Displaying the buyable stuff)
         databaseReference = FirebaseDatabase.getInstance().getReference("Registered Users")
                 .child(user.getUid())
                 .child("SoftRewards");
 
-        recyclerView = findViewById(R.id.rewards_soft_recyclerview);
+        recyclerView = findViewById(R.id.rewards_collectibles_recyclerview);
         recyclerView.setLayoutManager(new CustomLayoutManager());
         adapter = new RewardsSoftRecycleAdapter(recyclerView.getContext(), new ArrayList<>());
         recyclerView.setAdapter(adapter);
@@ -126,7 +110,7 @@ public class RewardsSoft extends AppCompatActivity {
                     // Log.d("RewardsSoft", "Reward Name: " + rewardSoftName + ", Status: " + rewardSoftStatus);
 
                     // Check if badge status is not "unlocked" before adding it to the list
-                    if("icon".equals(rewardSoftType)) {
+                    if("collectible".equals(rewardSoftType)) {
                         int rewardDrawableId = getDrawableResourceId(rewardSoftName);
                         items.add(new RewardsSoftRecycleItem(rewardSoftName, rewardSoftPrice, rewardSoftStatus, rewardDrawableId, rewardSoftType));
                     }
@@ -204,7 +188,6 @@ public class RewardsSoft extends AppCompatActivity {
         startActivity(new Intent(this, RewardsCollectibles.class));
     }
 
-
     public void openRewardsHard(View view) {
         startActivity(new Intent(this, RewardsHard.class));
     }
@@ -230,6 +213,8 @@ public class RewardsSoft extends AppCompatActivity {
     public void openBuddyProfile(View view) {
         startActivity(new Intent(this, BuddyProfile.class));
     }
+
+
 
 
 
