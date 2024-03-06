@@ -98,14 +98,4 @@ public class BuddyMainActivity2 extends AppCompatActivity {
         startActivity(new Intent(this, BuddyBattlePass.class));
     }
 
-    public void openBuddyProfile(View view) {
-        startActivity(new Intent(this, BuddyProfile.class));
-    }
-
-    public void openBuddyStore(View view) {
-        startActivity(new Intent(this, BuddyRewardsSoft.class));
-    }
-
-
-
 }

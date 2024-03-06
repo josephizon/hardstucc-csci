@@ -51,16 +51,6 @@ import com.google.firebase.database.ValueEventListener;
         Shader shader1 = new LinearGradient(0f, 0f, 0f, recentActivity.getTextSize(), blue, purple, Shader.TileMode.CLAMP);
         recentActivity.getPaint().setShader(shader1);
 
-        // UPDATE PROFILE CODE
-        btnShowDialog = findViewById(R.id.btn_update_profile);
-
-        btnShowDialog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDialog();
-            }
-        });
-
         profileUsernameTextView = findViewById(R.id.profile_username);
 
         auth = FirebaseAuth.getInstance();
@@ -179,11 +169,4 @@ import com.google.firebase.database.ValueEventListener;
         startActivity(new Intent(this, BuddyProfile.class));
     }
 
-    public void openBuddyStore(View view) {
-        startActivity(new Intent(this, BuddyRewardsSoft.class));
-    }
-
-    public void openBuddyBadges(View view) {
-        startActivity(new Intent(this, BuddyBadges.class));
-    }
 }
