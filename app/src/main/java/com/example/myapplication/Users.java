@@ -6,7 +6,7 @@ import java.util.List;
 public class Users {
     private String email, firstName, middleName, lastName, buddyUid;
     private int coins = 0, exp = 0 , bpLevel = 0;
-    private boolean level1status, level2status, level3status, level4status, level5status, level6status, level7status, level8status, level9status, level10status, level11status, level12status, level13status, level14status, level15status;
+    private String level1status, level2status, level3status, level4status, level5status, level6status, level7status, level8status, level9status, level10status, level11status, level12status, level13status, level14status, level15status;
     private Users buddy;  // New field for the buddy
     private List<Tasks> tasks;  // List to store tasks
 
@@ -21,144 +21,145 @@ public class Users {
         this.middleName = middleName;
         this.lastName = lastName;
         tasks = new ArrayList<>();
-        this.level1status = false;
-        this.level2status = false;
-        this.level3status = false;
-        this.level4status = false;
-        this.level5status = false;
-        this.level6status = false;
-        this.level7status = false;
-        this.level8status = false;
-        this.level9status = false;
-        this.level10status = false;
-        this.level11status = false;
-        this.level12status = false;
-        this.level13status = false;
-        this.level14status = false;
-        this.level15status = false;
+        this.level1status = "Locked";
+        this.level2status = "Locked";
+        this.level3status = "Locked";
+        this.level4status = "Locked";
+        this.level5status = "Locked";
+        this.level6status = "Locked";
+        this.level7status = "Locked";
+        this.level8status = "Locked";
+        this.level9status = "Locked";
+        this.level10status = "Locked";
+        this.level11status = "Locked";
+        this.level12status = "Locked";
+        this.level13status = "Locked";
+        this.level14status = "Locked";
+        this.level15status = "Locked";
 
     }
 
-    public boolean isLevel1status() {
+    public String getLevel1status() {
         return level1status;
     }
 
-    public void setLevel1status(boolean level1status) {
+    public void setLevel1status(String level1status) {
         this.level1status = level1status;
     }
 
-    public boolean isLevel2status() {
+    public String getLevel2status() {
         return level2status;
     }
 
-    public void setLevel2status(boolean level2status) {
+    public void setLevel2status(String level2status) {
         this.level2status = level2status;
     }
 
-    public boolean isLevel3status() {
+    public String getLevel3status() {
         return level3status;
     }
 
-    public void setLevel3status(boolean level3status) {
+    public void setLevel3status(String level3status) {
         this.level3status = level3status;
     }
 
-    public boolean isLevel4status() {
+    public String getLevel4status() {
         return level4status;
     }
 
-    public void setLevel4status(boolean level4status) {
+    public void setLevel4status(String level4status) {
         this.level4status = level4status;
     }
 
-    public boolean isLevel5status() {
+    public String getLevel5status() {
         return level5status;
     }
 
-    public void setLevel5status(boolean level5status) {
+    public void setLevel5status(String level5status) {
         this.level5status = level5status;
     }
 
-    public boolean isLevel6status() {
+    public String getLevel6status() {
         return level6status;
     }
 
-    public void setLevel6status(boolean level6status) {
+    public void setLevel6status(String level6status) {
         this.level6status = level6status;
     }
 
-    public boolean isLevel7status() {
+    public String getLevel7status() {
         return level7status;
     }
 
-    public void setLevel7status(boolean level7status) {
+    public void setLevel7status(String level7status) {
         this.level7status = level7status;
     }
 
-    public boolean isLevel8status() {
+    public String getLevel8status() {
         return level8status;
     }
 
-    public void setLevel8status(boolean level8status) {
+    public void setLevel8status(String level8status) {
         this.level8status = level8status;
     }
 
-    public boolean isLevel9status() {
+    public String getLevel9status() {
         return level9status;
     }
 
-    public void setLevel9status(boolean level9status) {
+    public void setLevel9status(String level9status) {
         this.level9status = level9status;
     }
 
-    public boolean isLevel10status() {
+    public String getLevel10status() {
         return level10status;
     }
 
-    public void setLevel10status(boolean level10status) {
+    public void setLevel10status(String level10status) {
         this.level10status = level10status;
     }
 
-    public boolean isLevel11status() {
+    public String getLevel11status() {
         return level11status;
     }
 
-    public void setLevel11status(boolean level11status) {
+    public void setLevel11status(String level11status) {
         this.level11status = level11status;
     }
 
-    public boolean isLevel12status() {
+    public String getLevel12status() {
         return level12status;
     }
 
-    public void setLevel12status(boolean level12status) {
+    public void setLevel12status(String level12status) {
         this.level12status = level12status;
     }
 
-    public boolean isLevel13status() {
+    public String getLevel13status() {
         return level13status;
     }
 
-    public void setLevel13status(boolean level13status) {
+    public void setLevel13status(String level13status) {
         this.level13status = level13status;
     }
 
-    public boolean isLevel14status() {
+    public String getLevel14status() {
         return level14status;
     }
 
-    public void setLevel14status(boolean level14status) {
+    public void setLevel14status(String level14status) {
         this.level14status = level14status;
     }
 
-    public boolean isLevel15status() {
+    public String getLevel15status() {
         return level15status;
     }
 
-    public void setLevel15status(boolean level15status) {
+    public void setLevel15status(String level15status) {
         this.level15status = level15status;
     }
-// Other existing methods...
+
+    // Other existing methods...
 
     public List<Tasks> getTasks() {
         return tasks;
