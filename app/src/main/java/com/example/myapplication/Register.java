@@ -37,6 +37,8 @@ public class Register extends AppCompatActivity {
     ProgressBar progressBar;
     TextView textView;
 
+    DatabaseReference referenceUsers, userReference;
+
     @Override
     public void onStart() {
         super.onStart();
@@ -123,6 +125,7 @@ public class Register extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if(task.isSuccessful()){
                                                 addBadgeData(firebaseUser.getUid());
+                                                addIconData(firebaseUser.getUid());
                                                 Toast.makeText(Register.this, "Account created.",
                                                         Toast.LENGTH_SHORT).show();
                                             }
@@ -187,6 +190,40 @@ public class Register extends AppCompatActivity {
                     else{
                         /*Toast.makeText(Register.this, "Failed to add badge data for " + badgeName,
                                 Toast.LENGTH_SHORT).show();*/
+                    }
+                }
+            });
+        }
+    }
+
+    private void addIconData(String userId) {
+        List<String> rewardNames = new ArrayList<>();
+        rewardNames.add("rewards_profile_icon_1");
+        rewardNames.add("rewards_profile_icon_2");
+        rewardNames.add("rewards_profile_icon_3");
+        rewardNames.add("rewards_profile_icon_4");
+
+        // Define the structure of the badge data
+        Map<String, Object> badgeData = new HashMap<>();
+        badgeData.put("reward_status", "available"); // Set status for all badges
+        badgeData.put("reward_type", "icon"); // Set reward type for all badges
+
+        // Create a reference to the "Registered Users" node
+        referenceUsers = FirebaseDatabase.getInstance().getReference("Registered Users");
+        userReference = referenceUsers.child(userId).child("SoftRewards");
+
+        // Iterate over each badge name and set the data under the user's node for each badge
+        for (String rewardName : rewardNames) {
+            userReference.child(rewardName).setValue(badgeData).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                    /*Toast.makeText(Register.this, "Badge data added for " + rewardName,
+                            Toast.LENGTH_SHORT).show();*/
+                    }
+                    else{
+                    /*Toast.makeText(Register.this, "Failed to add badge data for " + rewardName,
+                            Toast.LENGTH_SHORT).show();*/
                     }
                 }
             });

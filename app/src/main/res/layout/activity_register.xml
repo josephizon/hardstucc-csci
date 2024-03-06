@@ -41,7 +41,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-
         android:layout_below="@id/logo"
         android:gravity="center"
         >
@@ -69,9 +68,15 @@
 
     </LinearLayout>
 
-    <androidx.cardview.widget.CardView
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/top">
+
+        <androidx.cardview.widget.CardView
         android:layout_width="350dp"
-        android:layout_height="665dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/top"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
@@ -111,7 +116,7 @@
 
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_height="20dp"
                 />
 
             <TextView
@@ -206,6 +211,24 @@
                 android:drawableEnd="@drawable/login_done_icon"
                 />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Class"
+                android:alpha="0.5"
+                android:textStyle="bold"
+                />
+
+            <Spinner
+                android:id="@+id/spinner_class"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown"
+                android:entries="@array/subjects"
+                android:prompt="@string/subject_prompt"
+                style="@style/SpinnerStyle"
+            />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -263,6 +286,6 @@
 
     </androidx.cardview.widget.CardView>
 
-
+    </ScrollView>
 
 </RelativeLayout>
