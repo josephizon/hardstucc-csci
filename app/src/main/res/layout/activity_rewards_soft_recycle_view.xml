@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_height="150dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
     >
 
     <RelativeLayout
@@ -33,7 +32,7 @@
             />
 
         <Button
-            android:id="@+id/reward_soft_status_button"
+            android:id="@+id/reward_soft_status"
             android:layout_width="60dp"
             android:layout_height="40dp"
             android:layout_below="@id/reward_soft_price"
@@ -42,12 +41,19 @@
             android:textColor="@color/white"
             android:fontFamily="@font/inter"
             android:text="OWNED"
-            android:textSize="10sp"
+            android:textSize="8sp"
             android:padding="0dp"
             app:cornerRadius="10sp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/reward_soft_name"
+            android:visibility="gone"
 
             />
 
     </RelativeLayout>
 
-</LinearLayout>
+</RelativeLayout>

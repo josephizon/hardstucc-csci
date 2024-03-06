@@ -4,12 +4,15 @@ public class RewardsSoftRecycleItem {
 
     String rewardSoftName;
     String rewardSoftPrice;
+    String rewardSoftStatus;
     int rewardSoftImage;
 
-    public RewardsSoftRecycleItem(String rewardSoftName, String rewardSoftPrice, int rewardSoftImage) {
+
+    public RewardsSoftRecycleItem(String rewardSoftName, String rewardSoftPrice, String rewardSoftStatus, int rewardSoftImage) {
         this.rewardSoftName = rewardSoftName;
         this.rewardSoftPrice = rewardSoftPrice;
         this.rewardSoftImage = rewardSoftImage;
+        this.rewardSoftStatus = rewardSoftStatus;
     }
 
     public String getRewardSoftName() {
@@ -35,4 +38,14 @@ public class RewardsSoftRecycleItem {
     public void setRewardSoftImage(int rewardSoftImage) {
         this.rewardSoftImage = rewardSoftImage;
     }
+
+    public String getRewardSoftStatus() {
+        return rewardSoftStatus;
+    }
+
+    public void setRewardSoftStatus(String rewardSoftStatus) {
+        this.rewardSoftStatus = rewardSoftStatus;
+    }
 }
+
+

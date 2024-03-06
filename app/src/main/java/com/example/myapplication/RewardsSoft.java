@@ -4,18 +4,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +35,16 @@ public class RewardsSoft extends AppCompatActivity {
     TextView textView;
     FirebaseUser user;
 
+    DatabaseReference databaseReference;
 
+    DatabaseReference databaseUserDataReference;
+
+    RecyclerView recyclerView;
+
+    RewardsSoftRecycleAdapter adapter;
+
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,37 +88,85 @@ public class RewardsSoft extends AppCompatActivity {
             }
         });
 
-        // ADDING ITEMS TO RECYCLE VIEW 1
+        /*// ADDING ITEMS TO RECYCLE VIEW 1
 
+        // Set up RecyclerView with the retrieved data
         RecyclerView recyclerView = findViewById(R.id.rewards_soft_recyclerview);
 
+        // RecyclerView recyclerView = findViewById(R.id.rewards_soft_recyclerview);
+
         List<RewardsSoftRecycleItem> items = new ArrayList<RewardsSoftRecycleItem>();
-        items.add(new RewardsSoftRecycleItem("Icon 1", "200", R.drawable.rewards_profile_icon_1 ));
-        items.add(new RewardsSoftRecycleItem("Icon 2", "300", R.drawable.rewards_profile_icon_2 ));
-        items.add(new RewardsSoftRecycleItem("Icon 3", "200", R.drawable.rewards_profile_icon_3 ));
-        items.add(new RewardsSoftRecycleItem("Icon 4", "300", R.drawable.rewards_profile_icon_4 ));
+        items.add(new RewardsSoftRecycleItem("rewards_profile_icon_1", "200", "available", R.drawable.rewards_profile_icon_1 ));
+        items.add(new RewardsSoftRecycleItem("rewards_profile_icon_2", "300", "available", R.drawable.rewards_profile_icon_2 ));
+        items.add(new RewardsSoftRecycleItem("rewards_profile_icon_3", "200", "available", R.drawable.rewards_profile_icon_3 ));
+        items.add(new RewardsSoftRecycleItem("rewards_profile_icon_4", "300", "available", R.drawable.rewards_profile_icon_4 ));
 
-        // ORIGINAL LINEARLAYOUT MANAGER
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(new RewardsSoftRecycleAdapter(getApplicationContext(), items));
+        recyclerView.setLayoutManager(new CustomLayoutManager());
+        recyclerView.setAdapter(new RewardsSoftRecycleAdapter(getApplicationContext(), items));*/
 
-        // ADDING ITEMS TO RECYCLE VIEW 2
-        RecyclerView recyclerView2 = findViewById(R.id.rewards_soft_recyclerview2);
+        // Set up Firebase Database reference (Displaying the buyable stuff)
+        databaseReference = FirebaseDatabase.getInstance().getReference("Registered Users")
+                .child(user.getUid())
+                .child("SoftRewards");
 
-        List<RewardsSoftRecycleItem> items2 = new ArrayList<RewardsSoftRecycleItem>();
-        items2.add(new RewardsSoftRecycleItem("Icon 5", "200", R.drawable.rewards_profile_icon_5 ));
-        items2.add(new RewardsSoftRecycleItem("Icon 6", "300", R.drawable.rewards_profile_icon_6 ));
-        items2.add(new RewardsSoftRecycleItem("Icon 7", "200", R.drawable.rewards_profile_icon_7 ));
-        items2.add(new RewardsSoftRecycleItem("Icon 8", "300", R.drawable.rewards_profile_icon_8 ));
+        recyclerView = findViewById(R.id.rewards_soft_recyclerview);
+        recyclerView.setLayoutManager(new CustomLayoutManager());
+        adapter = new RewardsSoftRecycleAdapter(recyclerView.getContext(), new ArrayList<>());
+        recyclerView.setAdapter(adapter);
+
+        // Retrieve data from Firebase
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<RewardsSoftRecycleItem> items = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String rewardSoftPrice = "200";
+                    String rewardSoftName = snapshot.getKey();
+                    String rewardSoftStatus = snapshot.child("reward_status").getValue(String.class);
+
+                    // Log.d("RewardsSoft", "Reward Name: " + rewardSoftName + ", Status: " + rewardSoftStatus);
+
+                    // Check if badge status is not "unlocked" before adding it to the list
+
+                        int rewardDrawableId = getDrawableResourceId(rewardSoftName);
+                        items.add(new RewardsSoftRecycleItem(rewardSoftName, rewardSoftPrice, rewardSoftStatus, rewardDrawableId));
+
+                }
+                adapter.setItems(items); // Set items to the adapter after retrieving from Firebase
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle errors
+            }
+        });
 
 
-        // ORIGINAL LINEARLAYOUT MANAGER
-        LinearLayoutManager layoutManager2 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerView2.setLayoutManager(layoutManager2);
 
-        //recyclerView.setLayoutManager(new WrappingLinearLayoutManager(this));
-        recyclerView2.setAdapter(new RewardsSoftRecycleAdapter(getApplicationContext(), items2));
+
+    }
+
+
+    private int getDrawableResourceId(String rewardName) {
+        try {
+            // Get the R.drawable class using reflection
+            Class<?> drawableClass = R.drawable.class;
+
+            // Get the Field object representing the rewardName in the R.drawable class
+            Field field = drawableClass.getField(rewardName);
+
+            // Get the value (drawable resource ID) of the field
+            return field.getInt(null);
+        } catch (NoSuchFieldException e) {
+            // Handle the case where the rewardName is not found
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            // Handle the case where access to the field is denied
+            e.printStackTrace();
+        }
+
+        // Return 0 if rewardName is not recognized
+        return 0;
     }
 
     public void openMainActivity2(View view) {

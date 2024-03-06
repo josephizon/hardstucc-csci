@@ -139,3 +139,4 @@ public class CustomLayoutManager extends RecyclerView.LayoutManager {
         return getDecoratedRight(view) + params.rightMargin;
     }
 }
+
