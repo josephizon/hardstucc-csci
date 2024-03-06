@@ -15,8 +15,17 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.Firebase;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +38,7 @@ public class BattlePass extends AppCompatActivity {
     RecyclerView recyclerView;
     List<BattlePassRecycleItems> battlepassItems;
     FirebaseUser user;
+    private DatabaseReference databaseReference;
     BattlePassRecycleAdapter battlePassRecycleAdapter;
     int currentProgress = 0;
     ProgressBar xpBar;
@@ -104,12 +114,30 @@ public class BattlePass extends AppCompatActivity {
         // Create in database the xp value for each users
         // The progress bar can only go up to 100, so when getting the user's xp we should do the math to set it in percentages/ below 100
         xpBar = findViewById(R.id.battlepass_progressbar);
-        currentProgress = 75; //Change this to reflect the user's actual xp
-        xpBar.setProgress(currentProgress);
-        xpBar.setMax(100);
 
+        xpBar.setMax(1000);
+        fetchUserExpFromFirebase();
     }
+    private void fetchUserExpFromFirebase() {
+        DatabaseReference expRef = FirebaseDatabase.getInstance().getReference("Registered Users")
+                .child(user.getUid())
+                .child("exp");
 
+        expRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    int userExp = dataSnapshot.getValue(Integer.class);
+                    xpBar.setProgress(userExp);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle onCancelled
+            }
+        });
+    }
     public void openMainActivity2(View view) {
         startActivity(new Intent(this, MainActivity2.class));
     }
