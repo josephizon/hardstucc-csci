@@ -156,7 +156,8 @@ public class BuddyTasksMajor extends AppCompatActivity {
                                     task.getDescription(),
                                     task.getDeadline(),
                                     task.getStatus(),
-                                    task.getTaskId()
+                                    task.getTaskId(),
+                                    task.getExp()
                             );
                             taskItems.add(recycleItem);
                         }

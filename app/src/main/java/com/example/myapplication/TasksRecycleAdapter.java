@@ -76,6 +76,7 @@ public class TasksRecycleAdapter extends RecyclerView.Adapter<TasksRecycleView> 
                         Log.d("TasksRecycleAdapter", "whole button clicked for taskId: " + currentItem.getTaskId());
 
                         updateBuddyStatusInFirebase(User, currentItem.getTaskId(), "Accomplished");
+                        updateBuddyExpInFirebase(User, 50);
                     }
                 });
             } else if ("Accomplished".equals(status)) {
@@ -113,6 +114,51 @@ public class TasksRecycleAdapter extends RecyclerView.Adapter<TasksRecycleView> 
 
         // Update the "status" field with the new status
         databaseReference.child("status").setValue(newStatus);
+    }
+    private void updateBuddyExpInFirebase(FirebaseUser user, int expToAdd) {
+        DatabaseReference usersReference = FirebaseDatabase.getInstance().getReference("Registered Users");
+
+        // Retrieve the buddy's ID using the current user's ID
+        usersReference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    Users currentUser = dataSnapshot.getValue(Users.class);
+
+                    if (currentUser != null && currentUser.getBuddyUid() != null) {
+                        String buddyId = currentUser.getBuddyUid();
+                        DatabaseReference buddyExpRef = FirebaseDatabase.getInstance().getReference("Registered Users")
+                                .child(buddyId)
+                                .child("exp");
+
+                        // Retrieve the current exp of the buddy
+                        buddyExpRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot expSnapshot) {
+                                if (expSnapshot.exists()) {
+                                    Integer currentExp = expSnapshot.getValue(Integer.class);
+                                    if (currentExp == null) currentExp = 0; // If for some reason it's null, default to 0
+                                    int newExp = currentExp + expToAdd;
+
+                                    // Update the exp in Firebase
+                                    buddyExpRef.setValue(newExp);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                // Handle possible errors here
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle possible cancellations here
+            }
+        });
     }
     private void updateBuddyStatusInFirebase(FirebaseUser user, String taskId, String newStatus) {
         // Assuming your users are stored under "Registered Users" and each user has a "buddyUid" field

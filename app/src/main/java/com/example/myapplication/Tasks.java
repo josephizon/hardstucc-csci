@@ -1,19 +1,29 @@
 package com.example.myapplication;
 
 public class Tasks {
-    private String taskId, name, description, deadline, type,status;
+    private String taskId, name, description, deadline, type, status;
+    private float exp;
 
     public Tasks() {
         // Default constructor required for calls to DataSnapshot.getValue(Task.class)
     }
 
-    public Tasks( String name, String description, String deadline, String type, String status, String taskId) {
+    public Tasks( String name, String description, String deadline, String type, String status, String taskId, float exp) {
         this.name = name;
         this.description = description;
         this.deadline = deadline;
         this.type = type;
         this.status = status;
         this.taskId = taskId;
+        this.exp = exp;
+    }
+
+    public float getExp() {
+        return exp;
+    }
+
+    public void setExp(float exp) {
+        this.exp = exp;
     }
 
     public String getTaskId() {

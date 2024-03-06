@@ -255,7 +255,7 @@ public class TasksDaily extends AppCompatActivity {
         String taskId = databaseReference.push().getKey();
 
         // Create a new Tasks object
-        Tasks task = new Tasks(name, description, deadline, type, "To be Accomplished", taskId);
+        Tasks task = new Tasks(name, description, deadline, type, "To be Accomplished", taskId, 50);
 
         // Add the task to the database under the user's node
         databaseReference.child(taskId).setValue(task);
@@ -279,7 +279,8 @@ public class TasksDaily extends AppCompatActivity {
                                     task.getDescription(),
                                     task.getDeadline(),
                                     task.getStatus(),
-                                    task.getTaskId()
+                                    task.getTaskId(),
+                                    task.getExp()
                             );
                             taskItems.add(recycleItem);
                         }

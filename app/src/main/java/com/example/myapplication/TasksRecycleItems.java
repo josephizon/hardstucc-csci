@@ -7,13 +7,23 @@ public class TasksRecycleItems {
     String taskDeadline;
     String taskStatus;
     String taskId;
+    float exp;
 
-    public TasksRecycleItems(String taskName, String taskDescription, String taskDeadline, String taskStatus, String taskId) {
+    public TasksRecycleItems(String taskName, String taskDescription, String taskDeadline, String taskStatus, String taskId, float exp) {
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.taskDeadline = taskDeadline;
         this.taskStatus = taskStatus;
         this.taskId = taskId;
+        this.exp = exp;
+    }
+
+    public float getExp() {
+        return exp;
+    }
+
+    public void setExp(int exp) {
+        this.exp = exp;
     }
 
     public String getTaskId() {
