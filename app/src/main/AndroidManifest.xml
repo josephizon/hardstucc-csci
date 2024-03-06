@@ -21,6 +21,9 @@
             android:name=".RewardsSoft"
             android:exported="false" />
         <activity
+            android:name=".RewardsCollectibles"
+            android:exported="false" />
+        <activity
             android:name=".RewardsHard"
             android:exported="false" />
         <activity

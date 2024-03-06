@@ -20,11 +20,14 @@ public class RewardsSoftRecycleView extends RecyclerView.ViewHolder {
 
     Button rewardSoftStatus;
 
+    TextView rewardSoftType;
+
     public RewardsSoftRecycleView(@NonNull View itemView) {
         super(itemView);
         rewardSoftName = itemView.findViewById(R.id.reward_soft_name);
         rewardSoftImage = itemView.findViewById(R.id.reward_soft_image);
         rewardSoftPrice = itemView.findViewById(R.id.reward_soft_price);
         rewardSoftStatus = itemView.findViewById(R.id.reward_soft_status);
+        rewardSoftType = itemView.findViewById(R.id.reward_soft_type);
     }
 }
