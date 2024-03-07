@@ -19,7 +19,6 @@ import androidx.annotation.NonNull;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.Firebase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,7 +39,6 @@ public class BattlePass extends AppCompatActivity {
     FirebaseUser user;
     private DatabaseReference databaseReference;
     BattlePassRecycleAdapter battlePassRecycleAdapter;
-    int currentProgress = 0;
     ProgressBar xpBar;
 
     // Declare TextView references
@@ -109,7 +107,7 @@ public class BattlePass extends AppCompatActivity {
         battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.battlepass_locked_icon, R.drawable.battlepass_coins_icon, 14));
         battlepassItems.add(new BattlePassRecycleItems("(Hard Reward), 500 Coins, \nBadge", R.drawable.battlepass_locked_icon, R.drawable.battlepass_hard_reward_icon, 15));
 
-        battlePassRecycleAdapter = new BattlePassRecycleAdapter((getApplicationContext()), battlepassItems);
+        battlePassRecycleAdapter = new BattlePassRecycleAdapter((getApplicationContext()), battlepassItems, user);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(battlePassRecycleAdapter);
         levelTextView = findViewById(R.id.levelTextView);
