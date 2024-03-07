@@ -43,7 +43,9 @@ public class BattlePass extends AppCompatActivity {
     int currentProgress = 0;
     ProgressBar xpBar;
 
-
+    // Declare TextView references
+    private TextView levelTextView;
+    private TextView expTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +112,8 @@ public class BattlePass extends AppCompatActivity {
         battlePassRecycleAdapter = new BattlePassRecycleAdapter((getApplicationContext()), battlepassItems);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(battlePassRecycleAdapter);
-
+        levelTextView = findViewById(R.id.levelTextView);
+        expTextView = findViewById(R.id.expTextView);
         // Create in database the xp value for each users
         // The progress bar can only go up to 100, so when getting the user's xp we should do the math to set it in percentages/ below 100
         xpBar = findViewById(R.id.battlepass_progressbar);
@@ -118,6 +121,7 @@ public class BattlePass extends AppCompatActivity {
         xpBar.setMax(1000);
         fetchUserExpFromFirebase();
     }
+    
     private void fetchUserExpFromFirebase() {
         DatabaseReference expRef = FirebaseDatabase.getInstance().getReference("Registered Users")
                 .child(user.getUid())
@@ -129,6 +133,29 @@ public class BattlePass extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     int userExp = dataSnapshot.getValue(Integer.class);
                     xpBar.setProgress(userExp);
+
+                    // Update UI with real-time exp
+                    expTextView.setText("Exp: " + userExp + "/1000");
+
+                    // Fetch user level from the database
+                    DatabaseReference levelRef = FirebaseDatabase.getInstance().getReference("Registered Users")
+                            .child(user.getUid())
+                            .child("bpLevel");
+
+                    levelRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot levelSnapshot) {
+                            if (levelSnapshot.exists()) {
+                                int userLevel = levelSnapshot.getValue(Integer.class);
+                                levelTextView.setText("Level: " + userLevel);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            // Handle onCancelled
+                        }
+                    });
                 }
             }
 

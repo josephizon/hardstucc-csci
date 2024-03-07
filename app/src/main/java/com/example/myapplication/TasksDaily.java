@@ -253,9 +253,9 @@ public class TasksDaily extends AppCompatActivity {
     private void createTask(String name, String description, String deadline, String type) {
         // Generate a unique ID for the task
         String taskId = databaseReference.push().getKey();
-
+        int exp = 50;
         // Create a new Tasks object
-        Tasks task = new Tasks(name, description, deadline, type, "To be Accomplished", taskId, 50);
+        Tasks task = new Tasks(name, description, deadline, type, "To be Accomplished", taskId, exp);
 
         // Add the task to the database under the user's node
         databaseReference.child(taskId).setValue(task);

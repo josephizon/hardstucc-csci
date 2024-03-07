@@ -159,6 +159,7 @@ public class TasksRecycleAdapter extends RecyclerView.Adapter<TasksRecycleView> 
                                     while (newExp >= 1000) {
                                         // Subtract 1000 from exp and increase the level by 1
                                         newExp -= 1000;
+                                        buddyExpRef.setValue(newExp);
 
                                         // Retrieve the current level of the buddy
                                         DatabaseReference buddyLevelRef = FirebaseDatabase.getInstance().getReference("Registered Users")
@@ -173,8 +174,10 @@ public class TasksRecycleAdapter extends RecyclerView.Adapter<TasksRecycleView> 
                                                     if (currentLevel == null) currentLevel = 0; // If for some reason it's null, default to 0
                                                     int newLevel = currentLevel + 1;
 
+
                                                     // Update the level in Firebase
                                                     buddyLevelRef.setValue(newLevel);
+                                                    updateLevelStatus(buddyUid, newLevel);
                                                 }
                                             }
 
@@ -201,6 +204,15 @@ public class TasksRecycleAdapter extends RecyclerView.Adapter<TasksRecycleView> 
                 // Handle possible cancellations here
             }
         });
+    }
+    private void updateLevelStatus(String buddyUid, int newLevel) {
+        // Update the corresponding level status based on the new level
+        DatabaseReference levelStatusRef = FirebaseDatabase.getInstance().getReference("Registered Users")
+                .child(buddyUid)
+                .child("level" + newLevel + "status");
+
+        // Update the level status to "Claimable" or any other desired status
+        levelStatusRef.setValue("Claimable");
     }
     private void updateBuddyStatusInFirebase(FirebaseUser user, String taskId, String newStatus) {
         // Assuming your users are stored under "Registered Users" and each user has a "buddyUid" field
