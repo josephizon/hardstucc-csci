@@ -102,6 +102,7 @@ public class RewardsSoftRecycleAdapter extends RecyclerView.Adapter<RewardsSoftR
     }
 
     @NonNull
+
     @Override
     public RewardsSoftRecycleView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new RewardsSoftRecycleView(LayoutInflater.from(context).inflate(R.layout.activity_rewards_soft_recycle_view,parent, false));
