@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Users {
-    private String email, firstName, middleName, lastName, buddyUid;
+    private String email, firstName, middleName, lastName, buddyUid, selectedClass;
     private int coins = 0, exp = 0 , bpLevel = 0;
     private String level1status, level2status, level3status, level4status, level5status, level6status, level7status, level8status, level9status, level10status, level11status, level12status, level13status, level14status, level15status;
     private Users buddy;  // New field for the buddy
@@ -15,12 +15,13 @@ public class Users {
         tasks = new ArrayList<>();
     }
 
-    public Users(String email, String firstName, String middleName, String lastName) {
+    public Users(String email, String firstName, String middleName, String lastName, String selectedClass) {
         this.email = email;
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
         tasks = new ArrayList<>();
+        this.selectedClass = selectedClass;
         this.level1status = "Locked";
         this.level2status = "Locked";
         this.level3status = "Locked";
@@ -223,4 +224,12 @@ public class Users {
 
     public int getBpLevel() { return bpLevel; }
     public void setBpLevel(int bpLevel) { this.bpLevel = bpLevel; }
+
+    public String getSelectedClass() {
+        return selectedClass;
+    }
+
+    public void setSelectedClass(String selectedClass) {
+        this.selectedClass = selectedClass;
+    }
 }

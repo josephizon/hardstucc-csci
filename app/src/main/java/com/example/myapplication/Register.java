@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,13 +32,17 @@ import java.util.Map;
 
 public class Register extends AppCompatActivity {
 
+    String email, password, firstName, middleName, lastName, selectedClassString;
+
     EditText editTextEmail, editTextPassword, editTextFirstName, editTextMiddleName, editTextLastName;
     Button buttonReg;
     FirebaseAuth mAuth;
     ProgressBar progressBar;
-    TextView textView;
+    TextView loginButton;
 
     DatabaseReference referenceUsers, userReference;
+
+    Spinner selectedClass;
 
     @Override
     public void onStart() {
@@ -71,9 +76,10 @@ public class Register extends AppCompatActivity {
         editTextLastName = findViewById(R.id.lastName);
         buttonReg = findViewById(R.id.btn_register);
         progressBar = findViewById(R.id.progressBar);
-        textView = findViewById(R.id.loginNow);
+        loginButton = findViewById(R.id.loginNow);
+        selectedClass = findViewById(R.id.spinner_class_selection);
 
-        textView.setOnClickListener(new View.OnClickListener() {
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Login.class);
@@ -86,12 +92,13 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 progressBar.setVisibility(View.VISIBLE);
-                String email, password, firstName, middleName, lastName;
                 email = String.valueOf(editTextEmail.getText());
                 password = String.valueOf(editTextPassword.getText());
                 firstName = String.valueOf(editTextFirstName.getText());
                 middleName = String.valueOf(editTextMiddleName.getText());
                 lastName = String.valueOf(editTextLastName.getText());
+                selectedClassString = selectedClass.getSelectedItem().toString();
+
                 // Checking if email and password are empty
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(Register.this, "Enter email", Toast.LENGTH_SHORT).show();
@@ -116,7 +123,7 @@ public class Register extends AppCompatActivity {
 
                                     FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
-                                    Users user = new Users(email, firstName, middleName, lastName);
+                                    Users user = new Users(email, firstName, middleName, lastName, selectedClassString);
 
                                     DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Registered Users");
 
