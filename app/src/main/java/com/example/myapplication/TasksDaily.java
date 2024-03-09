@@ -86,6 +86,7 @@ public class TasksDaily extends AppCompatActivity {
         });
 
         // Resets Daily Tasks
+        xpChange();
         resetDailyTasks();
 
         // Fix the List of tasks
@@ -387,5 +388,35 @@ public class TasksDaily extends AppCompatActivity {
             else { return true; }
         }
         else { return false; }
+    }
+
+    public void xpChange() {
+        if (user != null && databaseReference != null) {
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot taskSnapshot : dataSnapshot.getChildren()) {
+                        Tasks task = taskSnapshot.getValue(Tasks.class);
+                        if (task != null && "daily".equalsIgnoreCase(task.getType())) {
+                            // set the xp to always be 50, until it reaches cap
+                            if ( true ) {
+                                int xpAmount = 50;
+                                databaseReference.child(task.getTaskId()).child("exp").setValue(xpAmount);
+                            }
+                            else {
+                                int xpAmount = 0;
+                                databaseReference.child(task.getTaskId()).child("exp").setValue(xpAmount);
+                            }
+                        }
+                    }
+                    // Notify the adapter that the data set has changed
+                    tasksRecycleAdapter.notifyDataSetChanged();
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Toast.makeText(TasksDaily.this, "Failed to fetch tasks: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 }

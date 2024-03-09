@@ -84,6 +84,9 @@ public class TasksMajor extends AppCompatActivity {
             }
         });
 
+        // xp Amount
+        xpChange();
+
         recyclerView = findViewById(R.id.major_task_display);
         taskItems = new ArrayList<>();
         // Fetch tasks from the database
@@ -362,7 +365,7 @@ public class TasksMajor extends AppCompatActivity {
         startActivity(new Intent(this, BuddyProfile.class));
     }
 
-    /* public void xpChange() {
+    public void xpChange() {
         if (user != null && databaseReference != null) {
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -373,19 +376,26 @@ public class TasksMajor extends AppCompatActivity {
                             String[] taskStringDeadline = task.getDeadline().split("/",-1);
                             Calendar taskCalendarDeadline = Calendar.getInstance();
                             taskCalendarDeadline.set(Integer.parseInt(taskStringDeadline[2]),
-                                    Integer.parseInt(taskStringDeadline[0]),
+                                    Integer.parseInt(taskStringDeadline[0])-1,
                                     Integer.parseInt(taskStringDeadline[1]));
-                            // Check first if the daily task is complete or not
-                            // True: Reset daily task
-                            // False: then Proceed as normal
-                            Toast.makeText(TasksMajor.this, String.valueOf(isThreeDaysBeforeDeadline(taskCalendarDeadline)), Toast.LENGTH_SHORT).show();
-                            if ( isThreeDaysBeforeDeadline(taskCalendarDeadline)) {
-                                // Edit the Database to change the xp amount
-                                databaseReference.child(task.getTaskId()).child("exp").setValue("1250");
+
+                            // Check what is the major tasks: required, or not
+                            // If required: check if 3 days before
+                            // If x>3 days before : xp 1500, otherwise 1250
+                            // If not required: xp is set to 0
+                            if ( !isThreeDaysBeforeDeadline(taskCalendarDeadline)) {
+                                int xpAmount = 1250;
+                                databaseReference.child(task.getTaskId()).child("exp").setValue(xpAmount);
+                            } else if (task.getDeletable()) {
+                                int xpAmount = 0;
+                                databaseReference.child(task.getTaskId()).child("exp").setValue(xpAmount);
+                            }
+                            else {
+                                int xpAmount = 1500;
+                                databaseReference.child(task.getTaskId()).child("exp").setValue(xpAmount);
                             }
                         }
                     }
-
                     // Notify the adapter that the data set has changed
                     tasksRecycleAdapter.notifyDataSetChanged();
                 }
@@ -423,9 +433,9 @@ public class TasksMajor extends AppCompatActivity {
 
         // Calculate the date three days before the deadline
         Calendar threeDaysBeforeDeadline = (Calendar) deadlineCalendar.clone();
-        threeDaysBeforeDeadline.add(Calendar.DAY_OF_YEAR, -3);
+        threeDaysBeforeDeadline.add(Calendar.DAY_OF_YEAR, -2);
 
         // Check if the current date is three days before the deadline
         return currentDateCalendar.before(threeDaysBeforeDeadline);
-    } */
+    }
 }
