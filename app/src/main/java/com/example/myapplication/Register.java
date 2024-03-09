@@ -133,6 +133,7 @@ public class Register extends AppCompatActivity {
                                             if(task.isSuccessful()){
                                                 addBadgeData(firebaseUser.getUid());
                                                 addIconData(firebaseUser.getUid());
+                                                addCollectibleData(firebaseUser.getUid());
                                                 Toast.makeText(Register.this, "Account created.",
                                                         Toast.LENGTH_SHORT).show();
                                             }
@@ -210,6 +211,47 @@ public class Register extends AppCompatActivity {
         Map<String, Object> badgeData = new HashMap<>();
         badgeData.put("reward_status", "available"); // Set status for all badges
         badgeData.put("reward_type", "icon"); // Set reward type for all badges
+
+        // Create a reference to the "Registered Users" node
+        referenceUsers = FirebaseDatabase.getInstance().getReference("Registered Users");
+        userReference = referenceUsers.child(userId).child("SoftRewards");
+
+        // Iterate over each badge name and set the data under the user's node for each badge
+        for (String rewardName : rewardNames) {
+            userReference.child(rewardName).setValue(badgeData).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                    /*Toast.makeText(Register.this, "Badge data added for " + rewardName,
+                            Toast.LENGTH_SHORT).show();*/
+                    }
+                    else{
+                    /*Toast.makeText(Register.this, "Failed to add badge data for " + rewardName,
+                            Toast.LENGTH_SHORT).show();*/
+                    }
+                }
+            });
+        }
+    }
+
+    private void addCollectibleData(String userId) {
+        List<String> rewardNames = new ArrayList<>();
+        rewardNames.add("rewards_collectible_1");
+        rewardNames.add("rewards_collectible_2");
+        rewardNames.add("rewards_collectible_3");
+        rewardNames.add("rewards_collectible_4");
+
+        rewardNames.add("rewards_collectible_5");
+        rewardNames.add("rewards_collectible_6");
+        rewardNames.add("rewards_collectible_7");
+        rewardNames.add("rewards_collectible_8");
+
+        rewardNames.add("rewards_collectible_9");
+
+        // Define the structure of the badge data
+        Map<String, Object> badgeData = new HashMap<>();
+        badgeData.put("reward_status", "available"); // Set status for all badges
+        badgeData.put("reward_type", "collectible"); // Set reward type for all badges
 
         // Create a reference to the "Registered Users" node
         referenceUsers = FirebaseDatabase.getInstance().getReference("Registered Users");
