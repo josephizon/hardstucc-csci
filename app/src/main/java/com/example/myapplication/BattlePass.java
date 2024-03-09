@@ -92,20 +92,20 @@ public class BattlePass extends AppCompatActivity {
         battlepassItems =new ArrayList<>();
 
         battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.battlepass_locked_icon, R.drawable.battlepass_coins_icon, 1));
-        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.battlepass_locked_icon, R.drawable.battlepass_coins_icon, 2));
-        battlepassItems.add(new BattlePassRecycleItems("Badge", R.drawable.battlepass_locked_icon, R.drawable.rewards_profile_icon_1, 3));
-        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.battlepass_locked_icon, R.drawable.battlepass_coins_icon, 4));
-        battlepassItems.add(new BattlePassRecycleItems("(Hard Reward), 150 Coins", R.drawable.battlepass_locked_icon, R.drawable.battlepass_hard_reward_icon, 5));
+        battlepassItems.add(new BattlePassRecycleItems("[Badge] Peace Be With You 2", R.drawable.battlepass_locked_icon, R.drawable.badges_level_2, 2));
+        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.battlepass_locked_icon, R.drawable.battlepass_coins_icon, 3));
+        battlepassItems.add(new BattlePassRecycleItems("Hard Reward from Buddy \n100 Coins \n[Badge] A Kiss 4 U", R.drawable.battlepass_locked_icon, R.drawable.badges_level_4, 4));
+        battlepassItems.add(new BattlePassRecycleItems("Hard Reward from Ma'am Jess \n200 Coins", R.drawable.battlepass_locked_icon, R.drawable.battlepass_hard_reward_icon, 5));
         battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.battlepass_locked_icon, R.drawable.battlepass_coins_icon, 6));
-        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.battlepass_locked_icon, R.drawable.battlepass_coins_icon, 7));
-        battlepassItems.add(new BattlePassRecycleItems("Badge", R.drawable.battlepass_locked_icon, R.drawable.rewards_profile_icon_1, 8));
-        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.battlepass_locked_icon, R.drawable.battlepass_coins_icon, 9));
-        battlepassItems.add(new BattlePassRecycleItems("(Hard Reward), 150 Coins", R.drawable.battlepass_locked_icon, R.drawable.battlepass_hard_reward_icon, 10));
+        battlepassItems.add(new BattlePassRecycleItems("[Badge] Seven comes before gr-Eight B)", R.drawable.battlepass_locked_icon, R.drawable.badges_level_7, 7));
+        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.battlepass_locked_icon, R.drawable.battlepass_coins_icon, 8));
+        battlepassItems.add(new BattlePassRecycleItems("Hard Reward from Buddy \n100 Coins \n[Badge] Keep it up, you’re on fire!", R.drawable.battlepass_locked_icon, R.drawable.badges_level_9, 9));
+        battlepassItems.add(new BattlePassRecycleItems("Hard Reward from Ma'am Jess \n300 Coins", R.drawable.battlepass_locked_icon, R.drawable.battlepass_hard_reward_icon, 10));
         battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.battlepass_locked_icon, R.drawable.battlepass_coins_icon, 11));
-        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.battlepass_locked_icon, R.drawable.battlepass_coins_icon, 12));
-        battlepassItems.add(new BattlePassRecycleItems("Badge", R.drawable.battlepass_locked_icon, R.drawable.rewards_profile_icon_1, 13));
-        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.battlepass_locked_icon, R.drawable.battlepass_coins_icon, 14));
-        battlepassItems.add(new BattlePassRecycleItems("(Hard Reward), 500 Coins, \nBadge", R.drawable.battlepass_locked_icon, R.drawable.battlepass_hard_reward_icon, 15));
+        battlepassItems.add(new BattlePassRecycleItems("[Badge] 12? You’re on a roll!", R.drawable.battlepass_locked_icon, R.drawable.badges_level_12, 12));
+        battlepassItems.add(new BattlePassRecycleItems("100 Coins", R.drawable.battlepass_locked_icon, R.drawable.battlepass_coins_icon, 13));
+        battlepassItems.add(new BattlePassRecycleItems("Hard Reward from Buddy \n100 Coins \n[Badge] Isang Pindot Nalang", R.drawable.battlepass_locked_icon, R.drawable.badges_level_14, 14));
+        battlepassItems.add(new BattlePassRecycleItems("Hard Reward from Ma'am Jess \n600 Coins \n[Badge] Level 15 Trophy", R.drawable.battlepass_locked_icon, R.drawable.badges_level_15, 15));
 
         battlePassRecycleAdapter = new BattlePassRecycleAdapter((getApplicationContext()), battlepassItems, user);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
