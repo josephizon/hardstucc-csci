@@ -1,7 +1,7 @@
 package com.example.myapplication;
 
 public class Tasks {
-    private String taskId, name, description, deadline, type, status;
+    private String taskId, name, description, deadline, type, status, deadlineOutput;
     private int exp;
 
     public Tasks() {
@@ -66,13 +66,14 @@ public class Tasks {
         this.description = description;
     }
 
-    public String getDeadline() {
+    public String getDeadline() { return deadline; }
+
+    public String getFormattedDeadline() {
         String[] formattedDeadline = deadline.split("/",-1);
         if (formattedDeadline.length == 3) {
-            deadline = calendarMonth(Integer.valueOf(formattedDeadline[0])) + ", " + formattedDeadline[1] + " " + formattedDeadline[2];
+            deadlineOutput = calendarMonth(Integer.valueOf(formattedDeadline[0])) + ", " + formattedDeadline[1] + " " + formattedDeadline[2];
         }
-        return deadline;
-
+        return deadlineOutput;
     }
 
     public void setDeadline(String deadline) {
