@@ -34,6 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Currency;
 import java.util.List;
 
 public class TasksDaily extends AppCompatActivity {
@@ -84,17 +85,21 @@ public class TasksDaily extends AppCompatActivity {
             }
         });
 
+        // Resets Daily Tasks
+        resetDailyTasks();
+
+        // Fix the List of tasks
         recyclerView = findViewById(R.id.daily_task_display);
         taskItems = new ArrayList<>();
         fetchTasksFromDatabase();
+
+
         // Initialize RecyclerView adapter
         tasksRecycleAdapter = new TasksRecycleAdapter(recyclerView.getContext(), taskItems, false, user);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(tasksRecycleAdapter);
 
-
         // Set up a click listener for the adapter to handle button clicks
-
         // LOGOUT BUTTON
         button = findViewById(R.id.logout);
         button.setOnClickListener(new View.OnClickListener() {
@@ -263,6 +268,7 @@ public class TasksDaily extends AppCompatActivity {
         // Provide feedback to the user (optional)
         Toast.makeText(this, "Task created successfully", Toast.LENGTH_SHORT).show();
     }
+
     private void fetchTasksFromDatabase() {
         if (user != null && databaseReference != null) {
             databaseReference.addValueEventListener(new ValueEventListener() {
@@ -277,7 +283,7 @@ public class TasksDaily extends AppCompatActivity {
                             TasksRecycleItems recycleItem = new TasksRecycleItems(
                                     task.getName(),
                                     task.getDescription(),
-                                    task.getDeadline(),
+                                    task.getFormattedDeadline(),
                                     task.getStatus(),
                                     task.getTaskId(),
                                     task.getExp()
@@ -322,4 +328,64 @@ public class TasksDaily extends AppCompatActivity {
         startActivity(new Intent(this, BuddyProfile.class));
     }
 
+    public void resetDailyTasks() {
+        if (user != null && databaseReference != null) {
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot taskSnapshot : dataSnapshot.getChildren()) {
+                        Tasks task = taskSnapshot.getValue(Tasks.class);
+                        if (task != null && "daily".equalsIgnoreCase(task.getType())) {
+                            String[] currentDeadline = task.getDeadline().split("/",-1);
+                            // Check first if the daily task is complete or not
+                            // True: Reset daily task
+                            // False: then Proceed as normal
+                            if ( resetDailyTasksBool(Integer.valueOf(currentDeadline[1]),
+                                    Integer.valueOf(currentDeadline[0]),
+                                    Integer.valueOf(currentDeadline[2]),
+                                    task.getStatus())) {
+                                // Edit the Database to reset the daily tasks
+                                databaseReference.child(task.getTaskId()).child("status").setValue("To be Accomplished");
+
+                                Calendar currentDate = Calendar.getInstance();
+                                taskDateDeadline = currentDate.get(currentDate.MONTH)+1
+                                        + "/" + currentDate.get(currentDate.DAY_OF_MONTH)
+                                        + "/" + currentDate.get(currentDate.YEAR);
+                                databaseReference.child(task.getTaskId()).child("deadline").setValue(taskDateDeadline);
+                            }
+                        }
+                    }
+
+                    // Notify the adapter that the data set has changed
+                    tasksRecycleAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Toast.makeText(TasksDaily.this, "Failed to fetch tasks: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    public boolean resetDailyTasksBool(int dayDeadline, int monthDeadline, int yearDeadline, String status) {
+        Calendar currentDate = Calendar.getInstance();
+
+        // If Status is not yet complete then ignore the whole function
+        if ( "Accomplished".equalsIgnoreCase(status)){
+            // If date has not passed yet, then do not reset
+            if ( Integer.valueOf(currentDate.get(currentDate.YEAR)) <= yearDeadline ) {
+                if (Integer.valueOf(currentDate.get(currentDate.MONTH)+1) <= monthDeadline) {
+                    if (Integer.valueOf(currentDate.get(currentDate.DAY_OF_MONTH)) <= dayDeadline) {
+                        return false;
+                    }
+                    else { return true; }
+                }
+                else { return true; }
+            }
+            else { return true; }
+        }
+        else { return false; }
+
+    }
 }
