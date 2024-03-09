@@ -265,7 +265,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
                 android:src="@drawable/nav_buddy"
-                android:onClick="openBuddyStore"
+                android:onClick="openBuddyMainActivity"
 
                 />
 

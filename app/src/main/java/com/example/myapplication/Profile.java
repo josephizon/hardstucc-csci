@@ -1,9 +1,12 @@
 package com.example.myapplication;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
@@ -23,6 +26,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Profile extends AppCompatActivity {
 
     FirebaseAuth auth;
@@ -31,6 +38,14 @@ public class Profile extends AppCompatActivity {
     TextView profileUsernameTextView;
 
     private Button btnShowDialog;
+
+    DatabaseReference databaseCollectibleReference;
+
+    private DataSnapshot dataSnapshot;
+    ImageView collectibleChange1, collectibleChange2, collectibleChange3, collectibleChange4;
+    ImageView collectibleChange5, collectibleChange6, collectibleChange7, collectibleChange8;
+    private String previouslyDisplayedCollectible1, previouslyDisplayedCollectible2, previouslyDisplayedCollectible3, previouslyDisplayedCollectible4;
+    private String previouslyDisplayedCollectible5, previouslyDisplayedCollectible6, previouslyDisplayedCollectible7, previouslyDisplayedCollectible8;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +121,156 @@ public class Profile extends AppCompatActivity {
                 finish();
             }
         });
+
+        // Set up Firebase Database reference
+        databaseCollectibleReference = FirebaseDatabase.getInstance().getReference("Registered Users")
+                .child(user.getUid())
+                .child("SoftRewards");
+
+        // Add a listener to retrieve data from Firebase Database
+        databaseCollectibleReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                dataSnapshot = snapshot;
+                // List<BadgesRecycleItem> items = new ArrayList<>();
+                for (DataSnapshot collectibleSnapshot : dataSnapshot.getChildren()) {
+                    String collectibleName = collectibleSnapshot.getKey(); // Badge name is the key
+                    String collectibleStatus = collectibleSnapshot.child("reward_status").getValue(String.class);
+
+                    collectibleChange1 = findViewById(R.id.displayed_collectible_1);
+                    collectibleChange2 = findViewById(R.id.displayed_collectible_2);
+                    collectibleChange3 = findViewById(R.id.displayed_collectible_3);
+                    collectibleChange4 = findViewById(R.id.displayed_collectible_4);
+                    collectibleChange5 = findViewById(R.id.displayed_collectible_5);
+                    collectibleChange6 = findViewById(R.id.displayed_collectible_6);
+                    collectibleChange7 = findViewById(R.id.displayed_collectible_7);
+                    collectibleChange8 = findViewById(R.id.displayed_collectible_8);
+
+                    // Click listener for badgeChange1
+                    collectibleChange1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // Handle badgeChange1 click
+                            resetAndChangeBadge(previouslyDisplayedCollectible1, "displayed1");
+                        }
+                    });
+
+                    // Click listener for badgeChange2
+                    collectibleChange2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // Handle badgeChange2 click
+                            resetAndChangeBadge(previouslyDisplayedCollectible2, "displayed2");
+                        }
+                    });
+
+                    // Click listener for badgeChange3
+                    collectibleChange3.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // Handle badgeChange3 click
+                            resetAndChangeBadge(previouslyDisplayedCollectible3, "displayed3");
+                        }
+                    });
+
+                    // Click listener for badgeChange4
+                    collectibleChange4.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            resetAndChangeBadge(previouslyDisplayedCollectible4, "displayed4");
+                        }
+                    });
+
+                    // Click listener for badgeChange5
+                    collectibleChange5.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            resetAndChangeBadge(previouslyDisplayedCollectible5, "displayed5");
+                        }
+                    });
+
+                    // Click listener for badgeChange6
+                    collectibleChange6.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            resetAndChangeBadge(previouslyDisplayedCollectible6, "displayed6");
+                        }
+                    });
+
+                    // Click listener for badgeChange3
+                    collectibleChange7.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            resetAndChangeBadge(previouslyDisplayedCollectible7, "displayed7");
+                        }
+                    });
+
+                    // Click listener for badgeChange3
+                    collectibleChange8.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            resetAndChangeBadge(previouslyDisplayedCollectible8, "displayed8");
+                        }
+                    });
+
+                    // Check if badge status is not "locked" before adding it to the list
+                    if (!"locked".equals(collectibleStatus)) {
+                        int badgeDrawableId = getDrawableResourceId(collectibleName);
+                        // items.add(new BadgesRecycleItem(badgeStatus, badgeDrawableId, badgeName));
+
+                        if ("displayed1".equals(collectibleStatus)) {
+                            collectibleChange1.setImageResource(badgeDrawableId);
+                            previouslyDisplayedCollectible1 = collectibleSnapshot.getKey();
+                        }
+
+                        else if ("displayed2".equals(collectibleStatus)) {
+                            collectibleChange2.setImageResource(badgeDrawableId);
+                            previouslyDisplayedCollectible2 = collectibleSnapshot.getKey();
+                        }
+
+                        else if ("displayed3".equals(collectibleStatus)) {
+                            collectibleChange3.setImageResource(badgeDrawableId);
+                            previouslyDisplayedCollectible3 = collectibleSnapshot.getKey();
+                        }
+
+                        else if ("displayed4".equals(collectibleStatus)) {
+                            collectibleChange4.setImageResource(badgeDrawableId);
+                            previouslyDisplayedCollectible4 = collectibleSnapshot.getKey();
+                        }
+
+                        else if ("displayed5".equals(collectibleStatus)) {
+                            collectibleChange5.setImageResource(badgeDrawableId);
+                            previouslyDisplayedCollectible5 = collectibleSnapshot.getKey();
+                        }
+
+                        else if ("displayed6".equals(collectibleStatus)) {
+                            collectibleChange6.setImageResource(badgeDrawableId);
+                            previouslyDisplayedCollectible6 = collectibleSnapshot.getKey();
+                        }
+
+                        else if ("displayed7".equals(collectibleStatus)) {
+                            collectibleChange7.setImageResource(badgeDrawableId);
+                            previouslyDisplayedCollectible7 = collectibleSnapshot.getKey();
+                        }
+
+                        else if ("displayed8".equals(collectibleStatus)) {
+                            collectibleChange8.setImageResource(badgeDrawableId);
+                            previouslyDisplayedCollectible8 = collectibleSnapshot.getKey();
+                        }
+                    }
+                }
+                /*// Set up RecyclerView with the retrieved data
+                RecyclerView recyclerView = findViewById(R.id.activity_badges_recyclerview_1);
+                recyclerView.setLayoutManager(new CustomLayoutManager());
+                recyclerView.setAdapter(new BadgesRecycleAdapter(getApplicationContext(), items));*/
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle errors
+            }
+        });
+
     }
 
     public void openMainActivity2(View view) {
@@ -194,6 +359,103 @@ public class Profile extends AppCompatActivity {
         // Close the dialog after saving
         dialog.dismiss();
     }
+
+    private int getDrawableResourceId(String badgeName) {
+        try {
+            // Get the R.drawable class using reflection
+            Class<?> drawableClass = R.drawable.class;
+
+            // Get the Field object representing the badgeName in the R.drawable class
+            Field field = drawableClass.getField(badgeName);
+
+            // Get the value (drawable resource ID) of the field
+            return field.getInt(null);
+        } catch (NoSuchFieldException e) {
+            // Handle the case where the badgeName is not found
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            // Handle the case where access to the field is denied
+            e.printStackTrace();
+        }
+
+        // Return 0 if badgeName is not recognized
+        return 0;
+    }
+
+
+    // resetAndChange method that uses a custom Badge Image Adapter for layout
+    private void resetAndChangeBadge(String previouslyDisplayedCollectible, final String newCollectibleStatus) {
+        // Reset previous displayed badge
+        if (previouslyDisplayedCollectible != null && !previouslyDisplayedCollectible.isEmpty()) {
+            databaseCollectibleReference.child(previouslyDisplayedCollectible).child("reward_status").setValue("owned");
+        }
+
+        // Create a list of the iconNames (badges list for selection)
+        List<String> iconNames = new ArrayList<>();
+        final List<String> collectibleKeys = new ArrayList<>(); // To store the corresponding badge keys
+        final List<Integer> collectibleImages = new ArrayList<>(); // To store the corresponding badge images
+        for (DataSnapshot collectibleSnapshot : dataSnapshot.getChildren()) {
+            String collectibleName = collectibleSnapshot.getKey(); // Badge name is the key
+            String collectibleStatus = collectibleSnapshot.child("reward_status").getValue(String.class); // Badge status is retrieved from "badge_status" child
+            String collectibleType = collectibleSnapshot.child("reward_type").getValue(String.class);
+
+            if (!"available".equals(collectibleStatus) && "collectible".equals(collectibleType)) {
+                iconNames.add(collectibleName);
+                collectibleKeys.add(collectibleSnapshot.getKey()); // Store the corresponding badge key
+                int collectibleDrawableId = getDrawableResourceId(collectibleName);
+                collectibleImages.add(collectibleDrawableId); // Store the corresponding badge image
+
+
+            }
+
+
+        }
+
+        // Convert the list of modified names to an array
+        final CharSequence[] iconsArray = iconNames.toArray(new CharSequence[0]);
+
+        // Create an AlertDialog to display the list of icons
+        AlertDialog.Builder builder = new AlertDialog.Builder(Profile.this);
+        builder.setTitle("Purchased Collectibles");
+                /*.setItems(iconsArray, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (which < badgeKeys.size()) {
+                            // Update the badge_status to the newBadgeStatus for the selected item
+                            String selectedBadgeKey = badgeKeys.get(which);
+                            databaseReference.child(selectedBadgeKey).child("badge_status").setValue(newBadgeStatus);
+                        }
+                    }
+                });*/
+
+        // Add images to the dialog using BadgeImageAdapter
+        builder.setAdapter(new BadgeImageAdapter(this, collectibleImages, collectibleKeys), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Handle click on badge image
+                String selectedCollectibleKey = collectibleKeys.get(which);
+                databaseCollectibleReference.child(selectedCollectibleKey).child("reward_status").setValue(newCollectibleStatus);
+            }
+        });
+
+        // Add a button to clear displayed badges
+        builder.setNegativeButton("Clear Displayed Collectibles", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Clear badges from display
+                for (String key : collectibleKeys) {
+                    databaseCollectibleReference.child(key).child("reward_status").setValue("owned");
+                }
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+
+
+
     // BUDDY NAVIGATION
     public void openBuddyMainActivity2(View view) {
         startActivity(new Intent(this, BuddyMainActivity2.class));

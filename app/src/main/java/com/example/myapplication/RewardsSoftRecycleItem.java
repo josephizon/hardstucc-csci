@@ -6,15 +6,17 @@ public class RewardsSoftRecycleItem {
     String rewardSoftPrice;
     String rewardSoftStatus;
     String rewardSoftType;
+    String rewardSoftButton;
     int rewardSoftImage;
 
 
-    public RewardsSoftRecycleItem(String rewardSoftName, String rewardSoftPrice, String rewardSoftStatus, int rewardSoftImage, String rewardSoftType) {
+    public RewardsSoftRecycleItem(String rewardSoftName, String rewardSoftPrice, String rewardSoftStatus, int rewardSoftImage, String rewardSoftType, String rewardSoftButton) {
         this.rewardSoftName = rewardSoftName;
         this.rewardSoftPrice = rewardSoftPrice;
         this.rewardSoftImage = rewardSoftImage;
         this.rewardSoftStatus = rewardSoftStatus;
         this.rewardSoftType = rewardSoftType;
+        this.rewardSoftButton = rewardSoftButton;
     }
 
     public String getRewardSoftName() {
@@ -55,6 +57,14 @@ public class RewardsSoftRecycleItem {
 
     public void setRewardSoftType(String rewardSoftType) {
         this.rewardSoftType = rewardSoftType;
+    }
+
+    public String getRewardSoftButton() {
+        return rewardSoftButton;
+    }
+
+    public void setRewardSoftButton(String rewardSoftButton) {
+        this.rewardSoftButton = rewardSoftButton;
     }
 }
 

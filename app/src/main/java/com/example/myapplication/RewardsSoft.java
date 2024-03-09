@@ -118,17 +118,26 @@ public class RewardsSoft extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<RewardsSoftRecycleItem> items = new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    String rewardSoftPrice = "200";
+                    String rewardSoftPrice = "100 pts";
                     String rewardSoftName = snapshot.getKey();
                     String rewardSoftStatus = snapshot.child("reward_status").getValue(String.class);
                     String rewardSoftType = snapshot.child("reward_type").getValue(String.class);
+                    String rewardSoftButton = "";
 
                     // Log.d("RewardsSoft", "Reward Name: " + rewardSoftName + ", Status: " + rewardSoftStatus);
+
+                    if(!"available".equals(rewardSoftStatus)) {
+                        rewardSoftButton = "owned";
+                    }
+
+                    else {
+                        rewardSoftButton = "available";
+                    }
 
                     // Check if badge status is not "unlocked" before adding it to the list
                     if("icon".equals(rewardSoftType)) {
                         int rewardDrawableId = getDrawableResourceId(rewardSoftName);
-                        items.add(new RewardsSoftRecycleItem(rewardSoftName, rewardSoftPrice, rewardSoftStatus, rewardDrawableId, rewardSoftType));
+                        items.add(new RewardsSoftRecycleItem(rewardSoftName, rewardSoftPrice, rewardSoftStatus, rewardDrawableId, rewardSoftType, rewardSoftButton));
                     }
                 }
                 adapter.setItems(items); // Set items to the adapter after retrieving from Firebase
@@ -139,8 +148,6 @@ public class RewardsSoft extends AppCompatActivity {
                 // Handle errors
             }
         });
-
-
 
 
     }

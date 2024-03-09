@@ -116,9 +116,10 @@ public class RewardsSoftRecycleAdapter extends RecyclerView.Adapter<RewardsSoftR
         holder.rewardSoftStatus.setText(currentItem.getRewardSoftStatus());
         holder.rewardSoftName.setText(currentItem.getRewardSoftName());
         holder.rewardSoftType.setText(currentItem.getRewardSoftType());
+        holder.rewardSoftButton.setText(currentItem.getRewardSoftButton());
 
         // Add OnClickListener to handle item clicks
-        holder.rewardSoftStatus.setOnClickListener(new View.OnClickListener() {
+        holder.rewardSoftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("Adapter", "Item clicked: " + currentItem.getRewardSoftName());
@@ -127,10 +128,10 @@ public class RewardsSoftRecycleAdapter extends RecyclerView.Adapter<RewardsSoftR
         });
 
         // Disable the button if the reward status is "owned"
-        if (currentItem.getRewardSoftStatus().equals("owned")) {
-            holder.rewardSoftStatus.setEnabled(false);
+        if (!"available".equals(currentItem.getRewardSoftStatus())) {
+            holder.rewardSoftButton.setEnabled(false);
         } else {
-            holder.rewardSoftStatus.setEnabled(true);
+            holder.rewardSoftButton.setEnabled(true);
         }
     }
 
@@ -160,10 +161,22 @@ public class RewardsSoftRecycleAdapter extends RecyclerView.Adapter<RewardsSoftR
                         Object coinsValue = dataSnapshot.getValue();
                         if (coinsValue != null) {
                             int currentCoins = Integer.parseInt(coinsValue.toString());
+                            int itemPrice = 0;
+
+
+                            // Change price of item based on reward type
+                            if (item.getRewardSoftType().equals("icon")) {
+                                itemPrice = 100;
+                            }
+
+                            else if (item.getRewardSoftType().equals("collectible")) {
+                                itemPrice = 150;
+                            }
+
 
                             // Check if there are enough coins to subtract
-                            if (currentCoins >= 100) {
-                                int newCoins = currentCoins - 100;
+                            if (currentCoins >= itemPrice) {
+                                int newCoins = currentCoins - itemPrice;
 
                                 // Update the value of "coins" in the database
                                 databaseUserDataReference.child("coins").setValue(newCoins)
