@@ -42,6 +42,7 @@ public class TasksMajor extends AppCompatActivity {
     ImageView button;
     EditText editTaskName, editTaskDescription, editTaskType;
     String taskDateDeadline;
+    boolean visibleTask;
     FirebaseUser user;
     DatabaseReference databaseReference;
     RecyclerView recyclerView;
@@ -207,8 +208,8 @@ public class TasksMajor extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 // Handle the selected date if needed
-                taskDateDeadline = String.valueOf(month+1) + "/" + String.valueOf(dayOfMonth) + "/"  + String.valueOf(year);
-                editTaskDeadline.setText(calendarMonth(month+1) + ", " + String.valueOf(dayOfMonth) + " "  + String.valueOf(year));
+                taskDateDeadline = month + 1 + "/" + dayOfMonth + "/"  + year;
+                editTaskDeadline.setText(calendarMonth(month+1) + ", " + dayOfMonth + " "  + year);
             }
         }, 2024, 1, 15);
         datePickerDialog.show();
@@ -267,8 +268,51 @@ public class TasksMajor extends AppCompatActivity {
 
                     for (DataSnapshot taskSnapshot : dataSnapshot.getChildren()) {
                         Tasks task = taskSnapshot.getValue(Tasks.class);
+                        String[] currentDeadline = task.getDeadline().split("/",-1);
+                        /*
+                        Check if Major Task we create should be displayed
+                        This is a hard coded thing, doesn't affect any other tasks
+                        Task is Hidden if: getDeletable == false
+                        Deadline of task is within week
+                        */
+                        Calendar currentDate = Calendar.getInstance();
+                        int currentMonth = currentDate.get(Calendar.MONTH)+1;
+                        int currentDay = currentDate.get(Calendar.DAY_OF_MONTH);
+                        if (!task.getDeletable()) {
+                            // Week 1
+                            visibleTask = currentMonth == 3 && 10 <= currentDay && currentDay <= 16 &&
+                                    Integer.parseInt(currentDeadline[0]) == 3 &&
+                                    10 <= Integer.parseInt(currentDeadline[1]) &&
+                                    Integer.parseInt(currentDeadline[1]) <= 16;
+                            if ( currentMonth == 3 && 17 <= currentDay && currentDay <= 23 &&
+                                    Integer.parseInt(currentDeadline[0]) == 3 &&
+                                    17 <= Integer.parseInt(currentDeadline[1]) &&
+                                    Integer.parseInt(currentDeadline[1]) <= 23) {   // Week 2
+                                visibleTask = true;
+                            }
+                            if ( currentMonth == 3 && 24 <= currentDay && currentDay <= 30 &&
+                                    Integer.parseInt(currentDeadline[0]) == 3 &&
+                                    24 <= Integer.parseInt(currentDeadline[1]) &&
+                                    Integer.parseInt(currentDeadline[1]) <= 30) {   // Week 3
+                                visibleTask = true;
+                            }
+                            if ( currentMonth == 3 && currentDay ==  30 &&
+                                    Integer.parseInt(currentDeadline[0]) == 3 &&
+                                    30 == Integer.parseInt(currentDeadline[1])) {                      // Week 4
+                                visibleTask = true;
+                            }
+                            if ( currentMonth == 4 && 1 <= currentDay && currentDay <= 6 &&
+                                    Integer.parseInt(currentDeadline[0]) == 3 &&
+                                    1 <= Integer.parseInt(currentDeadline[1]) &&
+                                    Integer.parseInt(currentDeadline[1]) <= 6) {     // Week 4
+                                visibleTask = true;
+                            }
+                        }
+                        else {
+                            visibleTask = true;
+                        }
 
-                        if (task != null && "major".equalsIgnoreCase(task.getType())) {
+                        if (task != null && "major".equalsIgnoreCase(task.getType()) && visibleTask) {
                             TasksRecycleItems recycleItem = new TasksRecycleItems(
                                     task.getName(),
                                     task.getDescription(),
@@ -281,9 +325,6 @@ public class TasksMajor extends AppCompatActivity {
                             taskItems.add(recycleItem);
                         }
                     }
-
-                    // Notify the adapter that the data set has changed
-                    tasksRecycleAdapter.notifyDataSetChanged();
                 }
 
                 @Override
