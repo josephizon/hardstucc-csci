@@ -76,6 +76,7 @@ public class BattlePassRecycleAdapter extends RecyclerView.Adapter<BattlePassRec
                                     holder.itemClaimButton.setClickable(false);
                                     holder.itemClaimButton.setEnabled(false);
                                     updateCoinsBasedOnLevel(itemLevel);
+                                    unlockBadge(itemLevel);
                                 } else {
                                     // Handle failure
                                     Log.e("Firebase", "Failed to update status to Claimed");
@@ -133,7 +134,34 @@ public class BattlePassRecycleAdapter extends RecyclerView.Adapter<BattlePassRec
             }
         });
     }
+    private void unlockBadge(int itemLevel) {
+        String badgename = getBadgeForLevel(itemLevel);
+        DatabaseReference badgeStatusRef = FirebaseDatabase.getInstance().getReference("Registered Users")
+                .child(user.getUid())
+                .child("Badges")
+                .child(badgename)
+                .child("badge_status"); // Adjust path as necessary
 
+        badgeStatusRef.setValue("unlocked").addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Log.d("Firebase", "Badge status updated to Unlocked.");
+            } else {
+                Log.e("Firebase", "Failed to update badge status.", task.getException());
+            }
+        });
+    }
+    private String getBadgeForLevel(int level){
+        switch (level){//@joseph edit here
+            case 2: return "badges_fire_icon";
+            case 4: return "badges_folder_icon";
+            case 7: return "badges_gracias_icon";
+            case 9: return "badges_hands_icon";
+            case 12: return "badges_heart_icon";
+            case 14: return "badges_ok_icon";
+            case 15: return "badges_fire_icon";
+            default: return "fake_badge";
+        }
+    }
     private int getCoinsForLevel(int level) {
         // Define your coin rewards per level here
         switch (level) {
