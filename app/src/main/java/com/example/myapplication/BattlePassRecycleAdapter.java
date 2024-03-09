@@ -152,13 +152,13 @@ public class BattlePassRecycleAdapter extends RecyclerView.Adapter<BattlePassRec
     }
     private String getBadgeForLevel(int level){
         switch (level){//@joseph edit here
-            case 2: return "badges_fire_icon";
-            case 4: return "badges_folder_icon";
-            case 7: return "badges_gracias_icon";
-            case 9: return "badges_hands_icon";
-            case 12: return "badges_heart_icon";
-            case 14: return "badges_ok_icon";
-            case 15: return "badges_fire_icon";
+            case 2: return "badges_level_2";
+            case 4: return "badges_level_4";
+            case 7: return "badges_level_7";
+            case 9: return "badges_level_9";
+            case 12: return "badges_level_12";
+            case 14: return "badges_level_14";
+            case 15: return "badges_level_15";
             default: return "fake_badge";
         }
     }
