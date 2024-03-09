@@ -13,6 +13,7 @@ import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -28,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Badges extends AppCompatActivity {
@@ -311,21 +313,26 @@ public class Badges extends AppCompatActivity {
             String badgeName = badgeSnapshot.getKey(); // Badge name is the key
             String badgeStatus = badgeSnapshot.child("badge_status").getValue(String.class); // Badge status is retrieved from "badge_status" child
 
+
             if (!"locked".equals(badgeStatus)) {
                 iconNames.add(badgeName);
                 badgeKeys.add(badgeSnapshot.getKey()); // Store the corresponding badge key
                 int badgeDrawableId = getDrawableResourceId(badgeName);
                 badgeImages.add(badgeDrawableId); // Store the corresponding badge image
+
+
             }
+
+
         }
 
-        // Convert the list of icon names to an array
+        // Convert the list of modified names to an array
         final CharSequence[] iconsArray = iconNames.toArray(new CharSequence[0]);
 
         // Create an AlertDialog to display the list of icons
         AlertDialog.Builder builder = new AlertDialog.Builder(Badges.this);
-        builder.setTitle("UNLOCKED BADGES")
-                .setItems(iconsArray, new DialogInterface.OnClickListener() {
+        builder.setTitle("UNLOCKED BADGES");
+                /*.setItems(iconsArray, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (which < badgeKeys.size()) {
@@ -334,7 +341,7 @@ public class Badges extends AppCompatActivity {
                             databaseReference.child(selectedBadgeKey).child("badge_status").setValue(newBadgeStatus);
                         }
                     }
-                });
+                });*/
 
         // Add images to the dialog using BadgeImageAdapter
         builder.setAdapter(new BadgeImageAdapter(this, badgeImages, badgeKeys), new DialogInterface.OnClickListener() {
@@ -359,6 +366,7 @@ public class Badges extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
+
     }
 
 

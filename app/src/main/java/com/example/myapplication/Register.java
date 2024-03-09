@@ -161,25 +161,21 @@ public class Register extends AppCompatActivity {
 
     private void addBadgeData(String userId) {
         List<String> badgeNames = new ArrayList<>();
-        badgeNames.add("badges_fire_icon");
-        badgeNames.add("badges_folder_icon");
-        badgeNames.add("badges_ok_icon");
-        badgeNames.add("badges_heart_icon");
+        badgeNames.add("badges_level_2");
+        badgeNames.add("badges_level_4");
+        badgeNames.add("badges_level_7");
+        badgeNames.add("badges_level_9");
 
-        badgeNames.add("badges_shades_icon");
-        badgeNames.add("badges_sun_icon");
-        badgeNames.add("badges_warning_icon");
-        badgeNames.add("badges_computer_icon");
+        badgeNames.add("badges_level_12");
+        badgeNames.add("badges_level_14");
+        badgeNames.add("badges_level_15");
+        badgeNames.add("badges_clicked_register");
 
-        badgeNames.add("badges_hands_icon");
-        badgeNames.add("badges_crying_icon");
-        badgeNames.add("badges_gracias_icon");
-        badgeNames.add("badges_folder_icon");
 
 
         // Define the structure of the badge data
         Map<String, Object> badgeData = new HashMap<>();
-        badgeData.put("badge_status", "locked"); // Set status for all badges
+        badgeData.put("badge_status", "unlocked"); // Set status for all badges
 
         // Create a reference to the "Registered Users" node
         DatabaseReference referenceUsers = FirebaseDatabase.getInstance().getReference("Registered Users");
