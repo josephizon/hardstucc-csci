@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +16,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.Transaction;
+import com.google.firebase.database.MutableData;
 
 import java.util.List;
 
@@ -73,6 +75,7 @@ public class BattlePassRecycleAdapter extends RecyclerView.Adapter<BattlePassRec
                                     holder.itemClaimButton.setText("Claimed");
                                     holder.itemClaimButton.setClickable(false);
                                     holder.itemClaimButton.setEnabled(false);
+                                    updateCoinsBasedOnLevel(itemLevel);
                                 } else {
                                     // Handle failure
                                     Log.e("Firebase", "Failed to update status to Claimed");
@@ -99,43 +102,57 @@ public class BattlePassRecycleAdapter extends RecyclerView.Adapter<BattlePassRec
             }
         });
     }
-    /*
-    private void getlevel(FirebaseUser user, @NonNull BattlePassRecycleView holder) {
-        DatabaseReference usersReference = FirebaseDatabase.getInstance().getReference("Registered Users");
+    private void updateCoinsBasedOnLevel(int itemLevel) {
+        DatabaseReference userCoinsRef = FirebaseDatabase.getInstance().getReference("Registered Users")
+                .child(user.getUid()).child("coins");
 
-        // Retrieve the current user's information
-        usersReference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        // Assuming you have a method or logic to determine coins based on level
+        int coinsToAdd = getCoinsForLevel(itemLevel);
+
+        userCoinsRef.runTransaction(new Transaction.Handler() {
+            @NonNull
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    Users currentUser = dataSnapshot.getValue(Users.class);
+            public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
+                Integer currentCoins = mutableData.getValue(Integer.class);
+                if (currentCoins == null) {
+                    return Transaction.success(mutableData);
+                }
 
-                    // Retrieve the current level of the buddy
-                    DatabaseReference userLevelRef = FirebaseDatabase.getInstance().getReference("Registered Users")
-                            .child(user.getUid())
-                            .child("bpLevel");
+                mutableData.setValue(currentCoins + coinsToAdd);
+                return Transaction.success(mutableData);
+            }
 
-                    userLevelRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot levelSnapshot) {
-                            if (levelSnapshot.exists()) {
-                                Integer currentLevel = levelSnapshot.getValue(Integer.class);
-                                if(currentLevel >=)
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                            // Handle possible errors here
-                        }
-                    });
+            @Override
+            public void onComplete(@Nullable DatabaseError databaseError, boolean b, @Nullable DataSnapshot dataSnapshot) {
+                // Log success or failure
+                if (b) {
+                    Log.d("Firebase", "Coins updated successfully.");
+                } else {
+                    Log.e("Firebase", "Failed to update coins.", databaseError.toException());
                 }
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle possible cancellations here
-            }
         });
-    }*/
+    }
+
+    private int getCoinsForLevel(int level) {
+        // Define your coin rewards per level here
+        switch (level) {
+            case 1: return 100;
+            case 2: return 0;
+            case 3: return 100;
+            case 4: return 100;
+            case 5: return 200;
+            case 6: return 100;
+            case 7: return 0;
+            case 8: return 100;
+            case 9: return 100;
+            case 10: return 300;
+            case 11: return 100;
+            case 12: return 0;
+            case 13: return 100;
+            case 14: return 100;
+            case 15: return 600;
+            default: return 0; // Default coin reward
+        }
+    }
 }
