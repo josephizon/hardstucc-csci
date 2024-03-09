@@ -247,7 +247,7 @@ public class TasksRecycleAdapter extends RecyclerView.Adapter<TasksRecycleView> 
     private void deleteButton(TasksRecycleView holder, TasksRecycleItems currentItem, int position) {
         String status = currentItem.getTaskStatus();
 
-        if (isBuddyPage) {
+        if (isBuddyPage || currentItem.getDeletable() == false) {
             // Buddy Page Logic
             holder.btnDeleteTask.setBackgroundColor(Color.rgb(254, 254, 254));
             holder.btnDeleteTask.setClickable(false);
