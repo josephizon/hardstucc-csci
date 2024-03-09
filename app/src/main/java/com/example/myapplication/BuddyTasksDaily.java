@@ -151,7 +151,8 @@ public class BuddyTasksDaily extends AppCompatActivity {
                                     task.getDeadline(),
                                     task.getStatus(),
                                     task.getTaskId(),
-                                    task.getExp()
+                                    task.getExp(),
+                                    task.getDeletable()
                             );
                             taskItems.add(recycleItem);
                         }

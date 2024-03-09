@@ -8,14 +8,16 @@ public class TasksRecycleItems {
     String taskStatus;
     String taskId;
     int exp;
+    boolean deletable;
 
-    public TasksRecycleItems(String taskName, String taskDescription, String taskDeadline, String taskStatus, String taskId, int exp) {
+    public TasksRecycleItems(String taskName, String taskDescription, String taskDeadline, String taskStatus, String taskId, int exp, boolean deletable) {
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.taskDeadline = taskDeadline;
         this.taskStatus = taskStatus;
         this.taskId = taskId;
         this.exp = exp;
+        this.deletable = deletable;
     }
 
     public int getExp() {
@@ -54,5 +56,5 @@ public class TasksRecycleItems {
     public void setTaskStatus(String taskStatus) {
         this.taskStatus = taskStatus;
     }
-
+    public boolean getDeletable() { return deletable; }
 }

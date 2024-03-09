@@ -3,12 +3,13 @@ package com.example.myapplication;
 public class Tasks {
     private String taskId, name, description, deadline, type, status, deadlineOutput;
     private int exp;
+    boolean deletable;
 
     public Tasks() {
         // Default constructor required for calls to DataSnapshot.getValue(Task.class)
     }
 
-    public Tasks( String name, String description, String deadline, String type, String status, String taskId, int exp) {
+    public Tasks( String name, String description, String deadline, String type, String status, String taskId, int exp, Boolean deletable) {
         this.name = name;
         this.description = description;
         this.deadline = deadline;
@@ -16,6 +17,7 @@ public class Tasks {
         this.status = status;
         this.taskId = taskId;
         this.exp = exp;
+        this.deletable = deletable;
     }
 
     public int getExp() {
@@ -68,6 +70,9 @@ public class Tasks {
 
     public String getDeadline() { return deadline; }
 
+    public boolean getDeletable() { return deletable; }
+
+    public void setDeletable(boolean deletable) { this.deletable = deletable; }
     public String getFormattedDeadline() {
         String[] formattedDeadline = deadline.split("/",-1);
         if (formattedDeadline.length == 3) {
