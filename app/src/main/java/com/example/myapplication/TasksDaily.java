@@ -387,6 +387,5 @@ public class TasksDaily extends AppCompatActivity {
             else { return true; }
         }
         else { return false; }
-
     }
 }

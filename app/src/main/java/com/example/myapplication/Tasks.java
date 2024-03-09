@@ -73,6 +73,7 @@ public class Tasks {
     public boolean getDeletable() { return deletable; }
 
     public void setDeletable(boolean deletable) { this.deletable = deletable; }
+
     public String getFormattedDeadline() {
         String[] formattedDeadline = deadline.split("/",-1);
         if (formattedDeadline.length == 3) {

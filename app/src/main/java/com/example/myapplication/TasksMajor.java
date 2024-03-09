@@ -249,7 +249,7 @@ public class TasksMajor extends AppCompatActivity {
     private void createTask(String name, String description, String deadline, String type) {
         // Generate a unique ID for the task
         String taskId = databaseReference.push().getKey();
-        int exp = 1250;
+        int exp = 1500;
         // Create a new Tasks object
         Tasks task = new Tasks(name, description, deadline, type, "To be Accomplished", taskId, exp, true);
 
@@ -278,6 +278,7 @@ public class TasksMajor extends AppCompatActivity {
                         Calendar currentDate = Calendar.getInstance();
                         int currentMonth = currentDate.get(Calendar.MONTH)+1;
                         int currentDay = currentDate.get(Calendar.DAY_OF_MONTH);
+
                         if (!task.getDeletable()) {
                             // Week 1
                             visibleTask = currentMonth == 3 && 10 <= currentDay && currentDay <= 16 &&
@@ -325,6 +326,8 @@ public class TasksMajor extends AppCompatActivity {
                             taskItems.add(recycleItem);
                         }
                     }
+                    // Notify the adapter that the data set has changed
+                    tasksRecycleAdapter.notifyDataSetChanged();
                 }
 
                 @Override
@@ -359,4 +362,70 @@ public class TasksMajor extends AppCompatActivity {
         startActivity(new Intent(this, BuddyProfile.class));
     }
 
+    /* public void xpChange() {
+        if (user != null && databaseReference != null) {
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot taskSnapshot : dataSnapshot.getChildren()) {
+                        Tasks task = taskSnapshot.getValue(Tasks.class);
+                        if (task != null && "major".equalsIgnoreCase(task.getType())) {
+                            String[] taskStringDeadline = task.getDeadline().split("/",-1);
+                            Calendar taskCalendarDeadline = Calendar.getInstance();
+                            taskCalendarDeadline.set(Integer.parseInt(taskStringDeadline[2]),
+                                    Integer.parseInt(taskStringDeadline[0]),
+                                    Integer.parseInt(taskStringDeadline[1]));
+                            // Check first if the daily task is complete or not
+                            // True: Reset daily task
+                            // False: then Proceed as normal
+                            Toast.makeText(TasksMajor.this, String.valueOf(isThreeDaysBeforeDeadline(taskCalendarDeadline)), Toast.LENGTH_SHORT).show();
+                            if ( isThreeDaysBeforeDeadline(taskCalendarDeadline)) {
+                                // Edit the Database to change the xp amount
+                                databaseReference.child(task.getTaskId()).child("exp").setValue("1250");
+                            }
+                        }
+                    }
+
+                    // Notify the adapter that the data set has changed
+                    tasksRecycleAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Toast.makeText(TasksMajor.this, "Failed to fetch tasks: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    public boolean xpChangeBool(int dayDeadline, int monthDeadline, int yearDeadline, String status) {
+        Calendar currentDate = Calendar.getInstance();
+        // If Status is not yet complete then ignore the whole function
+        if ( "To be Accomplished".equalsIgnoreCase(status)){
+            // If date has not passed yet, then do not reset
+            if ( Integer.valueOf(currentDate.get(currentDate.YEAR)) <= yearDeadline ) {
+                if (Integer.valueOf(currentDate.get(currentDate.MONTH)+1) <= monthDeadline) {
+                    if (Integer.valueOf(currentDate.get(currentDate.DAY_OF_MONTH)) <= dayDeadline) {
+                        return false;
+                    }
+                    else { return true; }
+                }
+                else { return true; }
+            }
+            else { return true; }
+        }
+        else { return false; }
+    }
+
+    private boolean isThreeDaysBeforeDeadline(Calendar deadlineCalendar) {
+        // Get the current date
+        Calendar currentDateCalendar = Calendar.getInstance();
+
+        // Calculate the date three days before the deadline
+        Calendar threeDaysBeforeDeadline = (Calendar) deadlineCalendar.clone();
+        threeDaysBeforeDeadline.add(Calendar.DAY_OF_YEAR, -3);
+
+        // Check if the current date is three days before the deadline
+        return currentDateCalendar.before(threeDaysBeforeDeadline);
+    } */
 }
