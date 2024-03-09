@@ -7,7 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
@@ -170,8 +170,15 @@ public class TasksRecycleAdapter extends RecyclerView.Adapter<TasksRecycleView> 
                                                     Integer currentLevel = levelSnapshot.getValue(Integer.class);
                                                     if (currentLevel == null) currentLevel = 0; // If for some reason it's null, default to 0
                                                     int newLevel = currentLevel + 1;
-
-
+                                                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                                                    builder.setMessage("Buddy has leveled up to Level " + newLevel + "!")
+                                                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                                public void onClick(DialogInterface dialog, int id) {
+                                                                    // User clicked OK button
+                                                                }
+                                                            });
+                                                    AlertDialog dialog = builder.create();
+                                                    dialog.show();
                                                     // Update the level in Firebase
                                                     buddyLevelRef.setValue(newLevel);
                                                     updateLevelStatus(buddyUid, newLevel);

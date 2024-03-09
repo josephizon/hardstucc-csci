@@ -8,8 +8,10 @@ import android.graphics.Shader;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,7 +19,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,8 +66,10 @@ public class RewardsHard extends AppCompatActivity {
 
         // LOGOUT BUTTON CODE
         auth = FirebaseAuth.getInstance();
-        button = findViewById(R.id.logout);
         user = auth.getCurrentUser();
+        button = findViewById(R.id.logout);
+
+
         if (user == null) {
             Intent intent = new Intent(getApplicationContext(), Login.class);
             startActivity(intent);
@@ -87,7 +94,7 @@ public class RewardsHard extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.rewards_recyclerview);
 
         List<RewardsHardRecycleItem> items = new ArrayList<RewardsHardRecycleItem>();
-        items.add(new RewardsHardRecycleItem("NAME OF REWARD", "DESCRIPTION", "BOKAS"));
+        items.add(new RewardsHardRecycleItem("Reward Name", "Condition", "BOKAS"));
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -100,8 +107,36 @@ public class RewardsHard extends AppCompatActivity {
         Dialog dialog = new Dialog(this, R.style.DialogStyle);
         dialog.setContentView(R.layout.activity_rewards_hard_create);
 
+        EditText etRewardName = dialog.findViewById(R.id.reward_name_input);
+        EditText etRewardDescription = dialog.findViewById(R.id.reward_description_input);
+        EditText etDateCreated = dialog.findViewById(R.id.reward_date_created_input);
+
+
+
+        Button btnSave = dialog.findViewById(R.id.saveTaskButton);
+
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Assuming you have EditText fields for rewardName, rewardDescription, and dateCreated
+
+
+                String rewardName = etRewardName.getText().toString();
+                String rewardDescription = etRewardDescription.getText().toString();
+                String dateCreated = etDateCreated.getText().toString();
+
+                // Validate the input if needed
+
+                // Save the reward to Firebase
+                saveRewardToFirebase(rewardName, rewardDescription, dateCreated);
+
+                // Close the dialog after saving
+                dialog.dismiss();
+            }
+        });
         // CLOSE BUTTON FOR POP UP CUSTOMIZATION
         ImageView btnClose = dialog.findViewById(R.id.exitCreateTaskButton);
+
 
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,7 +147,25 @@ public class RewardsHard extends AppCompatActivity {
 
         dialog.show();
     }
+    private void saveRewardToFirebase(String rewardName, String rewardDescription, String dateCreated) {
+        if (user != null) {
+            String uid = user.getUid();
+            RewardsHardRecycleItem reward = new RewardsHardRecycleItem(rewardName, rewardDescription, dateCreated);
 
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference ref = database.getReference("Registered Users").child(uid).child("HardRewards");
+            String rewardId = ref.push().getKey(); // Generate a unique ID for the reward
+            if (rewardId != null) {
+                ref.child(rewardId).setValue(reward).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(this, "Task created successfully", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(this, "Failed to create Task", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }
+    }
 
     // START OF NAVIGATION CODE
 

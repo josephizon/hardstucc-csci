@@ -11,6 +11,7 @@ import android.graphics.Shader;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -146,7 +147,26 @@ public class Profile extends AppCompatActivity {
     private void showDialog() {
         Dialog dialog = new Dialog(this, R.style.DialogStyle);
         dialog.setContentView(R.layout.popup_profile_customization);
+        Button btnSave = dialog.findViewById(R.id.btn_register);
 
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Assuming you have EditText fields for first name, last name, and middle name
+                EditText etFirstName = dialog.findViewById(R.id.edit_first_name);
+                EditText etLastName = dialog.findViewById(R.id.edit_last_name);
+                EditText etMiddleName = dialog.findViewById(R.id.edit_middle_name);
+
+                String newFirstName = etFirstName.getText().toString().trim();
+                String newLastName = etLastName.getText().toString().trim();
+                String newMiddleName = etMiddleName.getText().toString().trim();
+
+                // Validate the input if needed
+
+                // Save the changes to Firebase
+                saveProfileChanges(dialog, newFirstName, newLastName, newMiddleName);
+            }
+        });
         // CLOSE BUTTON FOR POP UP CUSTOMIZATION
         ImageView btnClose = dialog.findViewById(R.id.popup_exit_icon);
 
@@ -159,7 +179,21 @@ public class Profile extends AppCompatActivity {
 
         dialog.show();
     }
+    private void saveProfileChanges(Dialog dialog, String newFirstName, String newLastName, String newMiddleName) {
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Registered Users")
+                .child(user.getUid());
 
+        userRef.child("firstName").setValue(newFirstName);
+        userRef.child("lastName").setValue(newLastName);
+        userRef.child("middleName").setValue(newMiddleName);
+
+        // Update the TextView with the new full name
+        String newFullName = newFirstName + " " + newLastName;
+        profileUsernameTextView.setText(newFullName);
+
+        // Close the dialog after saving
+        dialog.dismiss();
+    }
     // BUDDY NAVIGATION
     public void openBuddyMainActivity2(View view) {
         startActivity(new Intent(this, BuddyMainActivity2.class));

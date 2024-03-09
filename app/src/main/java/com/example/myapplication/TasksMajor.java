@@ -151,7 +151,6 @@ public class TasksMajor extends AppCompatActivity {
 
         editTaskName = popUp.findViewById(R.id.task_name_input);
         editTaskDescription = popUp.findViewById(R.id.task_description_input);
-
         editTaskDeadline = popUp.findViewById(R.id.task_deadline_input);
         editTaskDeadline.setOnClickListener(new View.OnClickListener() {
             @Override
