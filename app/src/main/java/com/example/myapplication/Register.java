@@ -8,10 +8,13 @@ import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -44,6 +47,8 @@ public class Register extends AppCompatActivity {
 
     Spinner selectedClass;
 
+    ImageView passwordToggle;
+
     @Override
     public void onStart() {
         super.onStart();
@@ -62,11 +67,12 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        TextView name = findViewById(R.id.battle);
+        // CODE FOR BATTLEPLAN WORD GRADIENT
+        /*TextView name = findViewById(R.id.battle);
         int startColor = Color.rgb(50, 61, 115);
         int endColor = Color.rgb(94, 132, 243);
         Shader shader = new LinearGradient(0f, 0f, 0f, name.getTextSize(), startColor, endColor, Shader.TileMode.CLAMP);
-        name.getPaint().setShader(shader);
+        name.getPaint().setShader(shader);*/
 
         mAuth = FirebaseAuth.getInstance();
         editTextEmail = findViewById(R.id.email);
@@ -78,6 +84,8 @@ public class Register extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         loginButton = findViewById(R.id.loginNow);
         selectedClass = findViewById(R.id.spinner_class_selection);
+        editTextPassword = findViewById(R.id.password);
+        passwordToggle = findViewById(R.id.password_toggle);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +93,15 @@ public class Register extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), Login.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        // Set OnClickListener for the visibility toggle
+        passwordToggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Toggle password visibility
+                togglePasswordVisibility();
             }
         });
 
@@ -158,6 +175,21 @@ public class Register extends AppCompatActivity {
         });
 
 
+    }
+
+    private void togglePasswordVisibility() {
+        int inputType = editTextPassword.getInputType();
+
+        if (inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+            // If password is currently visible, hide it
+            editTextPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            editTextPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        } else {
+            // If password is currently hidden, make it visible
+            editTextPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+        }
+        // Move cursor to the end of the password string
+        editTextPassword.setSelection(editTextPassword.getText().length());
     }
 
     private void addBadgeData(String userId) {

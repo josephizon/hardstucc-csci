@@ -6,21 +6,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Register"
-
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:clipToPadding="false"
     android:clipChildren="false"
 
     >
 
-    <!--    <TextView-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="Hello World!"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -29,14 +20,8 @@
 
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/logo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="25dp"/>
 
-    <LinearLayout
+    <!--<LinearLayout
         android:id="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -61,12 +46,17 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/epilogue"
             android:text="@string/battle_slogan"
-            android:textSize="14sp"
+            android:textSize="18sp"
             android:textColor="#FFFF"
 
             />
 
-    </LinearLayout>
+    </LinearLayout>-->
+
+    <View
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
 
     <ScrollView
         android:layout_width="wrap_content"
@@ -103,7 +93,7 @@
                 android:text="New Account"
                 android:textSize="28sp"
                 android:textColor="@color/blue"
-                android:textStyle="bold"
+                android:fontFamily="@font/epilogue_black"
                 />
 
             <TextView
@@ -112,6 +102,7 @@
                 android:text="Register here using your own email!"
                 android:textSize="12sp"
                 android:alpha="0.5"
+                android:fontFamily="@font/inter"
                 />
 
             <View
@@ -124,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:text="Email Address"
                 android:alpha="0.5"
-                android:textStyle="bold"
+                android:fontFamily="@font/epilogue_black"
                 />
 
             <EditText
@@ -137,7 +128,7 @@
 
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"
+                android:layout_height="10dp"
                 />
 
             <TextView
@@ -145,22 +136,42 @@
                 android:layout_height="wrap_content"
                 android:text="Password"
                 android:alpha="0.5"
-                android:textStyle="bold"
+                android:fontFamily="@font/epilogue_black"
                 />
 
-            <EditText
-                android:id="@+id/password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:drawableEnd="@drawable/login_password_icon"
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    />
+
+                <ImageView
+                    android:id="@+id/password_toggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/login_password_icon"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
                 />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="First Name"
                 android:alpha="0.5"
-                android:textStyle="bold"
+                android:fontFamily="@font/epilogue_black"
                 />
 
             <EditText
@@ -168,19 +179,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:drawableEnd="@drawable/login_done_icon"
+
                 />
 
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"
+                android:layout_height="10dp"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Middle Name"
                 android:alpha="0.5"
-                android:textStyle="bold"
+                android:fontFamily="@font/epilogue_black"
                 />
 
             <EditText
@@ -188,19 +199,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:drawableEnd="@drawable/login_done_icon"
+
                 />
 
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"
+                android:layout_height="10dp"
                 />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Last Name"
                 android:alpha="0.5"
-                android:textStyle="bold"
+                android:fontFamily="@font/epilogue_black"
                 />
 
             <EditText
@@ -208,7 +220,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:drawableEnd="@drawable/login_done_icon"
+
+                />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
                 />
 
             <TextView
@@ -216,13 +233,13 @@
                 android:layout_height="wrap_content"
                 android:text="Class"
                 android:alpha="0.5"
-                android:textStyle="bold"
+                android:fontFamily="@font/epilogue_black"
                 />
 
             <Spinner
                 android:id="@+id/spinner_class_selection"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:spinnerMode="dropdown"
                 android:entries="@array/subjects"
                 android:prompt="@string/subject_prompt"
@@ -234,23 +251,16 @@
                 android:layout_height="wrap_content"
                 >
 
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Remember me"
-                    android:layout_centerVertical="true"
-                    android:alpha="0.5"
 
-                    />
 
                 <TextView
                     android:id="@+id/loginNow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Click to Login Now"
+                    android:text="Click to Login Now!"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:textStyle="italic"
+                    android:fontFamily="@font/epilogue_black_italic"
                     android:textColor="@color/blue"
                     />
 

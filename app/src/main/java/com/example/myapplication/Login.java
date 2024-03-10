@@ -7,12 +7,17 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import android.text.InputType;
 import android.text.TextUtils;
+import android.text.method.PasswordTransformationMethod;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +34,11 @@ public class Login extends AppCompatActivity {
     FirebaseAuth mAuth;
     ProgressBar progressBar;
     TextView textView;
+
+    EditText passwordEditText;
+
+    ImageView passwordToggle;
+
 
     @Override
     public void onStart() {
@@ -63,12 +73,25 @@ public class Login extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.registerNow);
 
+        passwordEditText = findViewById(R.id.password);
+        passwordToggle = findViewById(R.id.password_toggle);
+
+
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Register.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        // Set OnClickListener for the visibility toggle
+        passwordToggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Toggle password visibility
+                togglePasswordVisibility();
             }
         });
 
@@ -118,5 +141,22 @@ public class Login extends AppCompatActivity {
 
             }
         });
+
+
+    }
+
+    private void togglePasswordVisibility() {
+        int inputType = passwordEditText.getInputType();
+
+        if (inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+            // If password is currently visible, hide it
+            passwordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            passwordEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        } else {
+            // If password is currently hidden, make it visible
+            passwordEditText.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+        }
+        // Move cursor to the end of the password string
+        passwordEditText.setSelection(passwordEditText.getText().length());
     }
 }
