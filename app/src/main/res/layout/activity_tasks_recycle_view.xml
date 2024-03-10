@@ -115,7 +115,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_gravity="bottom|right"
-                    android:background="@drawable/custom_button_delete"
+                    android:background="@drawable/custom_delete"
                     android:text="Delete Task"
                     android:textAllCaps="false"
                     android:textColor="@color/white"

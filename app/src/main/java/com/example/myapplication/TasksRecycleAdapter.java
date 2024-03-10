@@ -256,9 +256,7 @@ public class TasksRecycleAdapter extends RecyclerView.Adapter<TasksRecycleView> 
 
         if (isBuddyPage || currentItem.getDeletable() == false) {
             // Buddy Page Logic
-            holder.btnDeleteTask.setBackgroundColor(Color.rgb(254, 254, 254));
-            holder.btnDeleteTask.setClickable(false);
-            holder.btnDeleteTask.setEnabled(false);
+            holder.btnDeleteTask.setVisibility(View.GONE);
         } else {
             // Create an if Statement to prevent users from deleting important tasks
             AlertDialog.Builder confirmation = new AlertDialog.Builder(context);

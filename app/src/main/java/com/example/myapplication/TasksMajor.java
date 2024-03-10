@@ -408,25 +408,6 @@ public class TasksMajor extends AppCompatActivity {
         }
     }
 
-    public boolean xpChangeBool(int dayDeadline, int monthDeadline, int yearDeadline, String status) {
-        Calendar currentDate = Calendar.getInstance();
-        // If Status is not yet complete then ignore the whole function
-        if ( "To be Accomplished".equalsIgnoreCase(status)){
-            // If date has not passed yet, then do not reset
-            if ( Integer.valueOf(currentDate.get(currentDate.YEAR)) <= yearDeadline ) {
-                if (Integer.valueOf(currentDate.get(currentDate.MONTH)+1) <= monthDeadline) {
-                    if (Integer.valueOf(currentDate.get(currentDate.DAY_OF_MONTH)) <= dayDeadline) {
-                        return false;
-                    }
-                    else { return true; }
-                }
-                else { return true; }
-            }
-            else { return true; }
-        }
-        else { return false; }
-    }
-
     private boolean isThreeDaysBeforeDeadline(Calendar deadlineCalendar) {
         // Get the current date
         Calendar currentDateCalendar = Calendar.getInstance();

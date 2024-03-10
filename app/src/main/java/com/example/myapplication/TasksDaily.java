@@ -213,6 +213,10 @@ public class TasksDaily extends AppCompatActivity {
     }
 
     private void openCalendar(){
+        Calendar currentDate = Calendar.getInstance();
+        int currentYear = currentDate.get(Calendar.YEAR);
+        int currentMonth = currentDate.get(Calendar.MONTH);
+        int currentDay = currentDate.get(Calendar.DAY_OF_MONTH);
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -220,7 +224,7 @@ public class TasksDaily extends AppCompatActivity {
                 taskDateDeadline = String.valueOf(month+1) + "/" + String.valueOf(dayOfMonth) + "/"  + String.valueOf(year);
                 editTaskDeadline.setText(calendarMonth(month+1) + ", " + String.valueOf(dayOfMonth) + " "  + String.valueOf(year));
             }
-        }, 2024, 1, 15);
+        }, currentYear, currentMonth, currentDay);
         datePickerDialog.show();
     }
 
