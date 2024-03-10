@@ -10,11 +10,14 @@
     <color name="orange">#F29544</color>
     <color name="light_orange">#FFD7B4</color>
     <color name="dirty_white">#EEEEEE</color>
+    <color name="red">#DC143C</color>
 
 
     <color name="black_filter">#60000000</color>
     <color name="calendar_pink">#FFABDD</color>
     <color name="clipboard_purple">#BCA7FF</color>
+
+
 
 
 </resources>

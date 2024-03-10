@@ -208,7 +208,7 @@ public class Register extends AppCompatActivity {
 
         // Define the structure of the badge data
         Map<String, Object> badgeData = new HashMap<>();
-        badgeData.put("badge_status", "unlocked"); // Set status for all badges
+        badgeData.put("badge_status", "locked"); // Set status for all badges
 
         // Create a reference to the "Registered Users" node
         DatabaseReference referenceUsers = FirebaseDatabase.getInstance().getReference("Registered Users");
@@ -238,6 +238,11 @@ public class Register extends AppCompatActivity {
         rewardNames.add("rewards_profile_icon_2");
         rewardNames.add("rewards_profile_icon_3");
         rewardNames.add("rewards_profile_icon_4");
+
+        rewardNames.add("rewards_profile_icon_5");
+        rewardNames.add("rewards_profile_icon_6");
+        rewardNames.add("rewards_profile_icon_7");
+        rewardNames.add("rewards_profile_icon_8");
 
         // Define the structure of the badge data
         Map<String, Object> badgeData = new HashMap<>();

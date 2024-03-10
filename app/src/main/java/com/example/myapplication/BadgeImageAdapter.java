@@ -89,7 +89,26 @@ public class BadgeImageAdapter extends ArrayAdapter<Integer> {
                 return "Level 15 Trophy!!!";
             case "badges_clicked_register":
                 return "That's krazy, don't touch me,,,";
-            // Add more cases for other badge names as needed
+
+            case "rewards_collectible_1":
+                return "Chipi Chipi Chapa Chapa";
+            case "rewards_collectible_2":
+                return "huhH HUhHH huH";
+            case "rewards_collectible_3":
+                return "Smudge the Cat";
+            case "rewards_collectible_4":
+                return "No Thoughts, Head Empty";
+            case "rewards_collectible_5":
+                return "Chinese Beaver";
+            case "rewards_collectible_6":
+                return "Long Majestic Borzoi Dog";
+            case "rewards_collectible_7":
+                return "bRATz";
+            case "rewards_collectible_8":
+                return "Wadadadadang";
+            case "rewards_collectible_9":
+                return "Nah, I'd Win Real";
+
             default:
                 return originalName; // Return the original name if no modification is needed
         }

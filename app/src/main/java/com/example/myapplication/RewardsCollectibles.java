@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -93,8 +94,7 @@ public class RewardsCollectibles extends AppCompatActivity {
                 .child("SoftRewards");
 
         recyclerView = findViewById(R.id.rewards_collectibles_recyclerview);
-        /*recyclerView.setLayoutManager(new CustomLayoutManager());*/
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
         adapter = new RewardsSoftRecycleAdapter(recyclerView.getContext(), new ArrayList<>());
         recyclerView.setAdapter(adapter);
 

@@ -189,16 +189,19 @@
             android:layout_height="10dp"
             />
 
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rewards_collectibles_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="400dp"
 
             />
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
 
             <View
                 android:id="@+id/layout_collectible_space"
@@ -221,6 +224,8 @@
                 android:onClick="openRewardsSoft"
                 />
 
+
+
         </RelativeLayout>
 
 
@@ -230,7 +235,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         />
 
@@ -238,6 +243,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/orange"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -410,6 +416,7 @@
 
 
     </LinearLayout>
+
 
 
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
@@ -99,7 +100,7 @@ public class RewardsSoft extends AppCompatActivity {
         items.add(new RewardsSoftRecycleItem("rewards_profile_icon_3", "200", "available", R.drawable.rewards_profile_icon_3 ));
         items.add(new RewardsSoftRecycleItem("rewards_profile_icon_4", "300", "available", R.drawable.rewards_profile_icon_4 ));
 
-        recyclerView.setLayoutManager(new CustomLayoutManager());
+        recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 4));
         recyclerView.setAdapter(new RewardsSoftRecycleAdapter(getApplicationContext(), items));*/
 
         // Set up Firebase Database reference (Displaying the buyable stuff)
@@ -108,7 +109,7 @@ public class RewardsSoft extends AppCompatActivity {
                 .child("SoftRewards");
 
         recyclerView = findViewById(R.id.rewards_soft_recyclerview);
-        recyclerView.setLayoutManager(new CustomLayoutManager());
+        recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 4));
         adapter = new RewardsSoftRecycleAdapter(recyclerView.getContext(), new ArrayList<>());
         recyclerView.setAdapter(adapter);
 

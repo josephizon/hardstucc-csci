@@ -259,10 +259,7 @@ public class Profile extends AppCompatActivity {
                         }
                     }
                 }
-                /*// Set up RecyclerView with the retrieved data
-                RecyclerView recyclerView = findViewById(R.id.activity_badges_recyclerview_1);
-                recyclerView.setLayoutManager(new CustomLayoutManager());
-                recyclerView.setAdapter(new BadgesRecycleAdapter(getApplicationContext(), items));*/
+
             }
 
             @Override

@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -45,6 +46,8 @@ public class Badges extends AppCompatActivity {
     private String previousDisplayedBadgeKey1, previousDisplayedBadgeKey2, previousDisplayedBadgeKey3;
 
     private DataSnapshot dataSnapshot;
+
+    RecyclerView recyclerView;
 
 
 
@@ -158,8 +161,8 @@ public class Badges extends AppCompatActivity {
                     }
                 }
                 // Set up RecyclerView with the retrieved data
-                RecyclerView recyclerView = findViewById(R.id.activity_badges_recyclerview_1);
-                recyclerView.setLayoutManager(new CustomLayoutManager());
+                recyclerView = findViewById(R.id.activity_badges_recyclerview_1);
+                recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 4));
                 recyclerView.setAdapter(new BadgesRecycleAdapter(getApplicationContext(), items));
             }
 
