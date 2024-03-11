@@ -122,6 +122,7 @@ public class Badges extends AppCompatActivity {
                         public void onClick(View v) {
                             // Handle badgeChange1 click
                             resetAndChangeBadge(previousDisplayedBadgeKey1, "displayed1");
+
                         }
                     });
 
@@ -254,6 +255,7 @@ public class Badges extends AppCompatActivity {
                 // Handle click on badge image
                 String selectedBadgeKey = badgeKeys.get(which);
                 databaseReference.child(selectedBadgeKey).child("badge_status").setValue(newBadgeStatus);
+                reloadActivity();
             }
         });
 
@@ -264,6 +266,8 @@ public class Badges extends AppCompatActivity {
                 // Clear badges from display
                 for (String key : badgeKeys) {
                     databaseReference.child(key).child("badge_status").setValue("unlocked");
+                    reloadActivity();
+
                 }
             }
         });
@@ -271,6 +275,13 @@ public class Badges extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
 
+
+    }
+
+    private void reloadActivity() {
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
     }
 
 

@@ -432,6 +432,7 @@ public class Profile extends AppCompatActivity {
                 // Handle click on badge image
                 String selectedCollectibleKey = collectibleKeys.get(which);
                 databaseCollectibleReference.child(selectedCollectibleKey).child("reward_status").setValue(newCollectibleStatus);
+                reloadActivity();
             }
         });
 
@@ -442,6 +443,7 @@ public class Profile extends AppCompatActivity {
                 // Clear badges from display
                 for (String key : collectibleKeys) {
                     databaseCollectibleReference.child(key).child("reward_status").setValue("owned");
+                    reloadActivity();
                 }
             }
         });
@@ -449,6 +451,13 @@ public class Profile extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
 
+    }
+
+    // Method to reload the activity
+    private void reloadActivity() {
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
     }
 
 

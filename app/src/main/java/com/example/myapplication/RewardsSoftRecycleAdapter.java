@@ -198,6 +198,7 @@ public class RewardsSoftRecycleAdapter extends RecyclerView.Adapter<RewardsSoftR
                                                             public void onSuccess(Void aVoid) {
                                                                 // Database updated successfully
                                                                 Toast.makeText(context, "Item purchased successfully!", Toast.LENGTH_SHORT).show();
+                                                                reloadActivity();
                                                             }
                                                         });
                                             }
@@ -216,7 +217,10 @@ public class RewardsSoftRecycleAdapter extends RecyclerView.Adapter<RewardsSoftR
                         } else {
                             Log.d("Coins", "No value found for coins");
                         }
+
                     }
+
+
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -233,6 +237,12 @@ public class RewardsSoftRecycleAdapter extends RecyclerView.Adapter<RewardsSoftR
             }
         });
         builder.show();
+    }
+
+    // Method to reload the activity
+    private void reloadActivity() {
+        ((Activity) context).finish();
+        context.startActivity(((Activity) context).getIntent());
     }
 
 
