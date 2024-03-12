@@ -31,10 +31,10 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     FirebaseAuth auth;
-    ImageView button, badgeChange1, badgeChange2, badgeChange3;
+    ImageView button, badgeChange1, badgeChange2, badgeChange3, userProfileIcon;
     TextView userNameTextView, userCoinsTextView, userBPLevelTextView;
     FirebaseUser user;
-    DatabaseReference databaseReference, databaseBadges;
+    DatabaseReference databaseReference, databaseBadges, databaseIcons;
 
     private DataSnapshot dataSnapshot;
 
@@ -119,6 +119,37 @@ public class MainActivity extends AppCompatActivity {
                                 badgeChange3.setImageResource(badgeDrawableId);
                             }
                         }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    // Handle errors
+                }
+            });
+
+            // Icons Reference
+            databaseIcons = FirebaseDatabase.getInstance().getReference("Registered Users")
+                    .child(user.getUid())
+                    .child("SoftRewards");
+
+            // Add a listener to retrieve data from Firebase Database
+            databaseIcons.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    dataSnapshot = snapshot;
+                    for (DataSnapshot badgeSnapshot : dataSnapshot.getChildren()) {
+                        String iconName = badgeSnapshot.getKey(); // Badge name is the key
+                        String iconStatus = badgeSnapshot.child("reward_status").getValue(String.class); // Badge status is retrieved from "badge_status" child
+
+                        userProfileIcon = findViewById(R.id.user_icon);
+
+                        int badgeDrawableId = getDrawableResourceId(iconName);
+
+                        if ("displayedProfile".equals(iconStatus)) {
+                            userProfileIcon.setImageResource(badgeDrawableId);
+                        }
+
                     }
                 }
 

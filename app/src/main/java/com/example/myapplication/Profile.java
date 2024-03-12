@@ -3,7 +3,6 @@ package com.example.myapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -39,14 +38,19 @@ public class Profile extends AppCompatActivity {
 
     private Button btnShowDialog;
 
-    DatabaseReference databaseCollectibleReference;
+    DatabaseReference databaseCollectibleReference, databaseProfileReference;
 
     private DataSnapshot dataSnapshot;
     ImageView collectibleChange1, collectibleChange2, collectibleChange3, collectibleChange4;
     ImageView collectibleChange5, collectibleChange6, collectibleChange7, collectibleChange8;
+    ImageView profileIcon;
     private String previouslyDisplayedCollectible1, previouslyDisplayedCollectible2, previouslyDisplayedCollectible3, previouslyDisplayedCollectible4;
     private String previouslyDisplayedCollectible5, previouslyDisplayedCollectible6, previouslyDisplayedCollectible7, previouslyDisplayedCollectible8;
+    private String previouslyDisplayedProfile;
 
+    Dialog customizationDialog;
+
+    private ImageView popupProfileIcon;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,12 +150,14 @@ public class Profile extends AppCompatActivity {
                     collectibleChange7 = findViewById(R.id.displayed_collectible_7);
                     collectibleChange8 = findViewById(R.id.displayed_collectible_8);
 
+                    profileIcon = findViewById(R.id.user_icon);
+
                     // Click listener for badgeChange1
                     collectibleChange1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             // Handle badgeChange1 click
-                            resetAndChangeBadge(previouslyDisplayedCollectible1, "displayed1");
+                            resetAndChangeCollectible(previouslyDisplayedCollectible1, "displayed1");
                         }
                     });
 
@@ -160,7 +166,7 @@ public class Profile extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             // Handle badgeChange2 click
-                            resetAndChangeBadge(previouslyDisplayedCollectible2, "displayed2");
+                            resetAndChangeCollectible(previouslyDisplayedCollectible2, "displayed2");
                         }
                     });
 
@@ -169,7 +175,7 @@ public class Profile extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             // Handle badgeChange3 click
-                            resetAndChangeBadge(previouslyDisplayedCollectible3, "displayed3");
+                            resetAndChangeCollectible(previouslyDisplayedCollectible3, "displayed3");
                         }
                     });
 
@@ -177,7 +183,7 @@ public class Profile extends AppCompatActivity {
                     collectibleChange4.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            resetAndChangeBadge(previouslyDisplayedCollectible4, "displayed4");
+                            resetAndChangeCollectible(previouslyDisplayedCollectible4, "displayed4");
                         }
                     });
 
@@ -185,7 +191,7 @@ public class Profile extends AppCompatActivity {
                     collectibleChange5.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            resetAndChangeBadge(previouslyDisplayedCollectible5, "displayed5");
+                            resetAndChangeCollectible(previouslyDisplayedCollectible5, "displayed5");
                         }
                     });
 
@@ -193,71 +199,85 @@ public class Profile extends AppCompatActivity {
                     collectibleChange6.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            resetAndChangeBadge(previouslyDisplayedCollectible6, "displayed6");
+                            resetAndChangeCollectible(previouslyDisplayedCollectible6, "displayed6");
                         }
                     });
 
-                    // Click listener for badgeChange3
+                    // Click listener for badgeChange7
                     collectibleChange7.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            resetAndChangeBadge(previouslyDisplayedCollectible7, "displayed7");
+                            resetAndChangeCollectible(previouslyDisplayedCollectible7, "displayed7");
                         }
                     });
 
-                    // Click listener for badgeChange3
+                    // Click listener for badgeChange8
                     collectibleChange8.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            resetAndChangeBadge(previouslyDisplayedCollectible8, "displayed8");
+                            resetAndChangeCollectible(previouslyDisplayedCollectible8, "displayed8");
                         }
                     });
 
+                    /*profileIcon.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            resetAndChangeIcon(previouslyDisplayedProfile, "displayedProfile");
+                        }
+                    });*/
+
+
+
                     // Check if badge status is not "locked" before adding it to the list
-                    if (!"locked".equals(collectibleStatus)) {
-                        int badgeDrawableId = getDrawableResourceId(collectibleName);
+
+                    int badgeDrawableId = getDrawableResourceId(collectibleName);
                         // items.add(new BadgesRecycleItem(badgeStatus, badgeDrawableId, badgeName));
 
-                        if ("displayed1".equals(collectibleStatus)) {
-                            collectibleChange1.setImageResource(badgeDrawableId);
-                            previouslyDisplayedCollectible1 = collectibleSnapshot.getKey();
-                        }
-
-                        else if ("displayed2".equals(collectibleStatus)) {
-                            collectibleChange2.setImageResource(badgeDrawableId);
-                            previouslyDisplayedCollectible2 = collectibleSnapshot.getKey();
-                        }
-
-                        else if ("displayed3".equals(collectibleStatus)) {
-                            collectibleChange3.setImageResource(badgeDrawableId);
-                            previouslyDisplayedCollectible3 = collectibleSnapshot.getKey();
-                        }
-
-                        else if ("displayed4".equals(collectibleStatus)) {
-                            collectibleChange4.setImageResource(badgeDrawableId);
-                            previouslyDisplayedCollectible4 = collectibleSnapshot.getKey();
-                        }
-
-                        else if ("displayed5".equals(collectibleStatus)) {
-                            collectibleChange5.setImageResource(badgeDrawableId);
-                            previouslyDisplayedCollectible5 = collectibleSnapshot.getKey();
-                        }
-
-                        else if ("displayed6".equals(collectibleStatus)) {
-                            collectibleChange6.setImageResource(badgeDrawableId);
-                            previouslyDisplayedCollectible6 = collectibleSnapshot.getKey();
-                        }
-
-                        else if ("displayed7".equals(collectibleStatus)) {
-                            collectibleChange7.setImageResource(badgeDrawableId);
-                            previouslyDisplayedCollectible7 = collectibleSnapshot.getKey();
-                        }
-
-                        else if ("displayed8".equals(collectibleStatus)) {
-                            collectibleChange8.setImageResource(badgeDrawableId);
-                            previouslyDisplayedCollectible8 = collectibleSnapshot.getKey();
-                        }
+                    if ("displayed1".equals(collectibleStatus)) {
+                        collectibleChange1.setImageResource(badgeDrawableId);
+                        previouslyDisplayedCollectible1 = collectibleSnapshot.getKey();
                     }
+
+                    else if ("displayed2".equals(collectibleStatus)) {
+                        collectibleChange2.setImageResource(badgeDrawableId);
+                        previouslyDisplayedCollectible2 = collectibleSnapshot.getKey();
+                    }
+
+                    else if ("displayed3".equals(collectibleStatus)) {
+                        collectibleChange3.setImageResource(badgeDrawableId);
+                        previouslyDisplayedCollectible3 = collectibleSnapshot.getKey();
+                    }
+
+                    else if ("displayed4".equals(collectibleStatus)) {
+                        collectibleChange4.setImageResource(badgeDrawableId);
+                        previouslyDisplayedCollectible4 = collectibleSnapshot.getKey();
+                    }
+
+                    else if ("displayed5".equals(collectibleStatus)) {
+                        collectibleChange5.setImageResource(badgeDrawableId);
+                        previouslyDisplayedCollectible5 = collectibleSnapshot.getKey();
+                    }
+
+                    else if ("displayed6".equals(collectibleStatus)) {
+                        collectibleChange6.setImageResource(badgeDrawableId);
+                        previouslyDisplayedCollectible6 = collectibleSnapshot.getKey();
+                    }
+
+                    else if ("displayed7".equals(collectibleStatus)) {
+                        collectibleChange7.setImageResource(badgeDrawableId);
+                        previouslyDisplayedCollectible7 = collectibleSnapshot.getKey();
+                    }
+
+                    else if ("displayed8".equals(collectibleStatus)) {
+                        collectibleChange8.setImageResource(badgeDrawableId);
+                        previouslyDisplayedCollectible8 = collectibleSnapshot.getKey();
+                    }
+
+                    else if ("displayedProfile".equals(collectibleStatus)) {
+                        profileIcon.setImageResource(badgeDrawableId);
+                        previouslyDisplayedProfile = collectibleSnapshot.getKey();
+                    }
+
                 }
 
             }
@@ -307,17 +327,28 @@ public class Profile extends AppCompatActivity {
     }
 
     private void showDialog() {
-        Dialog dialog = new Dialog(this, R.style.DialogStyle);
-        dialog.setContentView(R.layout.popup_profile_customization);
-        Button btnSave = dialog.findViewById(R.id.btn_register);
+        customizationDialog = new Dialog(this, R.style.DialogStyle);
+        customizationDialog.setContentView(R.layout.popup_profile_customization);
+        Button btnSave = customizationDialog.findViewById(R.id.btn_register);
+
+        // Find the ImageView for profile icon in the popup layout
+        popupProfileIcon = customizationDialog.findViewById(R.id.user_icon);
+
+        // Set onClickListener for profile icon in customization dialog
+        popupProfileIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetAndChangeIcon(previouslyDisplayedProfile, "displayedProfile");
+            }
+        });
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Assuming you have EditText fields for first name, last name, and middle name
-                EditText etFirstName = dialog.findViewById(R.id.edit_first_name);
-                EditText etLastName = dialog.findViewById(R.id.edit_last_name);
-                EditText etMiddleName = dialog.findViewById(R.id.edit_middle_name);
+                EditText etFirstName = customizationDialog.findViewById(R.id.edit_first_name);
+                EditText etLastName = customizationDialog.findViewById(R.id.edit_last_name);
+                EditText etMiddleName = customizationDialog.findViewById(R.id.edit_middle_name);
 
                 String newFirstName = etFirstName.getText().toString().trim();
                 String newLastName = etLastName.getText().toString().trim();
@@ -326,21 +357,22 @@ public class Profile extends AppCompatActivity {
                 // Validate the input if needed
 
                 // Save the changes to Firebase
-                saveProfileChanges(dialog, newFirstName, newLastName, newMiddleName);
+                saveProfileChanges(customizationDialog, newFirstName, newLastName, newMiddleName);
             }
         });
         // CLOSE BUTTON FOR POP UP CUSTOMIZATION
-        ImageView btnClose = dialog.findViewById(R.id.popup_exit_icon);
+        ImageView btnClose = customizationDialog.findViewById(R.id.popup_exit_icon);
 
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog.dismiss();
+                customizationDialog.dismiss();
             }
         });
 
-        dialog.show();
+        customizationDialog.show();
     }
+
     private void saveProfileChanges(Dialog dialog, String newFirstName, String newLastName, String newMiddleName) {
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Registered Users")
                 .child(user.getUid());
@@ -381,7 +413,7 @@ public class Profile extends AppCompatActivity {
 
 
     // resetAndChange method that uses a custom Badge Image Adapter for layout
-    private void resetAndChangeBadge(String previouslyDisplayedCollectible, final String newCollectibleStatus) {
+    private void resetAndChangeCollectible(String previouslyDisplayedCollectible, final String newCollectibleStatus) {
         // Reset previous displayed badge
         if (previouslyDisplayedCollectible != null && !previouslyDisplayedCollectible.isEmpty()) {
             databaseCollectibleReference.child(previouslyDisplayedCollectible).child("reward_status").setValue("owned");
@@ -452,6 +484,67 @@ public class Profile extends AppCompatActivity {
         dialog.show();
 
     }
+
+    private void resetAndChangeIcon(String previouslyDisplayedProfile, final String newCollectibleStatus) {
+        // Reset previous displayed badge
+        if (previouslyDisplayedProfile != null && !previouslyDisplayedProfile.isEmpty()) {
+            databaseCollectibleReference.child(previouslyDisplayedProfile).child("reward_status").setValue("owned");
+        }
+
+        // Create a list of the iconNames (badges list for selection)
+        List<String> iconNames = new ArrayList<>();
+        final List<String> collectibleKeys = new ArrayList<>(); // To store the corresponding badge keys
+        final List<Integer> collectibleImages = new ArrayList<>(); // To store the corresponding badge images
+        for (DataSnapshot collectibleSnapshot : dataSnapshot.getChildren()) {
+            String collectibleName = collectibleSnapshot.getKey(); // Badge name is the key
+            String collectibleStatus = collectibleSnapshot.child("reward_status").getValue(String.class); // Badge status is retrieved from "badge_status" child
+            String collectibleType = collectibleSnapshot.child("reward_type").getValue(String.class);
+
+            if (!"available".equals(collectibleStatus) && "icon".equals(collectibleType)) {
+                iconNames.add(collectibleName);
+                collectibleKeys.add(collectibleSnapshot.getKey()); // Store the corresponding badge key
+                int collectibleDrawableId = getDrawableResourceId(collectibleName);
+                collectibleImages.add(collectibleDrawableId); // Store the corresponding badge image
+            }
+        }
+
+        // Convert the list of modified names to an array
+        final CharSequence[] iconsArray = iconNames.toArray(new CharSequence[0]);
+
+        // Create an AlertDialog to display the list of icons
+        AlertDialog.Builder builder = new AlertDialog.Builder(Profile.this);
+        builder.setTitle("Purchased Profile Icons");
+
+        // Add images to the dialog using BadgeImageAdapter
+        builder.setAdapter(new BadgeImageAdapter(this, collectibleImages, collectibleKeys), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Handle click on badge image
+                String selectedCollectibleKey = collectibleKeys.get(which);
+                databaseCollectibleReference.child(selectedCollectibleKey).child("reward_status").setValue(newCollectibleStatus);
+                reloadActivity();
+
+
+            }
+        });
+
+        // Add a button to clear displayed badges
+        builder.setNegativeButton("Clear Displayed Collectibles", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Clear badges from display
+                for (String key : collectibleKeys) {
+                    databaseCollectibleReference.child(key).child("reward_status").setValue("owned");
+                    reloadActivity();
+                }
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+
 
     // Method to reload the activity
     private void reloadActivity() {

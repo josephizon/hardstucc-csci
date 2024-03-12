@@ -89,7 +89,7 @@
             android:layout_gravity="right"
             android:layout_marginTop="-80dp"
             android:layout_marginRight="10dp"
-            android:src="@drawable/rewards_profile_icon_1"
+            android:src="@drawable/rewards_profile_placeholder"
 
             />
 
@@ -136,7 +136,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Click the image to \nupload a new one."
+                            android:text="Click the white circle to \nchange profile icon."
                             android:textSize="9sp"
                             android:textStyle="bold"
                             android:textColor="@color/black"
@@ -178,7 +178,7 @@
             android:layout_height="wrap_content"
             android:text="First Name"
             android:textSize="20sp"
-            android:fontFamily="@font/epilogue"
+            android:fontFamily="@font/epilogue_black"
             android:textColor="@color/orange"
             android:textStyle="bold"
             />
@@ -204,7 +204,7 @@
             android:layout_height="wrap_content"
             android:text="Last Name"
             android:textSize="20sp"
-            android:fontFamily="@font/epilogue"
+            android:fontFamily="@font/epilogue_black"
             android:textColor="@color/orange"
             android:textStyle="bold"
             />
@@ -230,7 +230,7 @@
         android:layout_height="wrap_content"
         android:text="Middle Name"
         android:textSize="20sp"
-        android:fontFamily="@font/epilogue"
+        android:fontFamily="@font/epilogue_black"
         android:textColor="@color/orange"
         android:textStyle="bold"
         />

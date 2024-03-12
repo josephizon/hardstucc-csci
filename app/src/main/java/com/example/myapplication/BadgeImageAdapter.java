@@ -109,6 +109,24 @@ public class BadgeImageAdapter extends ArrayAdapter<Integer> {
             case "rewards_collectible_9":
                 return "Nah, I'd Win Real";
 
+            case "rewards_profile_icon_1":
+                return "Profile Icon 1";
+            case "rewards_profile_icon_2":
+                return "Profile Icon 2";
+            case "rewards_profile_icon_3":
+                return "Profile Icon 3";
+            case "rewards_profile_icon_4":
+                return "Profile Icon 4";
+            case "rewards_profile_icon_5":
+                return "Profile Icon 5";
+            case "rewards_profile_icon_6":
+                return "Profile Icon 6";
+            case "rewards_profile_icon_7":
+                return "Profile Icon 7";
+            case "rewards_profile_icon_8":
+                return "Profile Icon 8";
+
+
             default:
                 return originalName; // Return the original name if no modification is needed
         }
