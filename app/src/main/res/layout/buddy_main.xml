@@ -9,18 +9,12 @@
     tools:context=".BuddyMainActivity"
     android:background="@color/dirty_white">
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/user_details"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="Hellow WOrld"/>-->
-
 
     <!-- HEADER LAYOUT -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/orange"
+        android:background="@color/calendar_pink"
         >
 
         <TextView
@@ -61,7 +55,7 @@
     <!-- MAIN BODY LAYOUT -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="610dp"
+        android:layout_height="650dp"
         android:orientation="vertical"
         android:paddingLeft="15dp"
         android:paddingRight="15dp">
@@ -122,33 +116,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:fontFamily="@font/inter"
-                android:text="BUDDY VIEW "
+                android:fontFamily="@font/epilogue_black"
+                android:text="Welcome back, "
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/blue"
-                />
+                android:textColor="@color/blue"/>
 
             <TextView
                 android:id="@+id/user_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/welcome_text"
-                android:fontFamily="@font/inter"
+                android:fontFamily="@font/epilogue_black_italic"
                 android:text="USER"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/orange"/>
+                android:textColor="@color/calendar_pink"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/user_details"
-                android:fontFamily="@font/inter"
+                android:fontFamily="@font/epilogue_black"
                 android:text="!"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/orange"/>
+                android:textColor="@color/blue"/>
 
         </RelativeLayout>
 
@@ -211,6 +201,7 @@
                             android:src="@drawable/main_currencystar_icon" />
 
                         <TextView
+                            android:id="@+id/user_coins"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -288,20 +279,142 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:fontFamily="@font/inter"
+                android:fontFamily="@font/epilogue_black"
                 android:text="Badges"
                 android:textColor="@color/blue"
                 android:textSize="24sp"
-                android:textStyle="bold" />
+                />
 
         </RelativeLayout>
 
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp">
+            android:layout_height="110dp"
+            >
 
+            <!-- Badges Container 1 -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/container1"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="15dp"
+                android:layout_gravity="center"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+
+                android:divider="@android:color/transparent"
+                android:dividerHeight="0.0px"
+                android:elevation="8dp"
+                app:cardCornerRadius="15dp"
+                card_view:cardBackgroundColor="@color/white"
+                card_view:cardElevation="8dp"
+                card_view:cardPreventCornerOverlap="false">
+
+                <!-- Layout Inside the Cardview -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/displayed_badge_1"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:layout_centerInParent="true" />
+
+                </RelativeLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Badges Container 2 -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/container2"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/container1"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+
+                android:divider="@android:color/transparent"
+                android:dividerHeight="0.0px"
+                android:elevation="8dp"
+                app:cardCornerRadius="15dp"
+                card_view:cardBackgroundColor="@color/white"
+                card_view:cardElevation="8dp"
+                card_view:cardPreventCornerOverlap="false">
+
+                <!-- Layout Inside the Cardview -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/displayed_badge_2"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:layout_centerInParent="true" />
+
+                </RelativeLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Badges Container 3 -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/container3"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/container2"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+
+                android:divider="@android:color/transparent"
+                android:dividerHeight="0.0px"
+                android:elevation="8dp"
+                app:cardCornerRadius="15dp"
+                card_view:cardBackgroundColor="@color/white"
+                card_view:cardElevation="8dp"
+                card_view:cardPreventCornerOverlap="false">
+
+                <!-- Layout Inside the Cardview -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/displayed_badge_3"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:layout_centerInParent="true" />
+                    />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_badges"
+                android:layout_toRightOf="@+id/displayed_badge_3_container"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:padding="0dp"
+                android:backgroundTint="@color/orange"
+                android:textColor="@color/white"
+                android:fontFamily="@font/inter"
+                android:text="more ->"
+                android:textSize="11sp"
+                app:cornerRadius="24dp"
+                android:onClick="openBadges"/>
+
+            <!-- ORIGINAL BADGES LAYOUT -->
+            <!--<androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_centerVertical="true"
@@ -329,21 +442,21 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/badges_placeholder"
+                        android:src="@drawable/badges_fire_icon"
                         />
 
                     <ImageView
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/badges_placeholder"
+                        android:src="@drawable/badges_folder_icon"
                         />
 
                     <ImageView
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/badges_placeholder"
+                        android:src="@drawable/badges_ok_icon"
                         />
 
                     <com.google.android.material.button.MaterialButton
@@ -359,13 +472,15 @@
                         android:textSize="11sp"
                         android:textColor="@color/white"
                         app:cornerRadius="32dp"
-                        android:onClick="openBuddyBadges"/>
+                        android:onClick="openBadges"/>
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>-->
 
-        </RelativeLayout>
+
+
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -377,24 +492,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:fontFamily="@font/inter"
+                android:fontFamily="@font/epilogue_black"
                 android:text="Battle Pass"
                 android:textColor="@color/blue"
                 android:textSize="24sp"
-                android:textStyle="bold" />
+                />
 
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="170dp">
+            android:layout_height="200dp"
+            >
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
-                android:layout_centerVertical="true"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+
 
                 android:clipChildren="false"
                 card_view:cardBackgroundColor="@color/white"
@@ -420,16 +537,17 @@
                         android:layout_height="match_parent">
 
                         <TextView
+                            android:id="@+id/user_bplevel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:layout_x="284dp"
+                            android:layout_x="260dp"
                             android:layout_y="13dp"
                             android:fontFamily="@font/epilogue_black"
                             android:text="Level 29"
                             android:textColor="@color/white"
                             android:textSize="14sp"
-                            android:textStyle="bold" />
+                            />
 
                         <ImageView
                             android:layout_width="177dp"
@@ -501,7 +619,7 @@
                         android:textColor="@color/black"
                         android:textSize="12sp"
                         android:textStyle="bold"
-                        android:onClick="openBuddyBattlePass"
+                        android:onClick="openBattlePass"
                         />
 
                 </LinearLayout>

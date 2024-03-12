@@ -202,7 +202,7 @@ public class Register extends AppCompatActivity {
         badgeNames.add("badges_level_12");
         badgeNames.add("badges_level_14");
         badgeNames.add("badges_level_15");
-        badgeNames.add("badges_clicked_register");
+        badgeNames.add("badges_buddy_click");
 
 
 

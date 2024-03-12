@@ -87,8 +87,8 @@ public class BadgeImageAdapter extends ArrayAdapter<Integer> {
                 return "Isang pindot nalang...";
             case "badges_level_15":
                 return "Level 15 Trophy!!!";
-            case "badges_clicked_register":
-                return "That's krazy, don't touch me,,,";
+            case "badges_buddy_click":
+                return "I care about my buddy's profile :~D";
 
             case "rewards_collectible_1":
                 return "Chipi Chipi Chapa Chapa";

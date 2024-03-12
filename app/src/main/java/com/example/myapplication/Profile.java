@@ -38,7 +38,7 @@ public class Profile extends AppCompatActivity {
 
     private Button btnShowDialog;
 
-    DatabaseReference databaseCollectibleReference, databaseProfileReference;
+    DatabaseReference databaseCollectibleReference, databaseBadges;
 
     private DataSnapshot dataSnapshot;
     ImageView collectibleChange1, collectibleChange2, collectibleChange3, collectibleChange4;
@@ -573,6 +573,15 @@ public class Profile extends AppCompatActivity {
     }
 
     public void openBuddyProfile(View view) {
+
+        databaseBadges = FirebaseDatabase.getInstance().getReference("Registered Users")
+                .child(user.getUid())
+                .child("Badges")
+                .child("badges_buddy_click")
+                .child("badge_status"); // Adjust path as necessary
+
+        databaseBadges.setValue("unlocked");
+
         startActivity(new Intent(this, BuddyProfile.class));
     }
 

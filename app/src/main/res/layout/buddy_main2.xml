@@ -110,6 +110,21 @@
             android:layout_width="wrap_content"
             android:layout_height="10dp" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="THIS PAGE IS UNDER CONSTRUCTION!!"
+            android:fontFamily="@font/epilogue_black_italic"
+            android:textColor="@color/red"
+            android:textAlignment="center"
+            />
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:src="@drawable/placeholder_construction"/>
+
         <!-- TO DO NOTES OUTER LAYOUT-->
         <RelativeLayout
             android:layout_width="match_parent"
