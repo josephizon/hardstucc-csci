@@ -20,7 +20,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/orange">
+        android:background="@color/calendar_pink">
 
         <TextView
             android:id="@+id/battle"
