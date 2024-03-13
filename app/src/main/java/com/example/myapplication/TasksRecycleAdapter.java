@@ -76,6 +76,7 @@ public class TasksRecycleAdapter extends RecyclerView.Adapter<TasksRecycleView> 
                 holder.btnMarkAsDone.setEnabled(false);
             } else if ("Pending".equals(status)) {
                 holder.btnMarkAsDone.setText("Verify Accomplishment");
+                holder.btnMarkAsDone.setClickable(true);
                 holder.btnMarkAsDone.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -93,6 +94,7 @@ public class TasksRecycleAdapter extends RecyclerView.Adapter<TasksRecycleView> 
         } else {
             if ("To be Accomplished".equals(status)) {
                 holder.btnMarkAsDone.setText("Mark as Done");
+                holder.btnMarkAsDone.setClickable(true);
                 holder.btnMarkAsDone.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -135,62 +137,93 @@ public class TasksRecycleAdapter extends RecyclerView.Adapter<TasksRecycleView> 
                         // Retrieve the buddy's UID from the current user's information
                         String buddyUid = currentUser.getBuddyUid();
 
-                        // Update the buddy's exp based on the retrieved buddy UID
-                        DatabaseReference buddyExpRef = FirebaseDatabase.getInstance().getReference("Registered Users")
-                                .child(buddyUid)
-                                .child("exp");
+                        // Check if taskExp is 50 and capd is less than 4
+                        if (taskExp == 50) {
+                            DatabaseReference buddyDailyCapRef = FirebaseDatabase.getInstance().getReference("Registered Users")
+                                    .child(buddyUid)
+                                    .child("dailycap");
 
-                        // Retrieve the current exp of the buddy
-                        buddyExpRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot expSnapshot) {
-                                if (expSnapshot.exists()) {
-                                    Integer currentExp = expSnapshot.getValue(Integer.class);
-                                    if (currentExp == null) currentExp = 0; // If for some reason it's null, default to 0
-                                    int newExp = currentExp + taskExp;
+                            buddyDailyCapRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot capSnapshot) {
+                                    if (capSnapshot.exists()) {
+                                        Integer currentCap = capSnapshot.getValue(Integer.class);
+                                        if (currentCap == null) currentCap = 0; // If for some reason it's null, default to 0
 
-                                    // Update the exp in Firebase
-                                    buddyExpRef.setValue(newExp);
+                                        // Check if capd is less than 4
+                                        if (currentCap < 4) {
+                                            // Increment capd by 1
+                                            int newCap = currentCap + 1;
+                                            buddyDailyCapRef.setValue(newCap);
 
-                                    // Handle level updates
-                                    while (newExp >= 1000) {
-                                        // Subtract 1000 from exp and increase the level by 1
-                                        newExp -= 1000;
-                                        buddyExpRef.setValue(newExp);
-
-                                        // Retrieve the current level of the buddy
-                                        DatabaseReference buddyLevelRef = FirebaseDatabase.getInstance().getReference("Registered Users")
-                                                .child(buddyUid)
-                                                .child("bpLevel");
-
-                                        buddyLevelRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot levelSnapshot) {
-                                                if (levelSnapshot.exists()) {
-                                                    Integer currentLevel = levelSnapshot.getValue(Integer.class);
-                                                    if (currentLevel == null) currentLevel = 0; // If for some reason it's null, default to 0
-                                                    int newLevel = currentLevel + 1;
-                                                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                                                    builder.setMessage("Buddy has leveled up to Level " + newLevel + "!")
-                                                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                                public void onClick(DialogInterface dialog, int id) {
-                                                                    // User clicked OK button
-                                                                }
-                                                            });
-                                                    AlertDialog dialog = builder.create();
-                                                    dialog.show();
-                                                    // Update the level in Firebase
-                                                    buddyLevelRef.setValue(newLevel);
-                                                    updateLevelStatus(buddyUid, newLevel);
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError databaseError) {
-                                                // Handle possible errors here
-                                            }
-                                        });
+                                            // Proceed with giving 50 exp
+                                            proceedWithExpUpdate(buddyUid, taskExp);
+                                        } else {
+                                            // Don't give 50 exp
+                                        }
                                     }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    // Handle possible errors here
+                                }
+                            });
+                        } else {
+                            // Proceed with exp update for other cases
+                            proceedWithExpUpdate(buddyUid, taskExp);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle possible cancellations here
+            }
+        });
+    }
+
+    private void proceedWithExpUpdate(String buddyUid, int taskExp) {
+        // Update the buddy's exp based on the retrieved buddy UID
+        DatabaseReference buddyExpRef = FirebaseDatabase.getInstance().getReference("Registered Users")
+                .child(buddyUid)
+                .child("exp");
+
+        // Retrieve the current exp of the buddy
+        buddyExpRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot expSnapshot) {
+                if (expSnapshot.exists()) {
+                    Integer currentExp = expSnapshot.getValue(Integer.class);
+                    if (currentExp == null) currentExp = 0; // If for some reason it's null, default to 0
+                    int newExp = currentExp + taskExp;
+
+                    // Update the exp in Firebase
+                    buddyExpRef.setValue(newExp);
+
+                    // Handle level updates
+                    while (newExp >= 1000) {
+                        // Subtract 1000 from exp and increase the level by 1
+                        newExp -= 1000;
+                        buddyExpRef.setValue(newExp);
+
+                        // Retrieve the current level of the buddy
+                        DatabaseReference buddyLevelRef = FirebaseDatabase.getInstance().getReference("Registered Users")
+                                .child(buddyUid)
+                                .child("bpLevel");
+
+                        buddyLevelRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot levelSnapshot) {
+                                if (levelSnapshot.exists()) {
+                                    Integer currentLevel = levelSnapshot.getValue(Integer.class);
+                                    if (currentLevel == null) currentLevel = 0; // If for some reason it's null, default to 0
+                                    int newLevel = currentLevel + 1;
+
+                                    // Update the level in Firebase
+                                    buddyLevelRef.setValue(newLevel);
+                                    updateLevelStatus(buddyUid, newLevel);
                                 }
                             }
 
@@ -205,7 +238,7 @@ public class TasksRecycleAdapter extends RecyclerView.Adapter<TasksRecycleView> 
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle possible cancellations here
+                // Handle possible errors here
             }
         });
     }

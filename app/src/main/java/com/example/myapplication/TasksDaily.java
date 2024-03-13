@@ -45,7 +45,7 @@ public class TasksDaily extends AppCompatActivity {
     ImageView button;
     EditText editTaskName, editTaskDescription, editTaskType;
     FirebaseUser user;
-    DatabaseReference databaseReference;
+    DatabaseReference databaseReference, userReference;
     RecyclerView recyclerView;
     List<TasksRecycleItems> taskItems;
     TasksRecycleAdapter tasksRecycleAdapter;
@@ -72,9 +72,12 @@ public class TasksDaily extends AppCompatActivity {
             // Handle the case where the user is not logged in
             // You may want to redirect them to the login screen
         } else {
+
             databaseReference = FirebaseDatabase.getInstance().getReference("Registered Users")
                     .child(user.getUid())
                     .child("Tasks");
+            userReference = FirebaseDatabase.getInstance().getReference("Registered Users")
+                    .child(user.getUid());
         }
 
         createTaskButton = findViewById(R.id.create_daily_task);
@@ -358,6 +361,7 @@ public class TasksDaily extends AppCompatActivity {
                                         + "/" + currentDate.get(currentDate.DAY_OF_MONTH)
                                         + "/" + currentDate.get(currentDate.YEAR);
                                 databaseReference.child(task.getTaskId()).child("deadline").setValue(taskDateDeadline);
+                                resetDailyCapToZero();
                             }
                         }
                     }
@@ -371,6 +375,22 @@ public class TasksDaily extends AppCompatActivity {
                     Toast.makeText(TasksDaily.this, "Failed to fetch tasks: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
+        }
+    }
+    private void resetDailyCapToZero() {
+        if (user != null) {
+            DatabaseReference userReference = FirebaseDatabase.getInstance().getReference("Registered Users")
+                    .child(user.getUid());
+
+            // Update the "dailycap" field with the new value (0 in this case)
+            userReference.child("dailycap").setValue(0)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(TasksDaily.this, "Daily Cap reset to 0", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(TasksDaily.this, "Failed to reset Daily Cap: " + task.getException(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
         }
     }
 

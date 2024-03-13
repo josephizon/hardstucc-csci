@@ -170,19 +170,46 @@
 
                         <ImageView
                             android:id="@+id/dailytask_icon"
-                            android:layout_width="78dp"
-                            android:layout_height="70dp"
+                            android:layout_width="80dp"
+                            android:layout_height="55dp"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/main2_dailytasks_icon" />
 
                         <TextView
+                            android:id="@+id/daily_to_be_accomplished_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="3 of 5 daily tasks"
                             android:textSize="8sp"
                             android:textStyle="bold"
                             android:layout_marginTop="2dp"
+                            android:fontFamily="@font/inter"
+                            android:textColor="@color/clipboard_purple"
+                            android:layout_below="@+id/dailytask_icon"
+                            android:layout_centerHorizontal="true"
+                            />
+                        <TextView
+                            android:id="@+id/daily_pending_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="3 of 5 daily tasks"
+                            android:textSize="8sp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="11dp"
+                            android:fontFamily="@font/inter"
+                            android:textColor="@color/clipboard_purple"
+                            android:layout_below="@+id/dailytask_icon"
+                            android:layout_centerHorizontal="true"
+                            />
+                        <TextView
+                            android:id="@+id/daily_accomplished_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="3 of 5 daily tasks"
+                            android:textSize="8sp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="20dp"
                             android:fontFamily="@font/inter"
                             android:textColor="@color/clipboard_purple"
                             android:layout_below="@+id/dailytask_icon"
@@ -223,18 +250,45 @@
 
                         <ImageView
                             android:id="@+id/majortask_icon"
-                            android:layout_width="78dp"
-                            android:layout_height="70dp"
+                            android:layout_width="75dp"
+                            android:layout_height="55dp"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/main2_majortasks_icon" />
 
                         <TextView
+                            android:id="@+id/major_to_be_accomplished_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="5 of 10 major tasks"
                             android:textSize="8sp"
                             android:layout_marginTop="2dp"
+                            android:fontFamily="@font/inter"
+                            android:textColor="@color/calendar_pink"
+                            android:textStyle="bold"
+                            android:layout_below="@+id/majortask_icon"
+                            android:layout_centerHorizontal="true"
+                            />
+                        <TextView
+                            android:id="@+id/major_pending_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="5 of 10 major tasks"
+                            android:textSize="8sp"
+                            android:layout_marginTop="11dp"
+                            android:fontFamily="@font/inter"
+                            android:textColor="@color/calendar_pink"
+                            android:textStyle="bold"
+                            android:layout_below="@+id/majortask_icon"
+                            android:layout_centerHorizontal="true"
+                            />
+                        <TextView
+                            android:id="@+id/major_accomplished_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="5 of 10 major tasks"
+                            android:textSize="8sp"
+                            android:layout_marginTop="20dp"
                             android:fontFamily="@font/inter"
                             android:textColor="@color/calendar_pink"
                             android:textStyle="bold"

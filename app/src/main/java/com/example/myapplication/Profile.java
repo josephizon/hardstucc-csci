@@ -79,14 +79,87 @@ public class Profile extends AppCompatActivity {
                 showDialog();
             }
         });
-
-        // PROFILE USERNAME TEXTVIEW
-        profileUsernameTextView = findViewById(R.id.profile_username);
-
-        // LOGOUT BUTTON CODE
         auth = FirebaseAuth.getInstance();
         button = findViewById(R.id.logout);
         user = auth.getCurrentUser();
+        // PROFILE USERNAME TEXTVIEW
+        profileUsernameTextView = findViewById(R.id.profile_username);
+
+        DatabaseReference databaseTasksReference = FirebaseDatabase.getInstance().getReference("Registered Users")
+                .child(user.getUid())
+                .child("Tasks");
+        // Assuming these are your task counter TextViews, replace them with your actual TextViews
+        TextView dailyToBeAccomplishedCounter = findViewById(R.id.daily_to_be_accomplished_count);
+        TextView dailyPendingCounter = findViewById(R.id.daily_pending_count);
+        TextView dailyAccomplishedCounter = findViewById(R.id.daily_accomplished_count);
+
+        TextView majorToBeAccomplishedCounter = findViewById(R.id.major_to_be_accomplished_count);
+        TextView majorPendingCounter = findViewById(R.id.major_pending_count);
+        TextView majorAccomplishedCounter = findViewById(R.id.major_accomplished_count);
+
+        // ...
+
+        // Inside your databaseTasksReference listener
+        databaseTasksReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                // Initialize counters
+                int dailyToBeAccomplished = 0;
+                int dailyPending = 0;
+                int dailyAccomplished = 0;
+
+                int majorToBeAccomplished = 0;
+                int majorPending = 0;
+                int majorAccomplished = 0;
+
+                // Loop through tasks under the user's UID
+                for (DataSnapshot taskSnapshot : snapshot.getChildren()) {
+                    // Assuming there are fields named "type" and "status" in your task model
+                    String type = taskSnapshot.child("type").getValue(String.class);
+                    String status = taskSnapshot.child("status").getValue(String.class);
+
+                    // Update counters based on type and status
+                    if ("Daily".equals(type)) {
+                        if ("To be Accomplished".equals(status)) {
+                            dailyToBeAccomplished++;
+                        } else if ("Pending".equals(status)) {
+                            dailyPending++;
+                        } else if ("Accomplished".equals(status)) {
+                            dailyAccomplished++;
+                        }
+                    } else if ("Major".equals(type)) {
+                        if ("To be Accomplished".equals(status)) {
+                            majorToBeAccomplished++;
+                        } else if ("Pending".equals(status)) {
+                            majorPending++;
+                        } else if ("Accomplished".equals(status)) {
+                            majorAccomplished++;
+                        }
+                    }
+                }
+
+                // Display the results in the respective TextViews
+                displayTaskCounts(dailyToBeAccomplished, dailyPending, dailyAccomplished,
+                        majorToBeAccomplished, majorPending, majorAccomplished);
+
+                // Update your TextViews with the actual values
+                dailyToBeAccomplishedCounter.setText(dailyToBeAccomplished + " To be Accomplished");
+                dailyPendingCounter.setText(dailyPending + " Pending Task");
+                dailyAccomplishedCounter.setText(dailyAccomplished + " Accomplished Tasks");
+
+                majorToBeAccomplishedCounter.setText(majorToBeAccomplished + " To be Accomplished");
+                majorPendingCounter.setText(majorPending + " Pending Task");
+                majorAccomplishedCounter.setText(majorAccomplished + " Accomplished Tasks");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle errors
+            }
+        });
+
+        // LOGOUT BUTTON CODE
+
         if (user == null) {
             Intent intent = new Intent(getApplicationContext(), Login.class);
             startActivity(intent);
@@ -289,7 +362,40 @@ public class Profile extends AppCompatActivity {
         });
 
     }
+    private int getTaskCount(DataSnapshot snapshot, String type, String status) {
+        int count = 0;
+        for (DataSnapshot taskSnapshot : snapshot.getChildren()) {
+            // Assuming your Task model has "type" and "status" fields
+            String taskType = taskSnapshot.child("type").getValue(String.class);
+            String taskStatus = taskSnapshot.child("status").getValue(String.class);
 
+            if (type.equals(taskType) && status.equals(taskStatus)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private void displayTaskCounts(int dailyToBeAccomplished, int dailyPending, int dailyAccomplished,
+                                   int majorToBeAccomplished, int majorPending, int majorAccomplished) {
+        // Assuming you have TextViews to display the counts
+        TextView dailyToBeAccomplishedTextView = findViewById(R.id.daily_to_be_accomplished_count);
+        TextView dailyPendingTextView = findViewById(R.id.daily_pending_count);
+        TextView dailyAccomplishedTextView = findViewById(R.id.daily_accomplished_count);
+
+        TextView majorToBeAccomplishedTextView = findViewById(R.id.major_to_be_accomplished_count);
+        TextView majorPendingTextView = findViewById(R.id.major_pending_count);
+        TextView majorAccomplishedTextView = findViewById(R.id.major_accomplished_count);
+
+        // Set the counts in the respective TextViews
+        dailyToBeAccomplishedTextView.setText(dailyToBeAccomplished + " To be Accomplished");
+        dailyPendingTextView.setText(dailyPending + " Pending Tasks");
+        dailyAccomplishedTextView.setText(dailyAccomplished + " Accomplished Tasks");
+
+        majorToBeAccomplishedTextView.setText(majorToBeAccomplished + " To be Accomplished");
+        majorPendingTextView.setText(majorPending + " Pending Tasks");
+        majorAccomplishedTextView.setText(majorAccomplished + " Accomplished Tasks");
+    }
     public void openMainActivity2(View view) {
         startActivity(new Intent(this, MainActivity2.class));
     }

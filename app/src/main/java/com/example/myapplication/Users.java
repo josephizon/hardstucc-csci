@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Users {
     private String email, firstName, middleName, lastName, buddyUid, selectedClass;
-    private int coins = 0, exp = 0 , bpLevel = 0;
+    private int coins = 0, exp = 0 , bpLevel = 0, dailycap = 0;
     private String level1status, level2status, level3status, level4status, level5status, level6status, level7status, level8status, level9status, level10status, level11status, level12status, level13status, level14status, level15status;
     private Users buddy;  // New field for the buddy
     private List<Tasks> tasks;  // List to store tasks
@@ -37,7 +37,14 @@ public class Users {
         this.level13status = "Locked";
         this.level14status = "Locked";
         this.level15status = "Locked";
+    }
 
+    public int getDailycap() {
+        return dailycap;
+    }
+
+    public void setDailycap(int dailycap) {
+        this.dailycap = dailycap;
     }
 
     public String getLevel1status() {

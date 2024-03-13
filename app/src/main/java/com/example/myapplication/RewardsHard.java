@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +24,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,9 +34,11 @@ public class RewardsHard extends AppCompatActivity {
     ImageView button;
     TextView textView;
     FirebaseUser user;
-
+    DatabaseReference databaseReference;
     private Button btnShowDialog;
-
+    RewardsHardRecycleAdapter recycleAdapter;
+    RecyclerView recyclerView;
+    List<RewardsHardRecycleItem> items;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +72,15 @@ public class RewardsHard extends AppCompatActivity {
         // LOGOUT BUTTON CODE
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+        if (user == null) {
+            // Handle the case where the user is not logged in
+            // You may want to redirect them to the login screen
+        } else {
+
+            databaseReference = FirebaseDatabase.getInstance().getReference("Registered Users")
+                    .child(user.getUid())
+                    .child("HardRewards");
+        }
         button = findViewById(R.id.logout);
 
 
@@ -91,15 +105,15 @@ public class RewardsHard extends AppCompatActivity {
         });
 
         // ADDING ITEMS TO RECYCLE VIEW
-        RecyclerView recyclerView = findViewById(R.id.rewards_recyclerview);
+        recyclerView = findViewById(R.id.rewards_recyclerview);
 
-        List<RewardsHardRecycleItem> items = new ArrayList<RewardsHardRecycleItem>();
-        items.add(new RewardsHardRecycleItem("Reward Name", "Condition", "BOKAS"));
+        items = new ArrayList<>();
+        items.add(new RewardsHardRecycleItem("Test", "Hi", "idk"));
+        fetchHardRewardsFromDatabase();
 
-
+        recycleAdapter = new RewardsHardRecycleAdapter(getApplicationContext(), items);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new RewardsHardRecycleAdapter(getApplicationContext(), items));
-
+        recyclerView.setAdapter(recycleAdapter);
 
     }
 
@@ -158,15 +172,48 @@ public class RewardsHard extends AppCompatActivity {
             if (rewardId != null) {
                 ref.child(rewardId).setValue(reward).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(this, "Task created successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Reward created successfully", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(this, "Failed to create Task", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Failed to create Reward", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         }
     }
+    private void fetchHardRewardsFromDatabase() {
+        if (user != null) {
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    items.clear(); // Clear the existing list before adding new hard rewards
 
+                    for (DataSnapshot rewardSnapshot : dataSnapshot.getChildren()) {
+                        RewardsHardRecycleItem reward = rewardSnapshot.getValue(RewardsHardRecycleItem.class);
+
+                        if (reward != null) {
+                            // Assuming your RewardsHardRecycleItem class has appropriate fields
+                            RewardsHardRecycleItem recycleItem = new RewardsHardRecycleItem(
+                                    reward.getRewardName(),
+                                    reward.getRewardDescription(),
+                                    reward.getDateCreated()
+                            );
+
+                            items.add(recycleItem);
+                        }
+                    }
+
+                    // Notify the adapter that the data set has changed
+                    recyclerView.getAdapter().notifyDataSetChanged();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.e("RewardsHard", "Failed to fetch hard rewards: " + databaseError.getMessage());
+                    Toast.makeText(RewardsHard.this, "Failed to fetch hard rewards: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
     // START OF NAVIGATION CODE
 
     public void openMainActivity2(View view) {
