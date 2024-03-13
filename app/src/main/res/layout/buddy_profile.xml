@@ -20,7 +20,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/orange"
+        android:background="@color/calendar_pink"
         android:layout_alignParentTop="true"
         >
 
@@ -133,16 +133,16 @@
             android:layout_marginTop="-70dp">
 
             <RelativeLayout
-                android:layout_width="wrap_content"
+                android:layout_width="240dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
+
                 >
 
                 <!-- Daily Task Container  -->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/daily_container"
                     android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_height="110dp"
                     android:layout_centerVertical="true"
                     android:clipChildren="false"
                     android:clipToPadding="false"
@@ -153,7 +153,8 @@
                     app:cardCornerRadius="20dp"
                     card_view:cardBackgroundColor="@color/white"
                     card_view:cardElevation="8dp"
-                    card_view:cardPreventCornerOverlap="false">
+                    card_view:cardPreventCornerOverlap="false"
+                    android:layout_marginLeft="20dp">
 
                     <!-- Layout Inside the Cardview -->
                     <RelativeLayout
@@ -163,23 +164,52 @@
 
                         <ImageView
                             android:id="@+id/dailytask_icon"
-                            android:layout_width="78dp"
-                            android:layout_height="70dp"
+                            android:layout_width="80dp"
+                            android:layout_height="55dp"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/main2_dailytasks_icon" />
 
                         <TextView
+                            android:id="@+id/daily_to_be_accomplished_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="3 of 5 daily tasks"
                             android:textSize="8sp"
                             android:textStyle="bold"
-                            android:layout_marginTop="2dp"
+                            android:layout_marginTop="6dp"
                             android:fontFamily="@font/inter"
                             android:textColor="@color/clipboard_purple"
                             android:layout_below="@+id/dailytask_icon"
-                            android:layout_centerHorizontal="true"
+                            android:layout_marginLeft="18dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/daily_pending_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="3 of 5 daily tasks"
+                            android:textSize="8sp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="15dp"
+                            android:fontFamily="@font/inter"
+                            android:textColor="@color/clipboard_purple"
+                            android:layout_below="@+id/dailytask_icon"
+                            android:layout_marginLeft="18dp"
+
+                            />
+                        <TextView
+                            android:id="@+id/daily_accomplished_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="3 of 5 daily tasks"
+                            android:textSize="8sp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="24dp"
+                            android:fontFamily="@font/inter"
+                            android:textColor="@color/clipboard_purple"
+                            android:layout_below="@+id/dailytask_icon"
+                            android:layout_marginLeft="18dp"
                             />
 
 
@@ -193,7 +223,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/major_container"
                     android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_height="110dp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
                     android:layout_toRightOf="@+id/daily_container"
@@ -216,23 +246,50 @@
 
                         <ImageView
                             android:id="@+id/majortask_icon"
-                            android:layout_width="78dp"
-                            android:layout_height="70dp"
+                            android:layout_width="75dp"
+                            android:layout_height="55dp"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/main2_majortasks_icon" />
 
                         <TextView
+                            android:id="@+id/major_to_be_accomplished_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="5 of 10 major tasks"
                             android:textSize="8sp"
-                            android:layout_marginTop="2dp"
+                            android:layout_marginTop="6dp"
                             android:fontFamily="@font/inter"
                             android:textColor="@color/calendar_pink"
                             android:textStyle="bold"
                             android:layout_below="@+id/majortask_icon"
-                            android:layout_centerHorizontal="true"
+                            android:layout_marginLeft="18dp"
+                            />
+                        <TextView
+                            android:id="@+id/major_pending_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="5 of 10 major tasks"
+                            android:textSize="8sp"
+                            android:layout_marginTop="15dp"
+                            android:fontFamily="@font/inter"
+                            android:textColor="@color/calendar_pink"
+                            android:textStyle="bold"
+                            android:layout_below="@+id/majortask_icon"
+                            android:layout_marginLeft="18dp"
+                            />
+                        <TextView
+                            android:id="@+id/major_accomplished_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="5 of 10 major tasks"
+                            android:textSize="8sp"
+                            android:layout_marginTop="24dp"
+                            android:fontFamily="@font/inter"
+                            android:textColor="@color/calendar_pink"
+                            android:textStyle="bold"
+                            android:layout_below="@+id/majortask_icon"
+                            android:layout_marginLeft="18dp"
                             />
 
 
@@ -253,9 +310,14 @@
                 android:layout_height="wrap_content" />
 
             <RelativeLayout
-                android:layout_width="150dp"
+                android:layout_width="110dp"
                 android:layout_height="120dp"
-                />
+
+                >
+
+
+
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -271,200 +333,94 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:fontFamily="@font/epilogue_black"
-                android:text="Recent Activity"
+                android:text="Buddy's Collectibles"
                 android:textColor="@color/blue"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
         </RelativeLayout>
 
-        <!-- BADGE ACHIEVED LAYOUT-->
-        <RelativeLayout
+        <!-- COLLECTIBLES LAYOUT-->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="110dp"
-
+            android:layout_height="100dp"
+            android:gravity="center"
             >
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="90dp"
-                android:layout_centerVertical="true"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+            <ImageView
+                android:id="@+id/displayed_collectible_1"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/profile_rounded_add_button"
 
-                android:divider="@android:color/transparent"
-                android:dividerHeight="0.0px"
-                android:elevation="8dp"
-                app:cardCornerRadius="20dp"
-                card_view:cardBackgroundColor="@color/white"
-                card_view:cardElevation="8dp"
-                card_view:cardPreventCornerOverlap="false">
+                />
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="90dp"
-                    android:layout_height="match_parent"
-                    app:cardCornerRadius="10dp"
-                    card_view:cardBackgroundColor="@color/lavender"
-                    >
+            <ImageView
+                android:id="@+id/displayed_collectible_2"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/profile_rounded_add_button"
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                />
 
-                        <ImageView
-                            android:layout_width="72dp"
-                            android:layout_height="77dp"
-                            android:layout_centerInParent="true"
-                            android:src="@drawable/badges_placeholder" />
+            <ImageView
+                android:id="@+id/displayed_collectible_3"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/profile_rounded_add_button"
+                />
 
-                    </RelativeLayout>
+            <ImageView
+                android:id="@+id/displayed_collectible_4"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/profile_rounded_add_button"
+                />
+        </LinearLayout>
 
-
-                </androidx.cardview.widget.CardView>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/badge_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="100dp"
-                        android:layout_marginTop="12dp"
-                        android:fontFamily="@font/epilogue_black"
-                        android:text="Badge Achieved!"
-                        android:textColor="@color/lavender"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/badge_title"
-                        android:layout_marginLeft="100dp"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="@font/inter"
-                        android:text="supposed to display info from the view more"
-                        android:textColor="@color/black"
-                        android:textSize="10sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="100dp"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/inter"
-                        android:text="View more details->"
-                        android:textAlignment="textEnd"
-                        android:textColor="@color/black"
-                        android:textSize="10sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-
-            </androidx.cardview.widget.CardView>
-
-        </RelativeLayout>
-
-        <!-- TASK ACCOMPLISHED LAYOUT-->
-        <RelativeLayout
+        <!-- COLLECTIBLES LAYOUT-->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="110dp"
-
+            android:layout_height="100dp"
+            android:gravity="center"
             >
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="90dp"
-                android:layout_centerVertical="true"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+            <ImageView
+                android:id="@+id/displayed_collectible_5"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/profile_rounded_add_button"
+                />
 
-                android:divider="@android:color/transparent"
-                android:dividerHeight="0.0px"
-                android:elevation="8dp"
-                app:cardCornerRadius="20dp"
-                card_view:cardBackgroundColor="@color/white"
-                card_view:cardElevation="8dp"
-                card_view:cardPreventCornerOverlap="false">
+            <ImageView
+                android:id="@+id/displayed_collectible_6"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/profile_rounded_add_button"
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="90dp"
-                    android:layout_height="match_parent"
-                    app:cardCornerRadius="10dp"
-                    card_view:cardBackgroundColor="@color/orange"
-                    >
+                />
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/displayed_collectible_7"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/profile_rounded_add_button"
+                />
 
-                        <ImageView
-                            android:layout_width="72dp"
-                            android:layout_height="77dp"
-                            android:layout_centerInParent="true"
-                            android:src="@drawable/main2_majortasks_icon" />
+            <ImageView
+                android:id="@+id/displayed_collectible_8"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/profile_rounded_add_button"
+                />
 
-                    </RelativeLayout>
-
-
-                </androidx.cardview.widget.CardView>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/task_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="100dp"
-                        android:layout_marginTop="12dp"
-                        android:fontFamily="@font/epilogue_black"
-                        android:text="Task Accomplished!"
-                        android:textColor="@color/orange"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/task_title"
-                        android:layout_marginLeft="100dp"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="@font/inter"
-                        android:text="supposed to display info from the view more"
-                        android:textColor="@color/black"
-                        android:textSize="10sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="100dp"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/inter"
-                        android:text="View more details->"
-                        android:textAlignment="textEnd"
-                        android:textColor="@color/black"
-                        android:textSize="10sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-
-            </androidx.cardview.widget.CardView>
-
-        </RelativeLayout>
+        </LinearLayout>
 
 
 

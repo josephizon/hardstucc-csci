@@ -30,8 +30,8 @@ public class BuddyMainActivity2 extends AppCompatActivity {
 
         // BATTLEPLAN GRADIENT
         TextView name = findViewById(R.id.battle);
-        int startColor = Color.rgb(255, 190, 92);
-        int endColor = Color.rgb(255, 206, 49);
+        int startColor = Color.rgb(50, 61, 115);
+        int endColor = Color.rgb(94, 132, 243);
         Shader shader = new LinearGradient(0f, 0f, 0f, name.getTextSize(), startColor, endColor, Shader.TileMode.CLAMP);
         name.getPaint().setShader(shader);
 

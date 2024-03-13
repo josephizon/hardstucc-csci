@@ -117,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:fontFamily="@font/epilogue_black"
-                android:text="Welcome back, "
+                android:text="This is your buddy, "
                 android:textSize="20sp"
                 android:textColor="@color/blue"/>
 
@@ -248,7 +248,7 @@
                         android:textSize="6sp"
                         android:textStyle="bold" />
 
-                    <TextView
+                    <!--<TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="100dp"
@@ -259,7 +259,7 @@
                         android:textColor="@color/black"
                         android:textSize="10sp"
                         android:textStyle="bold"
-                        android:onClick="openBuddyStore"/>
+                        android:onClick="openBuddyStore"/>-->
 
                 </LinearLayout>
 
@@ -291,6 +291,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="110dp"
+            android:gravity="center"
             >
 
             <!-- Badges Container 1 -->
@@ -397,7 +398,7 @@
 
             </androidx.cardview.widget.CardView>
 
-            <com.google.android.material.button.MaterialButton
+            <!--<com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_badges"
                 android:layout_toRightOf="@+id/displayed_badge_3_container"
                 android:layout_width="60dp"
@@ -411,7 +412,7 @@
                 android:text="more ->"
                 android:textSize="11sp"
                 app:cornerRadius="24dp"
-                android:onClick="openBadges"/>
+                android:onClick="openBadges"/>-->
 
             <!-- ORIGINAL BADGES LAYOUT -->
             <!--<androidx.cardview.widget.CardView
@@ -578,8 +579,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:layout_marginTop="80dp"
-                    android:padding="10dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="10dp">
 
                     <TextView
                         android:id="@+id/currently_text"
@@ -606,21 +607,19 @@
                         android:fontFamily="@font/inter"
                         android:text="Don’t forget to claim daily and weekly rewards to boost your experience points!"
                         android:textColor="@color/black"
-                        android:textSize="8sp"
-                        />
+                        android:textSize="8sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/inter"
-                        android:text="Go to the Battle Pass->"
-                        android:layout_marginLeft="190dp"
+                        android:layout_marginLeft="160dp"
                         android:layout_marginTop="5dp"
+                        android:fontFamily="@font/inter"
+                        android:onClick="openBuddyBattlePass"
+                        android:text="Go to Buddy's Battlepass ->"
                         android:textColor="@color/black"
                         android:textSize="12sp"
-                        android:textStyle="bold"
-                        android:onClick="openBattlePass"
-                        />
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 

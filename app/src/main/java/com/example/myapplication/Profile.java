@@ -143,13 +143,13 @@ public class Profile extends AppCompatActivity {
                         majorToBeAccomplished, majorPending, majorAccomplished);
 
                 // Update your TextViews with the actual values
-                dailyToBeAccomplishedCounter.setText(dailyToBeAccomplished + " To be Accomplished");
-                dailyPendingCounter.setText(dailyPending + " Pending Task");
-                dailyAccomplishedCounter.setText(dailyAccomplished + " Accomplished Tasks");
+                dailyToBeAccomplishedCounter.setText("Daily Tasks: " + dailyToBeAccomplished);
+                dailyPendingCounter.setText("Pending: " + dailyPending);
+                dailyAccomplishedCounter.setText("Accomplished: " + dailyAccomplished);
 
-                majorToBeAccomplishedCounter.setText(majorToBeAccomplished + " To be Accomplished");
-                majorPendingCounter.setText(majorPending + " Pending Task");
-                majorAccomplishedCounter.setText(majorAccomplished + " Accomplished Tasks");
+                majorToBeAccomplishedCounter.setText("Major Tasks: " + majorToBeAccomplished);
+                majorPendingCounter.setText("Pending: " + majorPending);
+                majorAccomplishedCounter.setText("Accomplished: " + majorAccomplished);
             }
 
             @Override

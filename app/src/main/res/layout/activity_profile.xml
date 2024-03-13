@@ -119,7 +119,6 @@
 
         </RelativeLayout>
 
-
         <!-- PROFILE ICON -->
         <ImageView
             android:id="@+id/user_icon"
@@ -140,16 +139,16 @@
             android:layout_marginTop="-70dp">
 
             <RelativeLayout
-                android:layout_width="wrap_content"
+                android:layout_width="240dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
+
                 >
 
                 <!-- Daily Task Container  -->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/daily_container"
                     android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_height="110dp"
                     android:layout_centerVertical="true"
                     android:clipChildren="false"
                     android:clipToPadding="false"
@@ -160,7 +159,8 @@
                     app:cardCornerRadius="20dp"
                     card_view:cardBackgroundColor="@color/white"
                     card_view:cardElevation="8dp"
-                    card_view:cardPreventCornerOverlap="false">
+                    card_view:cardPreventCornerOverlap="false"
+                    android:layout_marginLeft="20dp">
 
                     <!-- Layout Inside the Cardview -->
                     <RelativeLayout
@@ -183,12 +183,13 @@
                             android:text="3 of 5 daily tasks"
                             android:textSize="8sp"
                             android:textStyle="bold"
-                            android:layout_marginTop="2dp"
+                            android:layout_marginTop="6dp"
                             android:fontFamily="@font/inter"
                             android:textColor="@color/clipboard_purple"
                             android:layout_below="@+id/dailytask_icon"
-                            android:layout_centerHorizontal="true"
+                            android:layout_marginLeft="18dp"
                             />
+
                         <TextView
                             android:id="@+id/daily_pending_count"
                             android:layout_width="wrap_content"
@@ -196,11 +197,12 @@
                             android:text="3 of 5 daily tasks"
                             android:textSize="8sp"
                             android:textStyle="bold"
-                            android:layout_marginTop="11dp"
+                            android:layout_marginTop="15dp"
                             android:fontFamily="@font/inter"
                             android:textColor="@color/clipboard_purple"
                             android:layout_below="@+id/dailytask_icon"
-                            android:layout_centerHorizontal="true"
+                            android:layout_marginLeft="18dp"
+
                             />
                         <TextView
                             android:id="@+id/daily_accomplished_count"
@@ -209,11 +211,11 @@
                             android:text="3 of 5 daily tasks"
                             android:textSize="8sp"
                             android:textStyle="bold"
-                            android:layout_marginTop="20dp"
+                            android:layout_marginTop="24dp"
                             android:fontFamily="@font/inter"
                             android:textColor="@color/clipboard_purple"
                             android:layout_below="@+id/dailytask_icon"
-                            android:layout_centerHorizontal="true"
+                            android:layout_marginLeft="18dp"
                             />
 
 
@@ -227,7 +229,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/major_container"
                     android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_height="110dp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
                     android:layout_toRightOf="@+id/daily_container"
@@ -262,12 +264,12 @@
                             android:layout_height="wrap_content"
                             android:text="5 of 10 major tasks"
                             android:textSize="8sp"
-                            android:layout_marginTop="2dp"
+                            android:layout_marginTop="6dp"
                             android:fontFamily="@font/inter"
                             android:textColor="@color/calendar_pink"
                             android:textStyle="bold"
                             android:layout_below="@+id/majortask_icon"
-                            android:layout_centerHorizontal="true"
+                            android:layout_marginLeft="18dp"
                             />
                         <TextView
                             android:id="@+id/major_pending_count"
@@ -275,12 +277,12 @@
                             android:layout_height="wrap_content"
                             android:text="5 of 10 major tasks"
                             android:textSize="8sp"
-                            android:layout_marginTop="11dp"
+                            android:layout_marginTop="15dp"
                             android:fontFamily="@font/inter"
                             android:textColor="@color/calendar_pink"
                             android:textStyle="bold"
                             android:layout_below="@+id/majortask_icon"
-                            android:layout_centerHorizontal="true"
+                            android:layout_marginLeft="18dp"
                             />
                         <TextView
                             android:id="@+id/major_accomplished_count"
@@ -288,12 +290,12 @@
                             android:layout_height="wrap_content"
                             android:text="5 of 10 major tasks"
                             android:textSize="8sp"
-                            android:layout_marginTop="20dp"
+                            android:layout_marginTop="24dp"
                             android:fontFamily="@font/inter"
                             android:textColor="@color/calendar_pink"
                             android:textStyle="bold"
                             android:layout_below="@+id/majortask_icon"
-                            android:layout_centerHorizontal="true"
+                            android:layout_marginLeft="18dp"
                             />
 
 
@@ -314,8 +316,9 @@
                 android:layout_height="wrap_content" />
 
             <RelativeLayout
-                android:layout_width="150dp"
+                android:layout_width="110dp"
                 android:layout_height="120dp"
+
                 >
 
                 <com.google.android.material.button.MaterialButton
@@ -332,6 +335,7 @@
                     app:cornerRadius="32dp"
                     android:layout_centerHorizontal="true"
                     android:layout_alignParentBottom="true"
+
                     />
 
             </RelativeLayout>
@@ -398,7 +402,7 @@
                 />
         </LinearLayout>
 
-        <!-- BADGE ACHIEVED LAYOUT-->
+        <!-- COLLECTIBLES LAYOUT-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
