@@ -108,6 +108,37 @@ public class BadgeImageAdapter extends ArrayAdapter<Integer> {
                 return "Wadadadadang";
             case "rewards_collectible_9":
                 return "Nah, I'd Win Real";
+            case "rewards_collectible_10":
+                return "Smurf Cat";
+            case "rewards_collectible_11":
+                return "Dancing Toothless";
+            case "rewards_collectible_12":
+                return "Mike WaZOWsKI";
+            case "rewards_collectible_13":
+                return "Mr. Incredible";
+            case "rewards_collectible_14":
+                return "Uncanny Mr. Incredible";
+            case "rewards_collectible_15":
+                return "Chopper";
+            case "rewards_collectible_16":
+                return "Sweats profusely";
+            case "rewards_collectible_17":
+                return "SpongebAwkBawkBawk";
+            case "rewards_collectible_18":
+                return "Evil Patrick";
+            case "rewards_collectible_19":
+                return "Surprised Pikachu";
+            case "rewards_collectible_20":
+                return "Anya HEHEHE";
+            case "rewards_collectible_21":
+                return "AMOGUS";
+            case "rewards_collectible_22":
+                return "Help me, Lord";
+            case "rewards_collectible_23":
+                return "I'm okay, I'm fine";
+            case "rewards_collectible_24":
+                return "War Flashbacks";
+
 
             case "rewards_profile_icon_1":
                 return "Profile Icon 1";

@@ -284,6 +284,25 @@ public class Register extends AppCompatActivity {
         rewardNames.add("rewards_collectible_8");
 
         rewardNames.add("rewards_collectible_9");
+        rewardNames.add("rewards_collectible_10");
+        rewardNames.add("rewards_collectible_11");
+        rewardNames.add("rewards_collectible_12");
+
+        rewardNames.add("rewards_collectible_13");
+        rewardNames.add("rewards_collectible_14");
+        rewardNames.add("rewards_collectible_15");
+        rewardNames.add("rewards_collectible_16");
+
+        rewardNames.add("rewards_collectible_17");
+        rewardNames.add("rewards_collectible_18");
+        rewardNames.add("rewards_collectible_19");
+        rewardNames.add("rewards_collectible_20");
+
+        rewardNames.add("rewards_collectible_21");
+        rewardNames.add("rewards_collectible_22");
+        rewardNames.add("rewards_collectible_23");
+        rewardNames.add("rewards_collectible_24");
+
 
         // Define the structure of the badge data
         Map<String, Object> badgeData = new HashMap<>();
