@@ -25,4 +25,12 @@
         android:text="Create Class Tasks"
         android:layout_below="@id/adminMessage"
         android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/giveExpButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/adminMessage"
+        android:layout_marginTop="16dp"
+        android:text="Give EXP" />
 </LinearLayout>

@@ -35,7 +35,6 @@ public class AdminActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     FirebaseUser user;
     String[] taskType = { "Daily", "Major" };
-    String[] targetType = { "ISCS", "CSCI" };
     List<String> targetList;
     EditText editTaskName, editTaskDescription, editTaskType;
     String taskDateDeadline;
@@ -228,11 +227,21 @@ public class AdminActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     String userClass = userSnapshot.child("selectedClass").getValue(String.class);
-                    if (className.equals(userClass)) {
+                    if (userClass.equals(className)) {
                         // User is in the specified class, assign them the task
                         String userId = userSnapshot.getKey(); // The user's ID
-                        createTaskForIndividual(userId, name, description, deadline, type);
-
+                        addTaskToUser(userId, name, description, deadline, type);
+                        Toast.makeText(AdminActivity.this, "it worked", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        if(!userClass.equals(className) && (userClass.equals("CSCI") || userClass.equals("ISCS")))
+                        {
+                            Toast.makeText(AdminActivity.this, "classname problem", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Toast.makeText(AdminActivity.this, "userclass problem", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             }
@@ -289,7 +298,7 @@ public class AdminActivity extends AppCompatActivity {
             exp = 50;
         }
         // Create a task object. Assuming a constructor similar to the previous examples
-        Tasks task = new Tasks(taskName, description, deadline, type, "To be Accomplished", taskId, exp, true); // Adjust parameters as necessary
+        Tasks task = new Tasks(taskName, description, deadline, type, "To be Accomplished", taskId, exp, false); // Adjust parameters as necessary
 
         // Save the task under the user's Tasks node
         taskRef.child(taskId).setValue(task);
