@@ -287,32 +287,31 @@ public class TasksMajor extends AppCompatActivity {
                         int currentDay = currentDate.get(Calendar.DAY_OF_MONTH);
 
                         if (!task.getDeletable()) {
-                            // Week 1
-                            visibleTask = currentMonth == 3 && 10 <= currentDay && currentDay <= 16 &&
-                                    Integer.parseInt(currentDeadline[0]) == 3 &&
-                                    10 <= Integer.parseInt(currentDeadline[1]) &&
-                                    Integer.parseInt(currentDeadline[1]) <= 16;
+                            // Week 2 March 17 to 23
                             if ( currentMonth == 3 && 17 <= currentDay && currentDay <= 23 &&
                                     Integer.parseInt(currentDeadline[0]) == 3 &&
                                     17 <= Integer.parseInt(currentDeadline[1]) &&
                                     Integer.parseInt(currentDeadline[1]) <= 23) {   // Week 2
                                 visibleTask = true;
                             }
+                            // Week 3 March 24 to 30
                             if ( currentMonth == 3 && 24 <= currentDay && currentDay <= 30 &&
                                     Integer.parseInt(currentDeadline[0]) == 3 &&
                                     24 <= Integer.parseInt(currentDeadline[1]) &&
-                                    Integer.parseInt(currentDeadline[1]) <= 30) {   // Week 3
+                                    Integer.parseInt(currentDeadline[1]) <= 30) {
                                 visibleTask = true;
                             }
-                            if ( currentMonth == 3 && currentDay ==  30 &&
+                            // Week 4 March 31
+                            if ( currentMonth == 3 && currentDay ==  31 &&
                                     Integer.parseInt(currentDeadline[0]) == 3 &&
-                                    30 == Integer.parseInt(currentDeadline[1])) {                      // Week 4
+                                    31 == Integer.parseInt(currentDeadline[1])) {
                                 visibleTask = true;
                             }
+                            // Week 4 April 1 to 6
                             if ( currentMonth == 4 && 1 <= currentDay && currentDay <= 6 &&
-                                    Integer.parseInt(currentDeadline[0]) == 3 &&
+                                    Integer.parseInt(currentDeadline[0]) == 4 &&
                                     1 <= Integer.parseInt(currentDeadline[1]) &&
-                                    Integer.parseInt(currentDeadline[1]) <= 6) {     // Week 4
+                                    Integer.parseInt(currentDeadline[1]) <= 6) {
                                 visibleTask = true;
                             }
                         }
