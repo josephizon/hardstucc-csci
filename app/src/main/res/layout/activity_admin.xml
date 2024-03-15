@@ -25,12 +25,19 @@
         android:text="Create Class Tasks"
         android:layout_below="@id/adminMessage"
         android:layout_marginTop="16dp"/>
+    <EditText
+        android:id="@+id/expInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter EXP"
+        android:layout_marginTop="16dp"
+        android:inputType="number" />
 
+    <!-- Button for giving EXP -->
     <Button
         android:id="@+id/giveExpButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/adminMessage"
-        android:layout_marginTop="16dp"
-        android:text="Give EXP" />
+        android:text="Give EXP"
+        android:layout_marginTop="16dp"/>
 </LinearLayout>
