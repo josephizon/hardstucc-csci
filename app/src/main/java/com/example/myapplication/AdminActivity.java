@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,12 +32,12 @@ import java.util.Calendar;
 import java.util.List;
 
 public class AdminActivity extends AppCompatActivity {
-    Button createTaskButton, editTaskDeadline;;
+    Button createTaskButton, editTaskDeadline;
     DatabaseReference databaseReference;
     FirebaseUser user;
     String[] taskType = { "Daily", "Major" };
     List<String> targetList;
-    EditText editTaskName, editTaskDescription, editTaskType;
+    EditText editTaskName, editTaskDescription, editTaskType, expInput;
     String taskDateDeadline;
     AutoCompleteTextView autoCompleteTextView, autoCompleteTargetView;
     ArrayAdapter<String> adapterItem;
@@ -61,12 +62,44 @@ public class AdminActivity extends AppCompatActivity {
         TextView adminMessage = findViewById(R.id.adminMessage);
         adminMessage.setText("Welcome, Admin!");
 
+        // Initialization and Setup for Target AutoCompleteTextView
+        autoCompleteTargetView = findViewById(R.id.auto_complete_target);
+        ArrayAdapter<String> adapterTarget = new ArrayAdapter<>(this, R.layout.activity_tasks_dropdown, targetList);
+        autoCompleteTargetView.setAdapter(adapterTarget);
+        autoCompleteTargetView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                String selectedItem = adapterView.getItemAtPosition(position).toString();
+                Toast.makeText(AdminActivity.this, "Target: " + selectedItem, Toast.LENGTH_SHORT).show();
+            }
+        });
+
         // Button to create class tasks (you can customize the functionality)
         Button createClassTasksButton = findViewById(R.id.createClassTasksButton);
         createClassTasksButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showCreatePopUp();
+            }
+        });
+
+        Button giveExpButton = findViewById(R.id.giveExpButton);
+        giveExpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String selectedTarget = autoCompleteTargetView.getText().toString();
+                expInput = findViewById(R.id.expInput);
+                String expString = expInput.getText().toString();
+                int expGive = Integer.parseInt(expString);
+                if(selectedTarget.equals("ISCS") || selectedTarget.equals("CSCI")) {
+                    // It's a class, assign the task to everyone in the class
+                    giveEXPToClass(selectedTarget,expGive);
+                } else {
+                    // It's an individual, create a task for this specific person
+                    // You might need to fetch the user's ID or specific identifier here instead of using the name directly
+                    giveEXPtoIndividual(selectedTarget,expGive);
+                }
+
             }
         });
     }
@@ -253,6 +286,7 @@ public class AdminActivity extends AppCompatActivity {
             }
         });
     }
+
     private void createTaskForIndividual(String fullName, String name, String description, String deadline, String type) {
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Registered Users");
 
@@ -305,5 +339,139 @@ public class AdminActivity extends AppCompatActivity {
 
         // Optionally, inform the application or user that the task was created successfully
         // For example: Log.d("addTaskToUser", "Task added to user: " + userId);
+    }
+
+    private void giveEXPToClass(String className, int exp) {
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Registered Users");
+
+        usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    String userClass = userSnapshot.child("selectedClass").getValue(String.class);
+                    if (userClass.equals(className)) {
+                        // User is in the specified class, assign them the task
+                        String userId = userSnapshot.getKey(); // The user's ID
+                        proceedWithExpUpdate(userId, exp);
+                    }
+                    else
+                    {
+                        if(!userClass.equals(className) && (userClass.equals("CSCI") || userClass.equals("ISCS")))
+                        {
+                            Toast.makeText(AdminActivity.this, "classname problem", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Toast.makeText(AdminActivity.this, "userclass problem", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle potential errors
+                Log.e("assignTaskToClass", "Error: ", databaseError.toException());
+            }
+        });
+    }
+    private void giveEXPtoIndividual(String fullName, int exp){
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Registered Users");
+
+        usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    String firstName = userSnapshot.child("firstName").getValue(String.class);
+                    String lastName = userSnapshot.child("lastName").getValue(String.class);
+
+                    // Construct the full name from the snapshot
+                    String userFullName = firstName + " " + lastName;
+                    if (fullName.trim().equalsIgnoreCase(userFullName.trim())) {
+                        // Found the user, now create a task for them
+                        String userId = userSnapshot.getKey(); // The user's ID
+
+                        // Assuming you have a method to add a task to the user's node
+                        proceedWithExpUpdate(userId, exp);
+                        break; // Exit the loop once the user is found and task is assigned
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle potential errors
+                Log.e("createTaskForIndiv", "Error: ", databaseError.toException());
+            }
+        });
+    }
+
+    private void proceedWithExpUpdate(String userId, int taskExp) {
+        // Update the buddy's exp based on the retrieved buddy UID
+        DatabaseReference buddyExpRef = FirebaseDatabase.getInstance().getReference("Registered Users")
+                .child(userId)
+                .child("exp");
+
+        // Retrieve the current exp of the buddy
+        buddyExpRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot expSnapshot) {
+                if (expSnapshot.exists()) {
+                    Integer currentExp = expSnapshot.getValue(Integer.class);
+                    if (currentExp == null) currentExp = 0; // If for some reason it's null, default to 0
+                    int newExp = currentExp + taskExp;
+
+                    // Update the exp in Firebase
+                    buddyExpRef.setValue(newExp);
+
+                    // Handle level updates
+                    while (newExp >= 1000) {
+                        // Subtract 1000 from exp and increase the level by 1
+                        newExp -= 1000;
+                        buddyExpRef.setValue(newExp);
+
+                        // Retrieve the current level of the buddy
+                        DatabaseReference buddyLevelRef = FirebaseDatabase.getInstance().getReference("Registered Users")
+                                .child(userId)
+                                .child("bpLevel");
+
+                        buddyLevelRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot levelSnapshot) {
+                                if (levelSnapshot.exists()) {
+                                    Integer currentLevel = levelSnapshot.getValue(Integer.class);
+                                    if (currentLevel == null) currentLevel = 0; // If for some reason it's null, default to 0
+                                    int newLevel = currentLevel + 1;
+
+                                    // Update the level in Firebase
+                                    buddyLevelRef.setValue(newLevel);
+                                    updateLevelStatus(userId, newLevel);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                // Handle possible errors here
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle possible errors here
+            }
+        });
+    }
+
+    private void updateLevelStatus(String buddyUid, int newLevel) {
+        // Update the corresponding level status based on the new level
+        DatabaseReference levelStatusRef = FirebaseDatabase.getInstance().getReference("Registered Users")
+                .child(buddyUid)
+                .child("level" + newLevel + "status");
+
+        // Update the level status to "Claimable" or any other desired status
+        levelStatusRef.setValue("Claimable");
     }
 }
