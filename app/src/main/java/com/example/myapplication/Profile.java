@@ -546,6 +546,17 @@ public class Profile extends AppCompatActivity {
 
         }
 
+        // Check if the list of icons is empty
+        if (iconNames.isEmpty()) {
+            // Display a message indicating no unlocked badges
+            AlertDialog.Builder emptyBuilder = new AlertDialog.Builder(Profile.this);
+            emptyBuilder.setTitle("No Unlocked Collectibles");
+            emptyBuilder.setMessage("You have not yet unlocked any collectibles. Use your coins to buy from the store.");
+            emptyBuilder.setPositiveButton("OK", null);
+            emptyBuilder.show();
+            return; // Exit the method
+        }
+
         // Convert the list of modified names to an array
         final CharSequence[] iconsArray = iconNames.toArray(new CharSequence[0]);
 

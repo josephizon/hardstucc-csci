@@ -145,7 +145,7 @@ public class Badges extends AppCompatActivity {
                     });
 
                     // Check if badge status is not "locked" before adding it to the list
-                    if (!"locked".equals(badgeStatus)) {
+                    if (!"locked".equals(badgeStatus) && !"fake_badge".equals(badgeName)) {
                         int badgeDrawableId = getDrawableResourceId(badgeName);
                         items.add(new BadgesRecycleItem(badgeStatus, badgeDrawableId, badgeName));
 
@@ -218,17 +218,27 @@ public class Badges extends AppCompatActivity {
             String badgeName = badgeSnapshot.getKey(); // Badge name is the key
             String badgeStatus = badgeSnapshot.child("badge_status").getValue(String.class); // Badge status is retrieved from "badge_status" child
 
-
-            if (!"locked".equals(badgeStatus)) {
+            if (!"locked".equals(badgeStatus) && !"fake_badge".equals(badgeName)) {
                 iconNames.add(badgeName);
                 badgeKeys.add(badgeSnapshot.getKey()); // Store the corresponding badge key
                 int badgeDrawableId = getDrawableResourceId(badgeName);
                 badgeImages.add(badgeDrawableId); // Store the corresponding badge image
-
-
             }
 
 
+
+
+        }
+
+        // Check if the list of icons is empty
+        if (iconNames.isEmpty()) {
+            // Display a message indicating no unlocked badges
+            AlertDialog.Builder emptyBuilder = new AlertDialog.Builder(Badges.this);
+            emptyBuilder.setTitle("No Unlocked Badges");
+            emptyBuilder.setMessage("You have not yet unlocked any badges. Earn them through the Battle Pass.");
+            emptyBuilder.setPositiveButton("OK", null);
+            emptyBuilder.show();
+            return; // Exit the method
         }
 
         // Convert the list of modified names to an array

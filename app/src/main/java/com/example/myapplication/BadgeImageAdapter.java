@@ -89,6 +89,8 @@ public class BadgeImageAdapter extends ArrayAdapter<Integer> {
                 return "Level 15 Trophy!!!";
             case "badges_buddy_click":
                 return "I care about my buddy's profile :~D";
+            case "fake_badge":
+                return "Empty Placeholder";
 
             case "rewards_collectible_1":
                 return "Chipi Chipi Chapa Chapa";
