@@ -77,7 +77,7 @@ public class Tasks {
     public String getFormattedDeadline() {
         String[] formattedDeadline = deadline.split("/",-1);
         if (formattedDeadline.length == 3) {
-            deadlineOutput = calendarMonth(Integer.valueOf(formattedDeadline[0])) + ", " + formattedDeadline[1] + " " + formattedDeadline[2];
+            deadlineOutput = calendarMonth(Integer.valueOf(formattedDeadline[0])) + " " + formattedDeadline[1] + ", " + formattedDeadline[2];
         }
         return deadlineOutput;
     }
