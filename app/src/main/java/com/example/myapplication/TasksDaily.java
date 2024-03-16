@@ -351,8 +351,7 @@ public class TasksDaily extends AppCompatActivity {
                             // False: then Proceed as normal
                             if ( resetDailyTasksBool(Integer.valueOf(currentDeadline[1]),
                                     Integer.valueOf(currentDeadline[0]),
-                                    Integer.valueOf(currentDeadline[2]),
-                                    task.getStatus())) {
+                                    Integer.valueOf(currentDeadline[2]))) {
                                 // Edit the Database to reset the daily tasks
                                 databaseReference.child(task.getTaskId()).child("status").setValue("To be Accomplished");
 
@@ -394,24 +393,20 @@ public class TasksDaily extends AppCompatActivity {
         }
     }
 
-    public boolean resetDailyTasksBool(int dayDeadline, int monthDeadline, int yearDeadline, String status) {
+    public boolean resetDailyTasksBool(int dayDeadline, int monthDeadline, int yearDeadline) {
         Calendar currentDate = Calendar.getInstance();
 
-        // If Status is not yet complete then ignore the whole function
-        if ( "Accomplished".equalsIgnoreCase(status)){
-            // If date has not passed yet, then do not reset
-            if ( Integer.valueOf(currentDate.get(currentDate.YEAR)) <= yearDeadline ) {
-                if (Integer.valueOf(currentDate.get(currentDate.MONTH)+1) <= monthDeadline) {
-                    if (Integer.valueOf(currentDate.get(currentDate.DAY_OF_MONTH)) <= dayDeadline) {
-                        return false;
-                    }
-                    else { return true; }
+        // If date has not passed yet, then do not reset
+        if ( Integer.valueOf(currentDate.get(currentDate.YEAR)) <= yearDeadline ) {
+            if (Integer.valueOf(currentDate.get(currentDate.MONTH)+1) <= monthDeadline) {
+                if (Integer.valueOf(currentDate.get(currentDate.DAY_OF_MONTH)) <= dayDeadline) {
+                    return false;
                 }
                 else { return true; }
             }
             else { return true; }
         }
-        else { return false; }
+        else { return true; }
     }
 
     public void xpChange() {
