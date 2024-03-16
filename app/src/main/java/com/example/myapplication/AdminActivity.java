@@ -425,11 +425,9 @@ public class AdminActivity extends AppCompatActivity {
                     buddyExpRef.setValue(newExp);
 
                     // Handle level updates
-                    while (newExp >= 1000) {
+                    if (newExp >= 1000) {
                         // Subtract 1000 from exp and increase the level by 1
-                        newExp -= 1000;
-                        buddyExpRef.setValue(newExp);
-
+                        int multiplier = calculateLevel(newExp);
                         // Retrieve the current level of the buddy
                         DatabaseReference buddyLevelRef = FirebaseDatabase.getInstance().getReference("Registered Users")
                                 .child(userId)
@@ -441,7 +439,7 @@ public class AdminActivity extends AppCompatActivity {
                                 if (levelSnapshot.exists()) {
                                     Integer currentLevel = levelSnapshot.getValue(Integer.class);
                                     if (currentLevel == null) currentLevel = 0; // If for some reason it's null, default to 0
-                                    int newLevel = currentLevel + 1;
+                                    int newLevel = currentLevel + 1 * multiplier;
 
                                     // Update the level in Firebase
                                     buddyLevelRef.setValue(newLevel);
@@ -454,6 +452,8 @@ public class AdminActivity extends AppCompatActivity {
                                 // Handle possible errors here
                             }
                         });
+                        newExp -= 1000 * multiplier;
+                        buddyExpRef.setValue(newExp);
                     }
                 }
             }
@@ -473,5 +473,10 @@ public class AdminActivity extends AppCompatActivity {
 
         // Update the level status to "Claimable" or any other desired status
         levelStatusRef.setValue("Claimable");
+    }
+    private int calculateLevel(int exp) {
+        // Calculate the level based on the accumulated experience points
+        int level = (int) Math.floor((double) exp / 1000); // Divide and round down
+        return level;
     }
 }
