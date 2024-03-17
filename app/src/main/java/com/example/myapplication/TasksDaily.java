@@ -180,8 +180,18 @@ public class TasksDaily extends AppCompatActivity {
         autoCompleteTextView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String item = adapterView.getItemAtPosition(i).toString();
-                Toast.makeText(TasksDaily.this, "Item: " + item, Toast.LENGTH_SHORT).show();
+                String selectedType = (String) adapterView.getItemAtPosition(i);
+                if (selectedType.equals("Daily")) {
+                    editTaskDeadline.setEnabled(false);
+                    Calendar currentDate = Calendar.getInstance();
+                    int currentYear = currentDate.get(Calendar.YEAR);
+                    int currentMonth = currentDate.get(Calendar.MONTH);
+                    int currentDay = currentDate.get(Calendar.DAY_OF_MONTH);
+
+                    editTaskDeadline.setText(calendarMonth(currentMonth+1) + ", " + String.valueOf(currentDay) + " "  + String.valueOf(currentYear));
+                } else {
+                    editTaskDeadline.setEnabled(true);
+                }
             }
         });
         editTaskType = popUp.findViewById(R.id.auto_complete_txt);
@@ -190,12 +200,27 @@ public class TasksDaily extends AppCompatActivity {
         saveTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createTask(
-                        editTaskName.getText().toString(),
-                        editTaskDescription.getText().toString(),
-                        taskDateDeadline,
-                        editTaskType.getText().toString()
-                );
+                String selectedType = autoCompleteTextView.getText().toString();
+                String taskName = editTaskName.getText().toString();
+                String taskDescription = editTaskDescription.getText().toString();
+                String taskDeadline;
+
+                if (selectedType.equals("Daily")) {
+                    // Set taskDeadline to current date for "Daily" tasks
+                    Calendar currentDate = Calendar.getInstance();
+                    taskDeadline = currentDate.get(currentDate.MONTH)+1
+                            + "/" + currentDate.get(currentDate.DAY_OF_MONTH)
+                            + "/" + currentDate.get(currentDate.YEAR);
+                } else {
+                    // Get the deadline from the editTaskDeadline field for other task types
+                    taskDeadline = editTaskDeadline.getText().toString();
+                }
+
+                // Call a method to save the task with the provided details
+                createTask(taskName, taskDescription, taskDeadline, selectedType);
+
+                // Close the pop-up dialog
+                popUp.dismiss();
 
                 // Close the popup if needed
                 popUp.dismiss();
