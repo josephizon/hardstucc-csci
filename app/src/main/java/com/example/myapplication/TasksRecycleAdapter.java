@@ -203,7 +203,7 @@ public class TasksRecycleAdapter extends RecyclerView.Adapter<TasksRecycleView> 
                     buddyExpRef.setValue(newExp);
 
                     // Handle level updates
-                    while (newExp >= 1000) {
+                    if(newExp >= 1000) {
                         // Subtract 1000 from exp and increase the level by 1
                         int multiplier = calculateLevel(newExp);
 
