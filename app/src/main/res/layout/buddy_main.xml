@@ -117,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:fontFamily="@font/epilogue_black"
-                android:text="This is your buddy, "
+                android:text="Your buddy, "
                 android:textSize="20sp"
                 android:textColor="@color/blue"/>
 
@@ -127,7 +127,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/welcome_text"
                 android:fontFamily="@font/epilogue_black_italic"
-                android:text="USER"
+                android:text="Ralph Dominique"
                 android:textSize="20sp"
                 android:textColor="@color/calendar_pink"/>
 
