@@ -223,7 +223,10 @@ public class TasksRecycleAdapter extends RecyclerView.Adapter<TasksRecycleView> 
 
                                     // Update the level in Firebase
                                     buddyLevelRef.setValue(newLevel);
-                                    updateLevelStatus(buddyUid, newLevel);
+                                    for(int i = 1; i <= multiplier; i++)
+                                    {
+                                        updateLevelStatus(buddyUid, currentLevel + i);
+                                    }
                                 }
                             }
 

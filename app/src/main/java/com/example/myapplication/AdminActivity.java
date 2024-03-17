@@ -161,8 +161,18 @@ public class AdminActivity extends AppCompatActivity {
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String item = adapterView.getItemAtPosition(i).toString();
-                Toast.makeText(AdminActivity.this, "Item: " + item, Toast.LENGTH_SHORT).show();
+                String selectedType = (String) adapterView.getItemAtPosition(i);
+                if (selectedType.equals("Daily")) {
+                    editTaskDeadline.setEnabled(false);
+                    Calendar currentDate = Calendar.getInstance();
+                    int currentYear = currentDate.get(Calendar.YEAR);
+                    int currentMonth = currentDate.get(Calendar.MONTH);
+                    int currentDay = currentDate.get(Calendar.DAY_OF_MONTH);
+
+                    editTaskDeadline.setText(calendarMonth(currentMonth+1) + ", " + String.valueOf(currentDay) + " "  + String.valueOf(currentYear));
+                } else {
+                    editTaskDeadline.setEnabled(true);
+                }
             }
         });
 
@@ -451,7 +461,10 @@ public class AdminActivity extends AppCompatActivity {
 
                                     // Update the level in Firebase
                                     buddyLevelRef.setValue(newLevel);
-                                    updateLevelStatus(userId, newLevel);
+                                    for(int i = 1; i <= multiplier; i++)
+                                    {
+                                        updateLevelStatus(userId, currentLevel + i);
+                                    }
                                 }
                             }
 
