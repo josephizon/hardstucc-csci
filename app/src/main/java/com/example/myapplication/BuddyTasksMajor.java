@@ -26,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class BuddyTasksMajor extends AppCompatActivity {
@@ -40,6 +41,8 @@ public class BuddyTasksMajor extends AppCompatActivity {
     RecyclerView recyclerView;
     List<TasksRecycleItems> taskItems;
     TasksRecycleAdapter tasksRecycleAdapter;
+
+    boolean visibleTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,6 +152,59 @@ public class BuddyTasksMajor extends AppCompatActivity {
 
                     for (DataSnapshot taskSnapshot : dataSnapshot.getChildren()) {
                         Tasks task = taskSnapshot.getValue(Tasks.class);
+                        String[] currentDeadline = task.getDeadline().split("/",-1);
+                        /*
+                        Check if Major Task we create should be displayed
+                        This is a hard coded thing, doesn't affect any other tasks
+                        Task is Hidden if: getDeletable == false
+                        Deadline of task is within week
+                        */
+                        Calendar currentDate = Calendar.getInstance();
+                        int currentMonth = currentDate.get(Calendar.MONTH)+1;
+                        int currentDay = currentDate.get(Calendar.DAY_OF_MONTH);
+
+                        if (!task.getDeletable()) {
+                            // Week 2 March 17 to 23
+                            if ( currentMonth == 3 && 17 <= currentDay && currentDay <= 23 &&
+                                    Integer.parseInt(currentDeadline[0]) == 3 &&
+                                    17 <= Integer.parseInt(currentDeadline[1]) &&
+                                    Integer.parseInt(currentDeadline[1]) <= 23) {   // Week 2
+                                visibleTask = true;
+                            }
+                            // Week 3 March 24 to 30
+                            else if ( currentMonth == 3 && 24 <= currentDay && currentDay <= 30 &&
+                                    Integer.parseInt(currentDeadline[0]) == 3 &&
+                                    24 <= Integer.parseInt(currentDeadline[1]) &&
+                                    Integer.parseInt(currentDeadline[1]) <= 30) {
+                                visibleTask = true;
+                            }
+                            // Week 3 March 24 to 30
+                            else if ( currentMonth == 3 && 24 <= currentDay && currentDay <= 30 &&
+                                    Integer.parseInt(currentDeadline[0]) == 4 &&
+                                    1 <= Integer.parseInt(currentDeadline[1]) &&
+                                    Integer.parseInt(currentDeadline[1]) <= 6) {
+                                visibleTask = true;
+                            }
+                            /*// Week 4 March 31
+                            if ( currentMonth == 3 && currentDay ==  31 &&
+                                    Integer.parseInt(currentDeadline[0]) == 3 &&
+                                    31 == Integer.parseInt(currentDeadline[1])) {
+                                visibleTask = true;
+                            }*/
+                            // Week 4 April 1 to 6
+                            else if ( currentMonth == 4 && 1 <= currentDay && currentDay <= 6 &&
+                                    Integer.parseInt(currentDeadline[0]) == 4 &&
+                                    1 <= Integer.parseInt(currentDeadline[1]) &&
+                                    Integer.parseInt(currentDeadline[1]) <= 6) {
+                                visibleTask = true;
+                            }
+                            else {
+                                visibleTask = false;
+                            }
+                        }
+                        else {
+                            visibleTask = true;
+                        }
 
                         if (task != null && "major".equalsIgnoreCase(task.getType())) {
                             TasksRecycleItems recycleItem = new TasksRecycleItems(
