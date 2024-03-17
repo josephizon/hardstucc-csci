@@ -206,7 +206,7 @@ public class BuddyTasksMajor extends AppCompatActivity {
                             visibleTask = true;
                         }
 
-                        if (task != null && "major".equalsIgnoreCase(task.getType())) {
+                        if (task != null && "major".equalsIgnoreCase(task.getType()) && visibleTask) {
                             TasksRecycleItems recycleItem = new TasksRecycleItems(
                                     task.getName(),
                                     task.getDescription(),
