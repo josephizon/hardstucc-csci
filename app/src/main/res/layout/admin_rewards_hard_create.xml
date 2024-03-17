@@ -158,17 +158,18 @@
                 android:textSize="20sp"
                 android:textStyle="normal|bold" />
 
-            <EditText
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/reward_date_created_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/dirty_white"
-                android:inputType="date"
-                android:textSize="16sp"
+                android:backgroundTint="@color/dirty_white"
+                android:hint="Input Date Created"
                 android:padding="10dp"
+                android:textAlignment="textStart"
                 android:textColor="@color/black"
-                android:hint="Input date created"
-                android:textColorHint="@android:color/darker_gray" />
+                android:textColorHint="@android:color/darker_gray"
+                android:textSize="16sp"
+                app:cornerRadius="0dp" />
 
             <Space
                 android:layout_width="match_parent"

@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class RewardsHard extends AppCompatActivity {
@@ -39,6 +42,10 @@ public class RewardsHard extends AppCompatActivity {
     RewardsHardRecycleAdapter recycleAdapter;
     RecyclerView recyclerView;
     List<RewardsHardRecycleItem> items;
+    EditText etRewardName;
+    EditText etRewardDescription;
+    Button etDateCreated;
+    String dateCreated;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,12 +128,16 @@ public class RewardsHard extends AppCompatActivity {
         Dialog dialog = new Dialog(this, R.style.DialogStyle);
         dialog.setContentView(R.layout.activity_rewards_hard_create);
 
-        EditText etRewardName = dialog.findViewById(R.id.reward_name_input);
-        EditText etRewardDescription = dialog.findViewById(R.id.reward_description_input);
-        EditText etDateCreated = dialog.findViewById(R.id.reward_date_created_input);
-
-
-
+        etRewardName = dialog.findViewById(R.id.reward_name_input);
+        etRewardDescription = dialog.findViewById(R.id.reward_description_input);
+        etDateCreated = dialog.findViewById(R.id.reward_date_created_input);
+        etDateCreated.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Gets the current date and set it as default in the picker
+                openCalendar();
+            }
+        });
         Button btnSave = dialog.findViewById(R.id.saveTaskButton);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -137,12 +148,11 @@ public class RewardsHard extends AppCompatActivity {
 
                 String rewardName = etRewardName.getText().toString();
                 String rewardDescription = etRewardDescription.getText().toString();
-                String dateCreated = etDateCreated.getText().toString();
 
                 // Validate the input if needed
 
                 // Save the reward to Firebase
-                saveRewardToFirebase(rewardName, rewardDescription, dateCreated);
+                saveRewardToFirebase(rewardName, rewardDescription, etDateCreated.getText().toString());
 
                 // Close the dialog after saving
                 dialog.dismiss();
@@ -180,6 +190,53 @@ public class RewardsHard extends AppCompatActivity {
             }
         }
     }
+    private void openCalendar(){
+        Calendar currentDate = Calendar.getInstance();
+        int currentYear = currentDate.get(Calendar.YEAR);
+        int currentMonth = currentDate.get(Calendar.MONTH);
+        int currentDay = currentDate.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                // Handle the selected date if needed
+                dateCreated = String.valueOf(month+1) + "/" + String.valueOf(dayOfMonth) + "/"  + String.valueOf(year);
+                etDateCreated.setText(calendarMonth(month+1) + " " + String.valueOf(dayOfMonth) + ", "  + String.valueOf(year));
+            }
+        }, currentYear, currentMonth, currentDay);
+        datePickerDialog.show();
+    }
+
+    private String calendarMonth(int month){
+        switch (month) {
+            case 1:
+                return "January";
+            case 2:
+                return "February";
+            case 3:
+                return "March";
+            case 4:
+                return "April";
+            case 5:
+                return "May";
+            case 6:
+                return "June";
+            case 7:
+                return "July";
+            case 8:
+                return "August";
+            case 9:
+                return "September";
+            case 10:
+                return "October";
+            case 11:
+                return "November";
+            case 12:
+                return "December";
+            default:
+                return "Null";
+        }
+    }
+
     private void fetchHardRewardsFromDatabase() {
         if (user != null) {
             databaseReference.addValueEventListener(new ValueEventListener() {

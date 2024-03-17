@@ -39,6 +39,8 @@ public class AdminActivity extends AppCompatActivity {
     String[] taskType = { "Daily", "Major" };
     List<String> targetList;
     EditText editTaskName, editTaskDescription, editTaskType, expInput;
+    String dateCreated;
+    Button etDateCreated;
     String taskDateDeadline;
     AutoCompleteTextView autoCompleteTextView, autoCompleteTargetView, autoCompleteTargetClass;
     ArrayAdapter<String> adapterItem;
@@ -238,7 +240,22 @@ public class AdminActivity extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 // Handle the selected date if needed
                 taskDateDeadline = String.valueOf(month+1) + "/" + String.valueOf(dayOfMonth) + "/"  + String.valueOf(year);
-                editTaskDeadline.setText(calendarMonth(month+1) + ", " + String.valueOf(dayOfMonth) + " "  + String.valueOf(year));
+                editTaskDeadline.setText(calendarMonth(month+1) + " " + String.valueOf(dayOfMonth) + ", "  + String.valueOf(year));
+            }
+        }, currentYear, currentMonth, currentDay);
+        datePickerDialog.show();
+    }
+    private void openCalendarReward(){
+        Calendar currentDate = Calendar.getInstance();
+        int currentYear = currentDate.get(Calendar.YEAR);
+        int currentMonth = currentDate.get(Calendar.MONTH);
+        int currentDay = currentDate.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                // Handle the selected date if needed
+                dateCreated = String.valueOf(month+1) + "/" + String.valueOf(dayOfMonth) + "/"  + String.valueOf(year);
+                etDateCreated.setText(calendarMonth(month+1) + " " + String.valueOf(dayOfMonth) + ", "  + String.valueOf(year));
             }
         }, currentYear, currentMonth, currentDay);
         datePickerDialog.show();
@@ -499,15 +516,20 @@ public class AdminActivity extends AppCompatActivity {
         int level = (int) Math.floor((double) exp / 1000); // Divide and round down
         return level;
     }
-
     private void showRewardCreationPopUp() {
         Dialog dialog = new Dialog(this, R.style.DialogStyle);
         dialog.setContentView(R.layout.admin_rewards_hard_create);
 
         EditText etRewardName = dialog.findViewById(R.id.reward_name_input);
         EditText etRewardDescription = dialog.findViewById(R.id.reward_description_input);
-        EditText etDateCreated = dialog.findViewById(R.id.reward_date_created_input);
-
+        etDateCreated = dialog.findViewById(R.id.reward_date_created_input);
+        etDateCreated.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Gets the current date and set it as default in the picker
+                openCalendarReward();
+            }
+        });
 
         // Initialization and Setup for Target AutoCompleteTextView
         autoCompleteTargetView = dialog.findViewById(R.id.auto_complete_target);
