@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/exitCreateTaskButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="15dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/popup_exit_icon"
+                android:contentDescription="Exit creating a task"
+                />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/exitCreateTaskButton"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/epilogue_black"
+                android:text="Create Reward"
+                android:textColor="@color/orange"
+                android:textSize="20sp"
+                />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/saveTaskButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:backgroundTint="@color/orange"
+                android:text="Save"
+                android:textColor="@color/white"
+                app:cornerRadius="32dp" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="30dp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="2dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/target_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/epilogue"
+                android:text="Target Type"
+                android:textColor="@color/orange"
+                android:textSize="20sp"
+                android:textStyle="normal|bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/dirty_white"
+                android:hint="select Target Type"
+                android:textColorHint="@android:color/darker_gray"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                >
+
+                <AutoCompleteTextView
+                    android:id="@+id/auto_complete_target"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:inputType="none"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/reward_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/epilogue"
+                android:text="Reward Name"
+                android:textColor="@color/orange"
+                android:textSize="20sp"
+                android:textStyle="normal|bold" />
+
+            <EditText
+                android:id="@+id/reward_name_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/dirty_white"
+                android:inputType="text"
+                android:padding="10dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:hint="Input reward name"
+                android:textColorHint="@android:color/darker_gray"
+                />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <TextView
+                android:id="@+id/reward_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/epilogue"
+                android:text="Reward Description"
+                android:textColor="@color/orange"
+                android:textSize="20sp"
+                android:textStyle="normal|bold" />
+
+            <EditText
+                android:id="@+id/reward_description_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/dirty_white"
+                android:inputType="text"
+                android:textSize="16sp"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:hint="Input reward description"
+                android:textColorHint="@android:color/darker_gray" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <TextView
+                android:id="@+id/reward_date_created"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/epilogue"
+                android:text="Date Created"
+                android:textColor="@color/orange"
+                android:textSize="20sp"
+                android:textStyle="normal|bold" />
+
+            <EditText
+                android:id="@+id/reward_date_created_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/dirty_white"
+                android:inputType="date"
+                android:textSize="16sp"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:hint="Input date created"
+                android:textColorHint="@android:color/darker_gray" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

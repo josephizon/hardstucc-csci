@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,8 +40,11 @@ public class AdminActivity extends AppCompatActivity {
     List<String> targetList;
     EditText editTaskName, editTaskDescription, editTaskType, expInput;
     String taskDateDeadline;
-    AutoCompleteTextView autoCompleteTextView, autoCompleteTargetView;
+    AutoCompleteTextView autoCompleteTextView, autoCompleteTargetView, autoCompleteTargetClass;
     ArrayAdapter<String> adapterItem;
+    RewardsHardRecycleAdapter recycleAdapter;
+    RecyclerView recyclerView;
+    List<RewardsHardRecycleItem> items;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
@@ -91,7 +95,7 @@ public class AdminActivity extends AppCompatActivity {
                 expInput = findViewById(R.id.expInput);
                 String expString = expInput.getText().toString();
                 int expGive = Integer.parseInt(expString);
-                if(selectedTarget.equals("ISCS") || selectedTarget.equals("CSCI")) {
+                if(selectedTarget.equals("ISCS") || selectedTarget.equals("CSCI") || selectedTarget.equals("ADMIN")) {
                     // It's a class, assign the task to everyone in the class
                     giveEXPToClass(selectedTarget,expGive);
                 } else {
@@ -100,6 +104,13 @@ public class AdminActivity extends AppCompatActivity {
                     giveEXPtoIndividual(selectedTarget,expGive);
                 }
 
+            }
+        });
+        Button createClassRewardsButton = findViewById(R.id.createClassRewardsButton);
+        createClassRewardsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showRewardCreationPopUp();
             }
         });
     }
@@ -111,6 +122,7 @@ public class AdminActivity extends AppCompatActivity {
                 // Add ISCS and CSCI to the Target type list
                 targetList.add("ISCS");
                 targetList.add("CSCI");
+                targetList.add("ADMIN");
 
                 //fetch rest of the usernames
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -172,7 +184,7 @@ public class AdminActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String selectedTarget = autoCompleteTargetView.getText().toString();
-                if(selectedTarget.equals("ISCS") || selectedTarget.equals("CSCI")) {
+                if(selectedTarget.equals("ISCS") || selectedTarget.equals("CSCI") || selectedTarget.equals("ADMIN")) {
                     // It's a class, assign the task to everyone in the class
                     assignTaskToClass(selectedTarget,
                             editTaskName.getText().toString(),
@@ -221,7 +233,6 @@ public class AdminActivity extends AppCompatActivity {
         }, currentYear, currentMonth, currentDay);
         datePickerDialog.show();
     }
-
     private String calendarMonth(int month){
         switch (month) {
             case 1:
@@ -286,7 +297,6 @@ public class AdminActivity extends AppCompatActivity {
             }
         });
     }
-
     private void createTaskForIndividual(String fullName, String name, String description, String deadline, String type) {
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Registered Users");
 
@@ -340,7 +350,6 @@ public class AdminActivity extends AppCompatActivity {
         // Optionally, inform the application or user that the task was created successfully
         // For example: Log.d("addTaskToUser", "Task added to user: " + userId);
     }
-
     private void giveEXPToClass(String className, int exp) {
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Registered Users");
 
@@ -405,7 +414,6 @@ public class AdminActivity extends AppCompatActivity {
             }
         });
     }
-
     private void proceedWithExpUpdate(String userId, int taskExp) {
         // Update the buddy's exp based on the retrieved buddy UID
         DatabaseReference buddyExpRef = FirebaseDatabase.getInstance().getReference("Registered Users")
@@ -464,7 +472,6 @@ public class AdminActivity extends AppCompatActivity {
             }
         });
     }
-
     private void updateLevelStatus(String buddyUid, int newLevel) {
         // Update the corresponding level status based on the new level
         DatabaseReference levelStatusRef = FirebaseDatabase.getInstance().getReference("Registered Users")
@@ -478,5 +485,152 @@ public class AdminActivity extends AppCompatActivity {
         // Calculate the level based on the accumulated experience points
         int level = (int) Math.floor((double) exp / 1000); // Divide and round down
         return level;
+    }
+
+    private void showRewardCreationPopUp() {
+        Dialog dialog = new Dialog(this, R.style.DialogStyle);
+        dialog.setContentView(R.layout.admin_rewards_hard_create);
+
+        EditText etRewardName = dialog.findViewById(R.id.reward_name_input);
+        EditText etRewardDescription = dialog.findViewById(R.id.reward_description_input);
+        EditText etDateCreated = dialog.findViewById(R.id.reward_date_created_input);
+
+
+        // Initialization and Setup for Target AutoCompleteTextView
+        autoCompleteTargetView = dialog.findViewById(R.id.auto_complete_target);
+        ArrayAdapter<String> adapterTarget = new ArrayAdapter<>(this, R.layout.activity_tasks_dropdown, targetList);
+        autoCompleteTargetView.setAdapter(adapterTarget);
+        autoCompleteTargetView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                String selectedItem = adapterView.getItemAtPosition(position).toString();
+                Toast.makeText(AdminActivity.this, "Target: " + selectedItem, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Button btnSave = dialog.findViewById(R.id.saveTaskButton);
+
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Assuming you have EditText fields for rewardName, rewardDescription, and dateCreated
+
+
+                String rewardName = etRewardName.getText().toString();
+                String rewardDescription = etRewardDescription.getText().toString();
+                String dateCreated = etDateCreated.getText().toString();
+
+
+                // Close the dialog after saving
+                dialog.dismiss();
+                String selectedTarget = autoCompleteTargetView.getText().toString();
+                if(selectedTarget.equals("ISCS") || selectedTarget.equals("CSCI") || selectedTarget.equals("ADMIN")){
+                    // It's a class, assign the task to everyone in the class
+                    saveRewardtoClass(selectedTarget,rewardName,rewardDescription,dateCreated);
+
+                } else {
+                    // It's an individual, create a task for this specific person
+                    // You might need to fetch the user's ID or specific identifier here instead of using the name directly
+                    saveRewardtoIndividual(selectedTarget,rewardName,rewardDescription,dateCreated);
+                }
+
+                // Close the popup if needed
+                dialog.dismiss();
+            }
+        });
+        // CLOSE BUTTON FOR POP UP CUSTOMIZATION
+        ImageView btnClose = dialog.findViewById(R.id.exitCreateTaskButton);
+
+
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+    private void saveRewardtoIndividual(String fullName, String rewardName, String rewardDescription, String dateCreated){
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Registered Users");
+
+        usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    String firstName = userSnapshot.child("firstName").getValue(String.class);
+                    String lastName = userSnapshot.child("lastName").getValue(String.class);
+
+                    // Construct the full name from the snapshot
+                    String userFullName = firstName + " " + lastName;
+                    if (fullName.trim().equalsIgnoreCase(userFullName.trim())) {
+                        // Found the user, now create a task for them
+                        String userId = userSnapshot.getKey(); // The user's ID
+
+                        // Assuming you have a method to add a task to the user's node
+                        saveRewardToFirebase(userId, rewardName, rewardDescription, dateCreated);
+                        break; // Exit the loop once the user is found and task is assigned
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle potential errors
+                Log.e("createTaskForIndiv", "Error: ", databaseError.toException());
+            }
+        });
+    }
+    private void saveRewardtoClass(String className, String rewardName, String rewardDescription, String dateCreated) {
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Registered Users");
+
+        usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    String userClass = userSnapshot.child("selectedClass").getValue(String.class);
+                    if (userClass.equals(className)) {
+                        // User is in the specified class, assign them the task
+                        String userId = userSnapshot.getKey(); // The user's ID
+                        saveRewardToFirebase(userId, rewardName, rewardDescription, dateCreated);
+                    }
+                    else
+                    {
+                        if(!userClass.equals(className) && (userClass.equals("CSCI") || userClass.equals("ISCS")))
+                        {
+                            Toast.makeText(AdminActivity.this, "classname problem", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Toast.makeText(AdminActivity.this, "userclass problem", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle potential errors
+                Log.e("assignTaskToClass", "Error: ", databaseError.toException());
+            }
+        });
+    }
+    private void saveRewardToFirebase(String userId, String rewardName, String rewardDescription, String dateCreated) {
+        if (userId != null) {
+            RewardsHardRecycleItem reward = new RewardsHardRecycleItem(rewardName, rewardDescription, dateCreated);
+
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference ref = database.getReference("Registered Users").child(userId).child("HardRewards");
+            String rewardId = ref.push().getKey(); // Generate a unique ID for the reward
+            if (rewardId != null) {
+                ref.child(rewardId).setValue(reward).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(this, "Reward created successfully", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(this, "Failed to create Reward", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }
     }
 }
