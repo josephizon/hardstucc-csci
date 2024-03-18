@@ -6,7 +6,6 @@ import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -217,6 +216,10 @@ public class BuddyBattlePass extends AppCompatActivity {
 
     public void openBuddyProfile(View view) {
         startActivity(new Intent(this, BuddyProfile.class));
+    }
+
+    public void openLeaderboard(View view) {
+        startActivity(new Intent(this, Leaderboard.class));
     }
 
 

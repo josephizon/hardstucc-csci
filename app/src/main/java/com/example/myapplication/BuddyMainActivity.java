@@ -164,9 +164,7 @@ public class BuddyMainActivity extends AppCompatActivity {
 package com.example.myapplication;
 
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 // FOR THE GRADIENT
 import android.content.Intent;
@@ -174,9 +172,7 @@ import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -189,8 +185,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
 
 public class BuddyMainActivity extends AppCompatActivity {
 
@@ -444,6 +438,10 @@ public class BuddyMainActivity extends AppCompatActivity {
 
     public void openBuddyProfile(View view) {
         startActivity(new Intent(this, BuddyProfile.class));
+    }
+
+    public void openLeaderboard(View view) {
+        startActivity(new Intent(this, Leaderboard.class));
     }
 
 }

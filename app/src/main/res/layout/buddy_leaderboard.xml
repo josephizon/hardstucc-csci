@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".TasksDaily"
+    tools:context=".Leaderboard"
     android:background="@color/dirty_white">
 
     <!--    <TextView-->
@@ -61,74 +61,63 @@
     <!-- MAIN BODY LAYOUT -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="610dp"
         android:layout_weight="1"
         android:orientation="vertical"
         android:paddingLeft="15dp"
         android:paddingRight="15dp">
 
-        <LinearLayout
+
+        <!-- BATTLEPASS TITLE -->
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="80dp">
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="80dp">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
 
-                <RelativeLayout
+                android:layout_centerInParent="true">
+
+                <ImageView
+                    android:id="@+id/battlepass_icon"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/leaderboard_title_icon" />
+
+                <TextView
+                    android:id="@+id/title_battlepass"
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentEnd="true"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/battlepass_icon"
+                    android:fontFamily="@font/epilogue_black"
+                    android:text="Leaderboard"
+                    android:textColor="@color/orange"
+                    android:textSize="36sp"
+                    android:textStyle="bold"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="86dp"
-                    android:layout_marginEnd="85dp"
-                    tools:layout_centerHorizontal="true">
-
-                    <Button
-                        android:id="@+id/btn_daily_tasks"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:backgroundTint="@color/blue"
-                        android:fontFamily="@font/inter"
-                        android:text="Daily"
-                        android:textColor="@color/white"
-                        android:textSize="13sp"
-                        app:cornerRadius="32dp" />
-
-                    <Button
-                        android:id="@+id/btn_major_tasks"
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_toRightOf="@id/btn_daily_tasks"
-                        android:backgroundTint="@color/lavender"
-                        android:fontFamily="@font/inter"
-                        android:onClick="openBuddyTasksMajor"
-                        android:text="Major"
-                        android:textColor="@color/dirty_white"
-                        android:textSize="13sp"
-                        app:cornerRadius="32dp" />
-                </RelativeLayout>
+                    />
 
             </RelativeLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/daily_task_display"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:scrollbars="vertical"
-                tools:listitem="@layout/activity_tasks_recycle_view">
 
-            </androidx.recyclerview.widget.RecyclerView>
+        </RelativeLayout>
 
 
-        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/leaderboard_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
+
     <!-- MAIN BODY LAYOUT END -->
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
 
     <View
         android:layout_width="match_parent"
@@ -153,7 +142,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
                 android:src="@drawable/nav_buddy"
-                android:onClick="openBattlePass"
+                android:onClick="openMainActivity"
 
                 />
 

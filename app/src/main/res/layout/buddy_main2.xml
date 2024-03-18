@@ -432,7 +432,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
                 android:src="@drawable/nav_buddy"
-                android:onClick="openBuddyMainActivity2"
+                android:onClick="openBattlePass"
 
                 />
 
@@ -499,6 +499,33 @@
                 android:text="BATTLEPASS"
                 android:textColor="@color/orange"
                 android:textSize="9sp"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="60dp"
+            android:layout_height="55dp"
+            >
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/nav_leaderboard"
+                android:onClick="openLeaderboard"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/inter"
+                android:text="LEADERBOARD"
+                android:textColor="@color/orange"
+                android:textSize="8sp"
                 />
 
         </RelativeLayout>

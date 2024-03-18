@@ -362,4 +362,8 @@ public class BuddyProfile extends AppCompatActivity {
         startActivity(new Intent(this, BuddyProfile.class));
     }
 
+    public void openLeaderboard(View view) {
+        startActivity(new Intent(this, Leaderboard.class));
+    }
+
 }

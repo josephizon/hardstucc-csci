@@ -58,6 +58,9 @@
             android:name=".BuddyBattlePass"
             android:exported="false" />
         <activity
+            android:name=".Leaderboard"
+            android:exported="false" />
+        <activity
             android:name=".BuddyProfile"
             android:exported="false" />
         <activity

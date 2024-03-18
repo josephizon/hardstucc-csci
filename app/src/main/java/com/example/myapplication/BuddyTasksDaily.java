@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
@@ -192,6 +191,10 @@ public class BuddyTasksDaily extends AppCompatActivity {
 
     public void openBuddyProfile(View view) {
         startActivity(new Intent(this, BuddyProfile.class));
+    }
+
+    public void openLeaderboard(View view) {
+        startActivity(new Intent(this, Leaderboard.class));
     }
 
 }
