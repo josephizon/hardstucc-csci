@@ -224,10 +224,6 @@ public class Badges extends AppCompatActivity {
                 int badgeDrawableId = getDrawableResourceId(badgeName);
                 badgeImages.add(badgeDrawableId); // Store the corresponding badge image
             }
-
-
-
-
         }
 
         // Check if the list of icons is empty

@@ -13,7 +13,7 @@ public class LeaderboardRecycleItem {
         this.leader_name = leader_name;
         this.leader_level = leader_level;
         this.leader_icon = leader_icon;
-        this.leader_collectible_1 = leader_collectible_1;
+        this.leader_collectible_1 = leader_collectible_1;   
         this.leader_collectible_2 = leader_collectible_2;
         this.leader_collectible_3 = leader_collectible_3;
         this.leader_badge_1 = leader_badge_1;

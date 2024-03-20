@@ -77,12 +77,14 @@ public class Leaderboard extends AppCompatActivity {
                     if (dataSnapshot.exists()) {
                         // List to hold top 10 users
                         List<Users> topUsers = new ArrayList<>();
-
                         // Iterate through the top 10 users
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             Users user = snapshot.getValue(Users.class);
-                            if (user != null) {
+                            if (user != null && !snapshot.child("selectedClass").getValue().equals("ADMIN")){
                                 topUsers.add(user);
+                            }
+                            else {
+
                             }
                         }
 
