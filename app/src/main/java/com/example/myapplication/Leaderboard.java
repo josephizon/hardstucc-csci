@@ -71,7 +71,7 @@ public class Leaderboard extends AppCompatActivity {
 
             expRef = FirebaseDatabase.getInstance().getReference("Registered Users");
 
-            expRef.orderByChild("bpLevel").limitToLast(10).addListenerForSingleValueEvent(new ValueEventListener() {
+            expRef.orderByChild("bpLevel").limitToLast(13).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
