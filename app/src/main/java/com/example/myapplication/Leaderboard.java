@@ -5,9 +5,11 @@ import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -32,19 +35,19 @@ public class Leaderboard extends AppCompatActivity {
     FirebaseAuth auth;
     ImageView button;
     FirebaseUser user;
-    DatabaseReference userRef, expRef;
+    DatabaseReference userRef, expRef, badgeRef;
     String buddyUid;
     RecyclerView recyclerView;
     List<LeaderboardRecycleItem> leaderboardItems;
     LeaderboardRecycleAdapter leaderboardRecycleAdapter;
-
+    int leader_icon, leader_collectible_1, leader_collectible_2, leader_collectible_3, leader_badge_1, leader_badge_2, leader_badge_3;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.buddy_leaderboard);
-
+// Set up Firebase Database reference
         // BATTLEPLAN GRADIENT
         TextView name = findViewById(R.id.battle);
         int startColor = Color.rgb(50, 61, 115);
@@ -71,12 +74,13 @@ public class Leaderboard extends AppCompatActivity {
 
             expRef = FirebaseDatabase.getInstance().getReference("Registered Users");
 
-            expRef.orderByChild("bpLevel").limitToLast(10).addListenerForSingleValueEvent(new ValueEventListener() {
+            expRef.orderByChild("bpLevel").limitToLast(13).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
                         // List to hold top 10 users
                         List<Users> topUsers = new ArrayList<>();
+
                         // Iterate through the top 10 users
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             Users user = snapshot.getValue(Users.class);
@@ -109,9 +113,10 @@ public class Leaderboard extends AppCompatActivity {
                         leaderboardItems.clear();
                         int rank = 1;
                         for (Users user : topUsers) {
-                            leaderboardItems.add(new LeaderboardRecycleItem("Rank " + rank, user.getFirstName() + " " + user.getLastName(), "BP LEVEL: " + String.valueOf(user.getBpLevel()),
-                                    R.drawable.rewards_profile_icon_3, R.drawable.rewards_collectible_1, R.drawable.rewards_collectible_2, R.drawable.rewards_collectible_3,
-                                    R.drawable.badges_level_2, R.drawable.badges_level_15, R.drawable.badges_level_14));
+                            String fullName = user.getFirstName() + " " + user.getLastName();
+                            AssignDisplayables(fullName);
+                            leaderboardItems.add(new LeaderboardRecycleItem("Rank " + rank, fullName, "BP LEVEL: " + String.valueOf(user.getBpLevel()),
+                                    leader_icon, leader_collectible_1, leader_collectible_2, leader_collectible_3, leader_badge_1, leader_badge_2, leader_badge_3));
                             rank++;
                         }
 
@@ -138,6 +143,61 @@ public class Leaderboard extends AppCompatActivity {
 
 
 
+    }
+    private void AssignDisplayables(String fullName) {
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Registered Users");
+
+        usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    String firstName = userSnapshot.child("firstName").getValue(String.class);
+                    String lastName = userSnapshot.child("lastName").getValue(String.class);
+
+                    // Construct the full name from the snapshot
+                    String userFullName = firstName + " " + lastName;
+                    if (fullName.trim().equalsIgnoreCase(userFullName.trim())) {
+                        // Found the user, now create a task for them
+                        String userId = userSnapshot.getKey(); // The user's ID
+                        badgeRef = FirebaseDatabase.getInstance().getReference("Registered Users")
+                                .child(userId)
+                                .child("Badges");
+                        for (DataSnapshot badgeSnapshot : dataSnapshot.getChildren()) {
+                            String badgeName = badgeSnapshot.getKey(); // Badge name is the key
+                            String badgeStatus = badgeSnapshot.child("badge_status").getValue(String.class); // Badge status is retrieved from "badge_status" child
+
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle potential errors
+                Log.e("createTaskForIndiv", "Error: ", databaseError.toException());
+            }
+        });
+    }
+    private int getDrawableResourceId(String badgeName) {
+        try {
+            // Get the R.drawable class using reflection
+            Class<?> drawableClass = R.drawable.class;
+
+            // Get the Field object representing the badgeName in the R.drawable class
+            Field field = drawableClass.getField(badgeName);
+
+            // Get the value (drawable resource ID) of the field
+            return field.getInt(null);
+        } catch (NoSuchFieldException e) {
+            // Handle the case where the badgeName is not found
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            // Handle the case where access to the field is denied
+            e.printStackTrace();
+        }
+
+        // Return 0 if badgeName is not recognized
+        return 0;
     }
 
     public void openMainActivity2(View view) {
