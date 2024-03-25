@@ -171,7 +171,8 @@ public class AdminActivity extends AppCompatActivity {
                     int currentMonth = currentDate.get(Calendar.MONTH);
                     int currentDay = currentDate.get(Calendar.DAY_OF_MONTH);
 
-                    editTaskDeadline.setText(calendarMonth(currentMonth+1) + ", " + String.valueOf(currentDay) + " "  + String.valueOf(currentYear));
+                    taskDateDeadline = String.valueOf(currentMonth+1) + "/" + String.valueOf(currentDay) + "/"  + String.valueOf(currentYear);
+                    editTaskDeadline.setText(calendarMonth(currentMonth+1) + " " + String.valueOf(currentDay) + ", "  + String.valueOf(currentYear));
                 } else {
                     editTaskDeadline.setEnabled(true);
                 }
